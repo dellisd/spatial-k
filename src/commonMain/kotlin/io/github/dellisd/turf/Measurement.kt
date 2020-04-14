@@ -2,8 +2,7 @@
 
 package io.github.dellisd.turf
 
-import io.github.dellisd.turf.geojson.LineString
-import io.github.dellisd.turf.geojson.LngLat
+import io.github.dellisd.turf.geojson.*
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.math.*
@@ -37,6 +36,93 @@ fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): 
     }
 
     return line.coordinates[line.coordinates.size - 1]
+}
+
+/**
+ * Takes a geometry and returns its area in square meters.
+ *
+ * @param geometry input geometry
+ * @return area in square meters
+ */
+fun area(geometry: Geometry): Double {
+    return when (geometry) {
+        is GeometryCollection -> geometry.geometries.fold(0.0) { acc, geom -> acc + area(geom) }
+        else -> calculateArea(geometry)
+    }
+}
+
+/**
+ * Takes multiple geometries and returns their area in square meters.
+ *
+ * @param geometry input geometries
+ * @return area in square meters
+ */
+fun area(geometry: List<Geometry>): Double = geometry.fold(0.0) { acc, geom -> acc + area(geom) }
+
+private fun calculateArea(geometry: Geometry): Double {
+    return when (geometry) {
+        is Polygon -> polygonArea(geometry.coordinates)
+        is MultiPolygon -> geometry.coordinates.fold(0.0) { acc, coords -> acc + polygonArea(coords) }
+        else -> 0.0
+    }
+}
+
+private fun polygonArea(coordinates: List<List<LngLat>>): Double {
+    var total = 0.0
+    if (coordinates.isNotEmpty()) {
+        total += abs(ringArea(coordinates[0]))
+        for (i in 1 until coordinates.size) {
+            total -= abs(ringArea(coordinates[i]))
+        }
+    }
+    return total
+}
+
+/**
+ * Calculates the approximate area of the [polygon][coordinates] were it projected onto the earth.
+ * Note that this area will be positive if ring is oriented clockwise, otherwise it will be negative.
+ *
+ * Reference:
+ * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for Polygons on a Sphere",
+ * JPL Publication 07-03, Jet Propulsion
+ * Laboratory, Pasadena, CA, June 2007 https://trs.jpl.nasa.gov/handle/2014/40409
+ */
+private fun ringArea(coordinates: List<LngLat>): Double {
+    var p1: LngLat
+    var p2: LngLat
+    var p3: LngLat
+    var lowerIndex: Int
+    var middleIndex: Int
+    var upperIndex: Int
+    var total = 0.0
+
+    if (coordinates.size > 2) {
+        for (i in coordinates.indices) {
+            when (i) {
+                coordinates.size - 2 -> {
+                    lowerIndex = coordinates.size - 2
+                    middleIndex = coordinates.size - 1
+                    upperIndex = 0
+                }
+                coordinates.size - 1 -> {
+                    lowerIndex = coordinates.size - 1
+                    middleIndex = 0
+                    upperIndex = 1
+                }
+                else -> {
+                    lowerIndex = i
+                    middleIndex = i + 1
+                    upperIndex = i + 2
+                }
+            }
+            p1 = coordinates[lowerIndex]
+            p2 = coordinates[middleIndex]
+            p3 = coordinates[upperIndex]
+            total = (radians(p3.longitude) - radians(p1.longitude)) * sin(radians(p2.latitude))
+        }
+        total = total * EARTH_RADIUS * EARTH_RADIUS / 2
+    }
+    return total
 }
 
 /**
