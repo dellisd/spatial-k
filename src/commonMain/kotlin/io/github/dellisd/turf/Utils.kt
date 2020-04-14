@@ -1,8 +1,11 @@
 package io.github.dellisd.turf
 
+import kotlin.native.concurrent.SharedImmutable
+
 /**
  * Radius of the Earth used with the Harvesine formula. Approximated using a spherical (non-ellipsoid) Earth.
  */
+@SharedImmutable
 const val EARTH_RADIUS = 6371008.8
 
 /**
@@ -84,7 +87,7 @@ fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) = degrees
  *
  * @exception IllegalArgumentException if the given length is negative
  */
-fun convertLength(length: Double, from: Units = Units.Kilometers, to: Units = Units.Kilometers): Double {
+fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
     if (length < 0)
         throw IllegalArgumentException("length must be a positive number")
     return radiansToLength(lengthToRadians(length, from), to)
@@ -96,21 +99,21 @@ fun convertLength(length: Double, from: Units = Units.Kilometers, to: Units = Un
  * [Meters][Units.Meters], [Kilometers][Units.Kilometers], [Centimeters][Units.Centimeters], [Feet][Units.Feet]
  *
  * @param area Area to be converted
- * @param originalUnits Original units of the [area]
- * @param finalUnits Units to convert the [area] to
+ * @param from Original units of the [area]
+ * @param to Units to convert the [area] to
  * @return the converted area
  *
  * @exception IllegalArgumentException if the given units are invalid, or if the area is negative
  */
-fun convertArea(area: Double, originalUnits: Units = Units.Meters, finalUnits: Units = Units.Kilometers): Double {
+fun convertArea(area: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
     if (area < 0)
         throw IllegalArgumentException("area must be a positive number")
 
-    if (originalUnits.areaFactor.isNaN())
+    if (from.areaFactor.isNaN())
         throw IllegalArgumentException("invalid original units")
 
-    if (finalUnits.areaFactor.isNaN())
+    if (to.areaFactor.isNaN())
         throw IllegalArgumentException("invalid final units")
 
-    return (area / originalUnits.areaFactor) * finalUnits.areaFactor
+    return (area / from.areaFactor) * to.areaFactor
 }

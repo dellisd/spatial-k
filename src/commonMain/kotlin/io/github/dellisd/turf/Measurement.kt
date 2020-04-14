@@ -5,6 +5,7 @@ package io.github.dellisd.turf
 import io.github.dellisd.turf.geojson.LineString
 import io.github.dellisd.turf.geojson.LngLat
 import kotlin.jvm.JvmName
+import kotlin.jvm.JvmOverloads
 import kotlin.math.*
 
 /**
@@ -15,6 +16,7 @@ import kotlin.math.*
  * @param units units of [distance]
  * @return A position [distance] [units] along the line
  */
+@JvmOverloads
 fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): LngLat {
     var travelled = 0.0
 
@@ -46,6 +48,7 @@ fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): 
  * @param final calculates the final bearing if true
  * @return bearing in decimal degrees, between -180 and 180 degrees (positive clockwise)
  */
+@JvmOverloads
 fun bearing(start: LngLat, end: LngLat, final: Boolean = false): Double {
     if (final) return finalBearing(start, end)
 
@@ -75,6 +78,7 @@ internal fun finalBearing(start: LngLat, end: LngLat): Double = (bearing(end, st
  *
  * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
  */
+@JvmOverloads
 fun destination(origin: LngLat, distance: Double, bearing: Double, units: Units = Units.Kilometers): LngLat {
     val longitude1 = radians(origin.longitude)
     val latitude1 = radians(origin.latitude)
@@ -83,11 +87,11 @@ fun destination(origin: LngLat, distance: Double, bearing: Double, units: Units 
 
     val latitude2 = asin(sin(latitude1) * cos(radians) + cos(latitude1) * sin(radians) * cos(bearingRad))
     val longitude2 = longitude1 + atan2(
-        sin(bearingRad) * sin(radians) * cos(radians(latitude1)),
+        sin(bearingRad) * sin(radians) * cos(latitude1),
         cos(radians) - sin(latitude1) * sin(latitude2)
     )
 
-    return LngLat(degrees(longitude2), degrees(latitude1))
+    return LngLat(degrees(longitude2), degrees(latitude2))
 }
 
 /**
@@ -101,6 +105,7 @@ fun destination(origin: LngLat, distance: Double, bearing: Double, units: Units 
  *
  * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
  */
+@JvmOverloads
 fun distance(from: LngLat, to: LngLat, units: Units = Units.Kilometers): Double {
     val dLat = radians(to.latitude - from.latitude)
     val dLon = radians(to.longitude - from.longitude)
