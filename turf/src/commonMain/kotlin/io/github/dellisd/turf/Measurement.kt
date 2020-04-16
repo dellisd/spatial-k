@@ -2,7 +2,7 @@
 
 package io.github.dellisd.turf
 
-import io.github.dellisd.turf.geojson.*
+import io.github.dellisd.geojson.*
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.math.*
@@ -16,7 +16,7 @@ import kotlin.math.*
  * @return A position [distance] [units] along the line
  */
 @JvmOverloads
-fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): LngLat {
+fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): Position {
     var travelled = 0.0
 
     line.coordinates.forEachIndexed { i, coordinate ->
@@ -67,7 +67,7 @@ private fun calculateArea(geometry: Geometry): Double {
     }
 }
 
-private fun polygonArea(coordinates: List<List<LngLat>>): Double {
+private fun polygonArea(coordinates: List<List<Position>>): Double {
     var total = 0.0
     if (coordinates.isNotEmpty()) {
         total += abs(ringArea(coordinates[0]))
@@ -87,10 +87,10 @@ private fun polygonArea(coordinates: List<List<LngLat>>): Double {
  * JPL Publication 07-03, Jet Propulsion
  * Laboratory, Pasadena, CA, June 2007 https://trs.jpl.nasa.gov/handle/2014/40409
  */
-private fun ringArea(coordinates: List<LngLat>): Double {
-    var p1: LngLat
-    var p2: LngLat
-    var p3: LngLat
+private fun ringArea(coordinates: List<Position>): Double {
+    var p1: Position
+    var p2: Position
+    var p3: Position
     var lowerIndex: Int
     var middleIndex: Int
     var upperIndex: Int
@@ -135,7 +135,7 @@ private fun ringArea(coordinates: List<LngLat>): Double {
  * @return bearing in decimal degrees, between -180 and 180 degrees (positive clockwise)
  */
 @JvmOverloads
-fun bearing(start: LngLat, end: LngLat, final: Boolean = false): Double {
+fun bearing(start: Position, end: Position, final: Boolean = false): Double {
     if (final) return finalBearing(start, end)
 
     val lon1 = radians(start.longitude)
@@ -149,7 +149,7 @@ fun bearing(start: LngLat, end: LngLat, final: Boolean = false): Double {
     return degrees(atan2(a, b))
 }
 
-internal fun finalBearing(start: LngLat, end: LngLat): Double = (bearing(end, start) + 180) % 360
+internal fun finalBearing(start: Position, end: Position): Double = (bearing(end, start) + 180) % 360
 
 /**
  * Takes a [position][origin] and calculates the location of a destination position given a distance in
@@ -165,7 +165,7 @@ internal fun finalBearing(start: LngLat, end: LngLat): Double = (bearing(end, st
  * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
  */
 @JvmOverloads
-fun destination(origin: LngLat, distance: Double, bearing: Double, units: Units = Units.Kilometers): LngLat {
+fun destination(origin: Position, distance: Double, bearing: Double, units: Units = Units.Kilometers): Position {
     val longitude1 = radians(origin.longitude)
     val latitude1 = radians(origin.latitude)
     val bearingRad = radians(bearing)
@@ -192,7 +192,7 @@ fun destination(origin: LngLat, distance: Double, bearing: Double, units: Units 
  * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
  */
 @JvmOverloads
-fun distance(from: LngLat, to: LngLat, units: Units = Units.Kilometers): Double {
+fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Double {
     val dLat = radians(to.latitude - from.latitude)
     val dLon = radians(to.longitude - from.longitude)
     val lat1 = radians(from.latitude)

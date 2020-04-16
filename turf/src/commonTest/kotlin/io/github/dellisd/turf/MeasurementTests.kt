@@ -1,6 +1,6 @@
 package io.github.dellisd.turf
 
-import io.github.dellisd.turf.geojson.LngLat
+import io.github.dellisd.geojson.LngLat
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -20,10 +20,7 @@ class MeasurementTests {
         val point0 = LngLat(-75.0, 38.10096062273525)
         val (longitude, latitude) = destination(point0, 100.0, 0.0)
 
-
         assertEquals(-75.0, longitude.coerceIn(-75.0, -75.0))
         assertEquals(39.000281, latitude.coerceIn(39.000281, 39.000281))
     }
-
-
 }

@@ -19,13 +19,14 @@ kotlin {
     // For MacOS, should be changed to e.g. macosX64
     // For Windows, should be changed to e.g. mingwX64
     mingwX64("mingw")
-    iosArm64("ios")
-    linuxX64("linux")
-    macosX64("macos")
+//    iosArm64("ios")
+//    linuxX64("linux")
+//    macosX64("macos")
     sourceSets {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
+                api project(":geojson")
             }
         }
         commonTest {
