@@ -1,5 +1,7 @@
 package io.github.dellisd.geojson
 
+import io.github.dellisd.geojson.serialization.PositionSerializer
+import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmSynthetic
 
 /**
@@ -12,19 +14,21 @@ import kotlin.jvm.JvmSynthetic
  * When serialized, the [latitude], [longitude], and [altitude] (if present) will be represented as an array.
  *
  * ```kotlin
- * LngLat(-75.0, 45.0)
+ * LngLat(longitude = -75.0, latitude = 45.0)
  * ```
  * will be serialized as
  * ```json
- * [-75.0, 45.0]
+ * [-75.0,45.0]
  * ```
  *
  * @see <a href="https://tools.ietf.org/html/rfc7946#section-3.1.1">https://tools.ietf.org/html/rfc7946#section-3.1.1</a>
+ * @see PositionSerializer
  *
  * @property latitude The latitude value of this position (or northing value for projected coordinates)
  * @property longitude The longitude value of this position (or easting value for projected coordinates)
  * @property altitude Optionally, an altitude or elevation for this position
  */
+@Serializable(with = PositionSerializer::class)
 interface Position {
     val latitude: Double
     val longitude: Double
@@ -50,4 +54,6 @@ interface Position {
      */
     @JvmSynthetic
     operator fun component3(): Double?
+
+    companion object
 }
