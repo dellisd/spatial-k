@@ -57,7 +57,7 @@ fun area(geometry: Geometry): Double {
  * @param geometry input geometries
  * @return area in square meters
  */
-fun area(geometry: List<Geometry>): Double = geometry.fold(0.0) { acc, geom -> acc + area(geom) }
+fun area(geometry: Iterable<Geometry>): Double = geometry.fold(0.0) { acc, geom -> acc + area(geom) }
 
 private fun calculateArea(geometry: Geometry): Double {
     return when (geometry) {

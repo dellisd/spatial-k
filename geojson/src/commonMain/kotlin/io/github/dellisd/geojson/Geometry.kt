@@ -1,8 +1,11 @@
 package io.github.dellisd.geojson
 
-sealed class Geometry
+import kotlin.jvm.JvmOverloads
 
-class Point(val coordinates: Position) : Geometry(), Position by coordinates {
+sealed class Geometry(final override val bbox: BoundingBox? = null) : GeoJson
+
+class Point @JvmOverloads constructor(val coordinates: Position, bbox: BoundingBox? = null) : Geometry(bbox),
+    Position by coordinates {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
@@ -25,14 +28,18 @@ class Point(val coordinates: Position) : Geometry(), Position by coordinates {
     fun copy(coordinates: Position = this.coordinates): Point = Point(coordinates)
 }
 
-data class MultiPoint(val coordinates: List<Position>) : Geometry()
+class MultiPoint @JvmOverloads constructor(val coordinates: List<Position>, bbox: BoundingBox? = null) : Geometry(bbox)
 
-data class LineString(val coordinates: List<Position>) : Geometry()
+class LineString @JvmOverloads constructor(val coordinates: List<Position>, bbox: BoundingBox? = null) : Geometry(bbox)
 
-data class MultiLineString(val coordinates: List<List<Position>>) : Geometry()
+class MultiLineString @JvmOverloads constructor(val coordinates: List<List<Position>>, bbox: BoundingBox? = null) :
+    Geometry(bbox)
 
-data class Polygon(val coordinates: List<List<Position>>) : Geometry()
+class Polygon @JvmOverloads constructor(val coordinates: List<List<Position>>, bbox: BoundingBox? = null) :
+    Geometry(bbox)
 
-data class MultiPolygon(val coordinates: List<List<List<Position>>>) : Geometry()
+class MultiPolygon @JvmOverloads constructor(val coordinates: List<List<List<Position>>>, bbox: BoundingBox? = null) :
+    Geometry(bbox)
 
-data class GeometryCollection(val geometries: List<Geometry>) : Geometry()
+class GeometryCollection @JvmOverloads constructor(val geometries: List<Geometry>, bbox: BoundingBox? = null) :
+    Geometry(bbox)
