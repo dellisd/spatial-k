@@ -37,4 +37,20 @@ class SerializationTests {
         val list = Json.parse(Position.serializer().list, "[[12.3,45.6],[78.9,12.3]]")
         assertEquals(listOf(LngLat(12.3, 45.6), LngLat(78.9, 12.3)), list)
     }
+
+    @Test
+    fun testSerializeBoundingBox() {
+        val bbox = BoundingBox(LngLat(-10.5, -10.5), LngLat(10.5, 10.5))
+        val result = Json.stringify(BoundingBox.serializer(), bbox)
+        assertEquals("[-10.5,-10.5,10.5,10.5]", result)
+
+        val bbox3D = BoundingBox(LngLat(-10.5, -10.5, -100.8), LngLat(10.5, 10.5, 5.5))
+        val result3D = Json.stringify(BoundingBox.serializer(), bbox3D)
+        assertEquals("[-10.5,-10.5,-100.8,10.5,10.5,5.5]", result3D)
+
+        // One altitude unspecified
+        val bboxFake3D = BoundingBox(LngLat(-10.5, -10.5, -100.8), LngLat(10.5, 10.5))
+        val fakeResult = Json.stringify(BoundingBox.serializer(), bboxFake3D)
+        assertEquals("[-10.5,-10.5,10.5,10.5]", fakeResult)
+    }
 }
