@@ -2,19 +2,27 @@ package io.github.dellisd.geojson.serialization
 
 import io.github.dellisd.geojson.LngLat
 import io.github.dellisd.geojson.Position
-import kotlinx.serialization.*
+import kotlinx.serialization.Decoder
+import kotlinx.serialization.Encoder
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialDescriptor
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.StructureKind
 import kotlinx.serialization.json.JsonInput
 import kotlinx.serialization.json.JsonOutput
 import kotlinx.serialization.json.jsonArray
 
 /**
  * [KSerializer] implementation for implementations of the [Position] interface.
- * Serializes a Position down to an array of numbers as specified by GeoJSON. This serializer only works for converting to and from JSON.
+ * Serializes a Position down to an array of numbers as specified by GeoJSON.
+ * This serializer only works for converting to and from JSON.
  * A position maps to `[longitude, latitude, altitude]`.
  *
  * A position's [altitude][Position.altitude] is only included in the array if it is not null.
  *
- * An instance of the serializer can be obtained from the [Position.serializer][Position.Companion.serializer] extension function.
+ * An instance of the serializer can be obtained from the [Position.serializer][Position.Companion.serializer]
+ * extension function.
  *
  * @see Position.Companion.serializer
  */

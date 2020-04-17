@@ -1,9 +1,10 @@
+@file:Suppress("MagicNumber")
+
 package io.github.dellisd.turf
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-
 
 class UtilsTests {
 

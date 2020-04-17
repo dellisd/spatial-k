@@ -8,6 +8,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @UnstableDefault
+@Suppress("MagicNumber")
 class SerializationTests {
 
     @Test
@@ -36,5 +37,4 @@ class SerializationTests {
         val list = Json.parse(Position.serializer().list, "[[12.3,45.6],[78.9,12.3]]")
         assertEquals(listOf(LngLat(12.3, 45.6), LngLat(78.9, 12.3)), list)
     }
-
 }

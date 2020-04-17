@@ -15,6 +15,7 @@ const val EARTH_RADIUS = 6371008.8
  * @property factor Units of measurement factors using a spherical earth radius.
  * @property areaFactor Area of measurement factors based on 1 square meter.
  */
+@Suppress("MagicNumber")
 enum class Units(internal val unitFactor: Double, internal val factor: Double, internal val areaFactor: Double) {
     Meters(1.0, EARTH_RADIUS, 1.0),
     Millimeters(1000.0, EARTH_RADIUS * 1000, 1_000_000.0),
@@ -42,8 +43,9 @@ enum class Units(internal val unitFactor: Double, internal val factor: Double, i
  * @exception IllegalArgumentException if the given units are invalid
  */
 fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
-    if (units.factor.isNaN())
+    if (units.factor.isNaN()) {
         throw IllegalArgumentException("${units.name} units is invalid")
+    }
     return radians * units.factor
 }
 
@@ -59,8 +61,9 @@ fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
  * @exception IllegalArgumentException if the given units are invalid
  */
 fun lengthToRadians(distance: Double, units: Units = Units.Kilometers): Double {
-    if (units.factor.isNaN())
+    if (units.factor.isNaN()) {
         throw IllegalArgumentException("${units.name} units is invalid")
+    }
     return distance / units.factor
 }
 
@@ -88,8 +91,9 @@ fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) = degrees
  * @exception IllegalArgumentException if the given length is negative
  */
 fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
-    if (length < 0)
+    if (length < 0) {
         throw IllegalArgumentException("length must be a positive number")
+    }
     return radiansToLength(lengthToRadians(length, from), to)
 }
 
@@ -105,15 +109,19 @@ fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.
  *
  * @exception IllegalArgumentException if the given units are invalid, or if the area is negative
  */
+@Suppress("ThrowsCount")
 fun convertArea(area: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
-    if (area < 0)
+    if (area < 0) {
         throw IllegalArgumentException("area must be a positive number")
+    }
 
-    if (from.areaFactor.isNaN())
+    if (from.areaFactor.isNaN()) {
         throw IllegalArgumentException("invalid original units")
+    }
 
-    if (to.areaFactor.isNaN())
+    if (to.areaFactor.isNaN()) {
         throw IllegalArgumentException("invalid final units")
+    }
 
     return (area / from.areaFactor) * to.areaFactor
 }

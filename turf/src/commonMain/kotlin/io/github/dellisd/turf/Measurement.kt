@@ -2,10 +2,22 @@
 
 package io.github.dellisd.turf
 
-import io.github.dellisd.geojson.*
+import io.github.dellisd.geojson.Geometry
+import io.github.dellisd.geojson.GeometryCollection
+import io.github.dellisd.geojson.LineString
+import io.github.dellisd.geojson.LngLat
+import io.github.dellisd.geojson.MultiPolygon
+import io.github.dellisd.geojson.Polygon
+import io.github.dellisd.geojson.Position
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
-import kotlin.math.*
+import kotlin.math.abs
+import kotlin.math.asin
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * Takes a [LineString] and returns a [position][LngLat] at a specified distance along the line.
@@ -16,6 +28,7 @@ import kotlin.math.*
  * @return A position [distance] [units] along the line
  */
 @JvmOverloads
+@Suppress("MagicNumber")
 fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): Position {
     var travelled = 0.0
 
@@ -148,7 +161,7 @@ fun bearing(start: Position, end: Position, final: Boolean = false): Double {
 
     return degrees(atan2(a, b))
 }
-
+@Suppress("MagicNumber")
 internal fun finalBearing(start: Position, end: Position): Double = (bearing(end, start) + 180) % 360
 
 /**

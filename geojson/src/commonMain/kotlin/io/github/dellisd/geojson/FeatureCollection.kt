@@ -16,7 +16,6 @@ class FeatureCollection @JvmOverloads constructor(
     override val bbox: BoundingBox? = null
 ) :
     MutableCollection<Feature> by features, GeoJson {
-    constructor(vararg features: Feature) : this(mutableListOf(*features))
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -35,5 +34,4 @@ class FeatureCollection @JvmOverloads constructor(
         result = 31 * result + (bbox?.hashCode() ?: 0)
         return result
     }
-
 }

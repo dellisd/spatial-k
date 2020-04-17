@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package io.github.dellisd.turf
 
 import io.github.dellisd.geojson.LngLat

@@ -8,7 +8,8 @@ import kotlin.jvm.JvmSynthetic
  * A position is the fundamental geometry construct.
  *
  * In JSON, a position is an array of numbers. There MUST be two or more elements.
- * The first two elements are [longitude] and [latitude], or easting and northing, precisely in that order using decimal numbers.
+ * The first two elements are [longitude] and [latitude], or easting and northing,
+ * precisely in that order using decimal numbers.
  * [Altitude][altitude] or elevation MAY be included as an optional third element.
  *
  * When serialized, the [latitude], [longitude], and [altitude] (if present) will be represented as an array.
@@ -21,7 +22,8 @@ import kotlin.jvm.JvmSynthetic
  * [-75.0,45.0]
  * ```
  *
- * @see <a href="https://tools.ietf.org/html/rfc7946#section-3.1.1">https://tools.ietf.org/html/rfc7946#section-3.1.1</a>
+ * @see <a href="https://tools.ietf.org/html/rfc7946#section-3.1.1">
+ *     https://tools.ietf.org/html/rfc7946#section-3.1.1</a>
  * @see PositionSerializer
  *
  * @property latitude The latitude value of this position (or northing value for projected coordinates)

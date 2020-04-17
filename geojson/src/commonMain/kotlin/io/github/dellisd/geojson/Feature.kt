@@ -1,5 +1,8 @@
 package io.github.dellisd.geojson
 
+import kotlin.collections.MutableMap
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
@@ -9,7 +12,8 @@ import kotlin.jvm.JvmOverloads
  * @see <a href="https://tools.ietf.org/html/rfc7946#section-3.2">https://tools.ietf.org/html/rfc7946#section-3.2</a>
  *
  * @property geometry A [Geometry] object contained within the feature.
- * @property properties Additional properties about this feature. When serialized, any non-simple types will be serialized into JSON objects.
+ * @property properties Additional properties about this feature.
+ * When serialized, any non-simple types will be serialized into JSON objects.
  * @property id An optionally included string that commonly identifies this feature.
  */
 class Feature @JvmOverloads constructor(
@@ -87,5 +91,4 @@ class Feature @JvmOverloads constructor(
         result = 31 * result + (bbox?.hashCode() ?: 0)
         return result
     }
-
 }
