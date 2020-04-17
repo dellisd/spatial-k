@@ -1,7 +1,10 @@
 package io.github.dellisd.geojson
 
+import io.github.dellisd.geojson.serialization.GeometrySerializer
+import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmOverloads
 
+@Serializable(with = GeometrySerializer::class)
 sealed class Geometry(final override val bbox: BoundingBox? = null) : GeoJson
 
 class Point @JvmOverloads constructor(val coordinates: Position, bbox: BoundingBox? = null) : Geometry(bbox),

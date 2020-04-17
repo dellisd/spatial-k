@@ -1,11 +1,13 @@
 package io.github.dellisd.geojson
 
 import io.github.dellisd.geojson.serialization.serializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 @UnstableDefault
 @Suppress("MagicNumber")
@@ -52,5 +54,18 @@ class SerializationTests {
         val bboxFake3D = BoundingBox(LngLat(-10.5, -10.5, -100.8), LngLat(10.5, 10.5))
         val fakeResult = Json.stringify(BoundingBox.serializer(), bboxFake3D)
         assertEquals("[-10.5,-10.5,10.5,10.5]", fakeResult)
+    }
+
+    @Test
+    fun testDeserializeBoundingBox() {
+        val bbox = Json.parse(BoundingBox.serializer(), "[-10.5,-10.5,10.5,10.5]")
+        assertEquals(BoundingBox(LngLat(-10.5, -10.5), LngLat(10.5, 10.5)), bbox)
+
+        val bbox3D = Json.parse(BoundingBox.serializer(), "[-10.5,-10.5,-100.8,10.5,10.5,5.5]")
+        assertEquals(BoundingBox(LngLat(-10.5, -10.5, -100.8), LngLat(10.5, 10.5, 5.5)), bbox3D)
+
+        assertFailsWith<SerializationException> {
+            Json.parse(BoundingBox.serializer(), "[12.3]")
+        }
     }
 }
