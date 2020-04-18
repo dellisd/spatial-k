@@ -25,7 +25,7 @@ import kotlinx.serialization.json.content
 import kotlinx.serialization.json.json
 
 @Serializer(forClass = Geometry::class)
-object GeometrySerializer : KSerializer<Geometry> {
+internal object GeometrySerializer : KSerializer<Geometry> {
     override val descriptor: SerialDescriptor
         get() = SerialDescriptor("Geometry", PolymorphicKind.SEALED)
 

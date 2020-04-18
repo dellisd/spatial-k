@@ -22,4 +22,21 @@ import kotlin.jvm.JvmOverloads
  * @property southwest The southwestern corner of the BoundingBox
  */
 @Serializable(with = BoundingBoxSerializer::class)
-data class BoundingBox @JvmOverloads constructor(val southwest: Position, val northeast: Position)
+data class BoundingBox @JvmOverloads constructor(val southwest: Position, val northeast: Position) {
+    constructor(west: Double, south: Double, east: Double, north: Double) : this(
+        LngLat(west, south),
+        LngLat(east, north)
+    )
+
+    constructor(
+        west: Double,
+        south: Double,
+        minAltitude: Double,
+        east: Double,
+        north: Double,
+        maxAltitude: Double
+    ) : this(
+        LngLat(west, south, minAltitude),
+        LngLat(east, north, maxAltitude)
+    )
+}
