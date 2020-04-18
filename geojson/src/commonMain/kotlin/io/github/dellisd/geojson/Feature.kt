@@ -1,7 +1,5 @@
 package io.github.dellisd.geojson
 
-import kotlin.collections.MutableMap
-import kotlin.collections.mutableMapOf
 import kotlin.collections.set
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
@@ -69,6 +67,11 @@ class Feature @JvmOverloads constructor(
      */
     @JvmName("getPropertyCast")
     inline fun <reified T : Any?> getProperty(key: String) = properties[key] as T?
+
+    @Suppress("INAPPLICABLE_JVM_NAME")
+    @get:JvmName("toJson")
+    override val json: String
+        get() = TODO("Not yet implemented")
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

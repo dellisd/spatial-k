@@ -89,7 +89,7 @@ object GeometrySerializer : KSerializer<Geometry> {
                     "coordinates" to output.json.toJson(Position.serializer().list.list, value.coordinates)
                 }
                 is MultiPolygon -> {
-                    "type" to JsonLiteral("Polygon")
+                    "type" to JsonLiteral("MultiPolygon")
                     "coordinates" to output.json.toJson(Position.serializer().list.list.list, value.coordinates)
                 }
                 is GeometryCollection -> {

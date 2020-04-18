@@ -1,5 +1,6 @@
 package io.github.dellisd.geojson
 
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
 /**
@@ -16,6 +17,11 @@ class FeatureCollection @JvmOverloads constructor(
     override val bbox: BoundingBox? = null
 ) :
     MutableCollection<Feature> by features, GeoJson {
+
+    @Suppress("INAPPLICABLE_JVM_NAME")
+    @get:JvmName("toJson")
+    override val json: String
+        get() = TODO("Not yet implemented")
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
