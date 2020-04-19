@@ -17,6 +17,7 @@ repositories {
 
 subprojects {
     version = '0.0.1'
+    ext.serialization_version = '0.20.0'
 }
 
 allprojects {

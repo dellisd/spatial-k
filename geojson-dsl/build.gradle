@@ -1,6 +1,5 @@
 plugins {
     id 'org.jetbrains.kotlin.multiplatform'
-    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 group 'io.github.dellisd.earth'
@@ -8,7 +7,6 @@ group 'io.github.dellisd.earth'
 apply plugin: 'maven-publish'
 
 kotlin {
-
     jvm()
     js {
         browser {
@@ -25,6 +23,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
+                implementation project(":geojson")
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
             }
         }

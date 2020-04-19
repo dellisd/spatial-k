@@ -1,5 +1,5 @@
 rootProject.name = 'Turf.kt'
 
-include "geojson", "turf"
+include "geojson", "geojson-dsl", "turf"
 
 enableFeaturePreview('GRADLE_METADATA')
