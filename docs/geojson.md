@@ -26,14 +26,14 @@ type checks in Kotlin using a `when` block.
     ``` kotlin
     val geometry: Geometry = getGeometry()
     
-    when (geometry) {
-        is Point -> {}
-        is MultiPoint -> {}
-        is LineString -> {}
-        is MultiLineString -> {}
-        is Polygon -> {}
-        is MultiPolygon -> {}
-        is GeometryCollection -> {}
+    val type = when (geometry) {
+        is Point -> "Point"
+        is MultiPoint -> "MultiPoint"
+        is LineString -> "LineString"
+        is MultiLineString -> "MultiLineString"
+        is Polygon -> "Polygon"
+        is MultiPolygon -> "MultiPolygon"
+        is GeometryCollection -> "GeometryCollection"
     }
     ```
 All seven types of GeoJSON geometries are implemented and summarized below.
