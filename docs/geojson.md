@@ -17,21 +17,6 @@ dependencies {
 The `GeoJson` interface represents all GeoJson objects. All GeoJson objects can have a `bbox` property specified on them
 which is a `BoundingBox` that represents the bounds of that object's geometry.
 
-All `GeoJson` instances can be converted to Json using the `json` property.
-
-=== "Kotlin"
-    ``` kotlin
-    val featureCollection: FeatureCollection = getFeatureCollection()
-    
-    println(featureCollection.json)
-    ```
-=== "Java"
-    ```java
-    FeatureCollection featureCollection = getFeatureCollection();
-    
-    System.out.println(featureCollection.toJson());
-    ```
-
 ### Geometry
 
 Geometry objects are a sealed hierarchy of classes that inherit from the `Geometry` class. This allows for exhaustive 
@@ -157,6 +142,81 @@ A `MultiLineString` is an array of LineStrings.
     MultiLineString multiLineString = new MultiLineString(list1, list2);
     ```
 
-### Polygon
+#### Polygon
 
 TODO
+
+#### MultiPolygon
+
+TODO
+
+#### GeometryCollection
+
+TODO
+
+### Feature
+
+TODO
+
+### FeatureCollection
+
+TODO
+
+### BoundingBox
+
+TODO
+
+## Serialization
+
+Any `GeoJson` object can be serialized to Json using the `json` property.
+
+=== "Kotlin"
+    ``` kotlin
+    val featureCollection: FeatureCollection = getFeatureCollection()
+    
+    println(featureCollection.json)
+    ```
+=== "Java"
+    ```java
+    FeatureCollection featureCollection = getFeatureCollection();
+    
+    System.out.println(featureCollection.toJson());
+    ```
+
+## Deserialization
+Json strings can be converted to GeoJson objects using various methods.
+
+### Geometry
+
+Geometry can be deserialized using generic functions that will automatically deserialize the given Json into the 
+appropriate `Geometry` subclass.
+
+In Kotlin, these functions are available as extension functions on a `String`. 
+In Java, these functions are available as static methods on `GeometryFactory`. 
+
+=== "Kotlin"
+    ```kotlin
+    val myPoint = "{...geojson...}".toGeometry<Point>()
+    val nullable = "{...not a point...}".toGeometryOrNull<Point>()
+    ```
+=== "Java"
+    ```java
+    Point myPoint = GeometryFactory.fromJson("{...geojson...}");
+    Point nullable = GeometryFactory.fromJsonOrNull("{... not a point...}");
+    ```
+    
+### Feature and FeatureCollection
+
+`Feature` and `FeatureCollection` objects are deserialized in a similar fashion.
+
+=== "Kotlin"
+    ```kotlin
+    val feature = "{...feature...}".toFeature()
+    val featureCollection = "{...feature collection...}".toFeatureCollection()
+    ```
+    
+=== "Java"
+    ```java
+    Feature feature = Feature.fromJson("{...feature...}");
+    FeatureCollection = FeatureCollection.fromJson("{...feature collection...}");
+    ```

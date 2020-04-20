@@ -1,7 +1,7 @@
 #TODO: Library Name Here
 
 This library is an implementation of GeoJSON and port of Turfjs written in pure Kotlin. It supports Kotlin Multiplatform
-and Java projects as well as features a Kotlin DSL for building GeoJSON objects.
+and Java projects and also features a Kotlin DSL for building GeoJSON objects.
 
 ## Installation
 
