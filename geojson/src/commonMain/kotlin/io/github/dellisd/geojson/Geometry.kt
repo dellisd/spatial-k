@@ -59,6 +59,12 @@ class LineString @JvmOverloads constructor(val coordinates: List<Position>, bbox
     @JvmOverloads
     constructor(vararg coordinates: Position, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
+    init {
+        if (coordinates.size < 2) {
+            throw IllegalArgumentException("LineString must have at least two positions")
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
@@ -77,6 +83,14 @@ class MultiLineString @JvmOverloads constructor(val coordinates: List<List<Posit
     Geometry(bbox) {
     @JvmOverloads
     constructor(vararg coordinates: List<Position>, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
+
+    init {
+        coordinates.forEach { line ->
+            if (line.size < 2) {
+                throw IllegalArgumentException("LineString must have at least two positions")
+            }
+        }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

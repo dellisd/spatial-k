@@ -1,7 +1,11 @@
 @file:JvmName("Measurement")
+@file:Suppress("TooManyFunctions")
 
 package io.github.dellisd.turf
 
+import io.github.dellisd.geojson.BoundingBox
+import io.github.dellisd.geojson.Feature
+import io.github.dellisd.geojson.FeatureCollection
 import io.github.dellisd.geojson.Geometry
 import io.github.dellisd.geojson.GeometryCollection
 import io.github.dellisd.geojson.LineString
@@ -11,6 +15,7 @@ import io.github.dellisd.geojson.Polygon
 import io.github.dellisd.geojson.Position
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmSynthetic
 import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.atan2
@@ -139,6 +144,68 @@ private fun ringArea(coordinates: List<Position>): Double {
 }
 
 /**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+@Suppress("MagicNumber")
+fun bbox(geometry: Geometry): BoundingBox {
+    val result = doubleArrayOf(
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY
+    )
+    geometry.coordEach { (longitude, latitude) ->
+        if (result[0] > longitude) {
+            result[0] = longitude
+        }
+        if (result[1] > latitude) {
+            result[1] = latitude
+        }
+        if (result[2] < longitude) {
+            result[2] = longitude
+        }
+        if (result[3] < latitude) {
+            result[3] = latitude
+        }
+    }
+
+    return BoundingBox(result[0], result[1], result[2], result[3])
+}
+
+fun bbox(feature: Feature): BoundingBox? = feature.geometry?.let(::bbox)
+fun bbox(featureCollection: FeatureCollection): BoundingBox =
+    bbox(GeometryCollection(featureCollection.features.mapNotNull { feature -> feature.geometry }))
+
+/**
+ * Takes a bbox and returns an equivalent [Polygon].
+ *
+ * @see BoundingBox.toPolygon
+ *
+ * @param bbox The bounding box to convert to a Polygon.
+ * @return The bounding box as a polygon
+ */
+fun bboxPolygon(bbox: BoundingBox): Polygon {
+    if (bbox.northeast.altitude != null || bbox.southwest.altitude != null) {
+        throw IllegalArgumentException("Bounding Box cannot have altitudes")
+    }
+
+    return Polygon(
+        listOf(
+            bbox.southwest,
+            LngLat(bbox.southwest.longitude, bbox.northeast.latitude),
+            bbox.northeast,
+            LngLat(bbox.northeast.longitude, bbox.southwest.latitude)
+        )
+    )
+}
+
+@JvmSynthetic
+fun BoundingBox.toPolygon() = bboxPolygon(this)
+
+/**
  * Takes two positions ([start], [end]) and finds the geographic bearing between them,
  * i.e. the angle measured in degrees from the north line (0 degrees)
  *
@@ -161,6 +228,7 @@ fun bearing(start: Position, end: Position, final: Boolean = false): Double {
 
     return degrees(atan2(a, b))
 }
+
 @Suppress("MagicNumber")
 internal fun finalBearing(start: Position, end: Position): Double = (bearing(end, start) + 180) % 360
 
