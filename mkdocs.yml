@@ -1,0 +1,41 @@
+site_name: "TODO: Library Name Here"
+site_url: https://dellisd.github.io/
+repo_name: Turf.kt
+repo_url: https://github.com/dellisd/Turf.kt
+site_description: "Kotlin Multiplatform GeoJSON library and Turfjs port"
+site_author: Derek Ellis
+copyright: 'Copyright &copy; 2020 Derek Ellis'
+remote_branch: gh-pages
+
+nav:
+  - 'Overview': index.md
+  - 'GeoJson': geojson.md
+  - 'GeoJson DSL': geojson-dsl.md
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'green'
+    accent: 'blue'
+
+markdown_extensions:
+  - codehilite:
+      guess_lang: false
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
