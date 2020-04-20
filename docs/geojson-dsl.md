@@ -182,7 +182,7 @@ The `Polygon` DSL can also be used here.
           [[45.0, 45.0], [0.0, 0.0], [12.0, 12.0], [45.0, 45.0]],
           [[4.0, 4.0], [2.0, 2.0], [3.0, 3.0], [4.0, 4.0]]
         ], [
-          [12.0, 0.0], [0.0, 12.0], [-12.0, 0.0], [5.0, 5.0], [12.0, 0.0]
+          [[12.0, 0.0], [0.0, 12.0], [-12.0, 0.0], [5.0, 5.0], [12.0, 0.0]]
         ]
       ]
     }
@@ -287,7 +287,8 @@ A `FeatureCollection` is constructed by adding multiple `Feature` objects using 
           "geometry": {
             "type": "Point",
             "coordinates": [-75.0, 45.0]
-          }
+          },
+          "properties": {}
         }
       ]
     }
