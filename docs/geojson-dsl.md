@@ -1,12 +1,12 @@
 # GeoJson DSL
 
-The `geojson-dsl` library provides a Kotlin DSL for constructing GeoJson objects from the `geojson` library.
+The `geojson-dsl` library provides a Kotlin DSL for constructing GeoJson objects from the [`geojson`](/geojson) library.
 
 ## Installation
 
 ```groovy
 dependencies {
-    implementation "package.name.here:geojson-dsl:0.1.0"
+    implementation "io.github.dellisd.spatialk:geojson-dsl:0.1.0"
 }
 ```
 

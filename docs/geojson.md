@@ -1,14 +1,14 @@
 # GeoJson
 
-The `geojson` module contains an implementation of the [GeoJSON standard](https://tools.ietf.org/html/rfc7946).
+The `geojson` module contains an implementation of the [GeoJson standard](https://tools.ietf.org/html/rfc7946).
 
-For Kotlin, a DSL for constructing GeoJson objects is available in the `geojson-dsl` module.
+For Kotlin, a DSL for constructing GeoJson objects is available in the [`geojson-dsl`](/geojson-dsl) module.
 
 ## Installation 
 
 ```groovy
 dependencies {
-    implementation "package.name.here:geojson:0.1.0"
+    implementation "io.github.dellisd.spatialk:geojson:0.1.0"
 }
 ```
 
