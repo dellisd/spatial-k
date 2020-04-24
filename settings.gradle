@@ -1,4 +1,4 @@
-rootProject.name = 'Turf.kt'
+rootProject.name = 'spatial-k'
 
 include "geojson", "geojson-dsl", "turf"
 
