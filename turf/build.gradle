@@ -64,3 +64,5 @@ kotlin {
         }
     }
 }
+
+apply from: rootProject.file("dokka.gradle")

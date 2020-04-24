@@ -11,6 +11,10 @@ nav:
   - 'Overview': index.md
   - 'GeoJson': geojson.md
   - 'GeoJson DSL': geojson-dsl.md
+  - 'API':
+      - 'geojson': api/geojson/index.md
+      - 'geojson-dsl': api/geojson-dsl/index.md
+      - 'turf': api/turf/index.md
 
 theme:
   name: 'material'
