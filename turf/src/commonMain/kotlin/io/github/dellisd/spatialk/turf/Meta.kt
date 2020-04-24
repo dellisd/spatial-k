@@ -2,6 +2,8 @@
 
 package io.github.dellisd.spatialk.turf
 
+import io.github.dellisd.spatialk.geojson.Feature
+import io.github.dellisd.spatialk.geojson.FeatureCollection
 import io.github.dellisd.spatialk.geojson.Geometry
 import io.github.dellisd.spatialk.geojson.GeometryCollection
 import io.github.dellisd.spatialk.geojson.LineString
@@ -13,14 +15,35 @@ import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmName
 
-fun Geometry.coordEach(block: (Position) -> Unit) {
-    when (this) {
-        is Point -> block(coordinates)
-        is MultiPoint -> coordinates.forEach(block)
-        is LineString -> coordinates.forEach(block)
-        is MultiLineString -> coordinates.forEach { line -> line.forEach(block) }
-        is Polygon -> coordinates.forEach { ring -> ring.forEach(block) }
-        is MultiPolygon -> coordinates.forEach { polygon -> polygon.forEach { ring -> ring.forEach(block) } }
-        is GeometryCollection -> geometries.forEach { geometry -> geometry.coordEach(block) }
-    }
+fun Geometry.coordAll(): List<Position> = when (this) {
+    is Point -> this.coordAll()
+    is MultiPoint -> this.coordAll()
+    is LineString -> this.coordAll()
+    is MultiLineString -> this.coordAll()
+    is Polygon -> this.coordAll()
+    is MultiPolygon -> this.coordAll()
+    is GeometryCollection -> this.coordAll()
 }
+
+fun Point.coordAll() = listOf(coordinates)
+
+fun MultiPoint.coordAll() = coordinates
+
+fun LineString.coordAll() = coordinates
+
+fun MultiLineString.coordAll() = coordinates.reduce { acc, list -> acc + list }
+
+fun Polygon.coordAll() = coordinates.reduce { acc, list -> acc + list }
+
+fun MultiPolygon.coordAll() =
+    coordinates.fold(emptyList<Position>()) { acc, list ->
+        list.reduce { innerAcc, innerList -> innerAcc + innerList } + acc
+    }
+
+fun GeometryCollection.coordAll() =
+    geometries.fold(emptyList<Position>()) { acc, geometry -> acc + geometry.coordAll() }
+
+fun Feature.coordAll() = geometry?.coordAll()
+
+fun FeatureCollection.coordAll() =
+    features.fold(emptyList<Position>()) { acc, feature -> acc + (feature.coordAll() ?: emptyList()) }

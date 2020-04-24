@@ -10,7 +10,10 @@ import io.github.dellisd.spatialk.geojson.Geometry
 import io.github.dellisd.spatialk.geojson.GeometryCollection
 import io.github.dellisd.spatialk.geojson.LineString
 import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.MultiLineString
+import io.github.dellisd.spatialk.geojson.MultiPoint
 import io.github.dellisd.spatialk.geojson.MultiPolygon
+import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmName
@@ -76,9 +79,10 @@ fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): 
  */
 fun area(geometry: Geometry): Double {
     return when (geometry) {
-        is GeometryCollection -> geometry.geometries.fold(0.0) { acc, geom -> acc + area(
-            geom
-        )
+        is GeometryCollection -> geometry.geometries.fold(0.0) { acc, geom ->
+            acc + area(
+                geom
+            )
         }
         else -> calculateArea(geometry)
     }
@@ -90,17 +94,19 @@ fun area(geometry: Geometry): Double {
  * @param geometry input geometries
  * @return area in square meters
  */
-fun area(geometry: Iterable<Geometry>): Double = geometry.fold(0.0) { acc, geom -> acc + area(
-    geom
-)
+fun area(geometry: Iterable<Geometry>): Double = geometry.fold(0.0) { acc, geom ->
+    acc + area(
+        geom
+    )
 }
 
 private fun calculateArea(geometry: Geometry): Double {
     return when (geometry) {
         is Polygon -> polygonArea(geometry.coordinates)
-        is MultiPolygon -> geometry.coordinates.fold(0.0) { acc, coords -> acc + polygonArea(
-            coords
-        )
+        is MultiPolygon -> geometry.coordinates.fold(0.0) { acc, coords ->
+            acc + polygonArea(
+                coords
+            )
         }
         else -> 0.0
     }
@@ -172,15 +178,81 @@ private fun ringArea(coordinates: List<Position>): Double {
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+fun bbox(geometry: Geometry): BoundingBox = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(geometry: Point) = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(geometry: MultiPoint) = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(geometry: LineString) = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(geometry: MultiLineString) = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(geometry: Polygon) = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
+ *
+ * @param geometry The geometry to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(geometry: MultiPolygon) = computeBbox(geometry.coordAll())
+
+/**
+ * Takes a feature and calculates the bbox of the feature's geometry, and returns a bounding box.
+ *
+ * @param feature The feature to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(feature: Feature): BoundingBox? = computeBbox(feature.coordAll() ?: emptyList())
+
+/**
+ * Takes a feature collection and calculates a bbox that covers all features in the collection.
+ *
+ * @param featureCollection The collection of features to compute a bounding box for.
+ * @return A [BoundingBox] that covers the geometry.
+ */
+fun bbox(featureCollection: FeatureCollection): BoundingBox = computeBbox(featureCollection.coordAll())
+
 @Suppress("MagicNumber")
-fun bbox(geometry: Geometry): BoundingBox {
+private fun computeBbox(coordinates: List<Position>): BoundingBox {
     val result = doubleArrayOf(
         Double.POSITIVE_INFINITY,
         Double.POSITIVE_INFINITY,
         Double.NEGATIVE_INFINITY,
         Double.NEGATIVE_INFINITY
     )
-    geometry.coordEach { (longitude, latitude) ->
+    coordinates.forEach { (longitude, latitude) ->
         if (result[0] > longitude) {
             result[0] = longitude
         }
@@ -197,10 +269,6 @@ fun bbox(geometry: Geometry): BoundingBox {
 
     return BoundingBox(result[0], result[1], result[2], result[3])
 }
-
-fun bbox(feature: Feature): BoundingBox? = feature.geometry?.let(::bbox)
-fun bbox(featureCollection: FeatureCollection): BoundingBox =
-    bbox(GeometryCollection(featureCollection.features.mapNotNull { feature -> feature.geometry }))
 
 /**
  * Takes a bbox and returns an equivalent [Polygon].
