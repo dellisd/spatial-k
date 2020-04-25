@@ -3,8 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
-group 'io.github.dellisd.earth'
-
+apply plugin: "com.vanniktech.maven.publish"
 apply plugin: 'maven-publish'
 
 kotlin {

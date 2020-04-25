@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.11.1'
+    }
+}
+
 plugins {
     id 'org.jetbrains.kotlin.multiplatform' version '1.3.71' apply false
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.3.71' apply false
@@ -18,6 +27,7 @@ repositories {
 }
 
 subprojects {
+    group 'io.github.dellisd.spatialk'
     version = '0.0.1'
     ext.serialization_version = '0.20.0'
 }

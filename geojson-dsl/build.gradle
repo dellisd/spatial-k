@@ -2,8 +2,7 @@ plugins {
     id 'org.jetbrains.kotlin.multiplatform'
 }
 
-group 'io.github.dellisd.earth'
-
+apply plugin: "com.vanniktech.maven.publish"
 apply plugin: 'maven-publish'
 
 kotlin {
