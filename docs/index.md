@@ -28,3 +28,13 @@ commonMain {
     }
 }
 ```
+
+### Snapshots
+
+Snapshot builds are available on Sonatype.
+
+```groovy
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+```
