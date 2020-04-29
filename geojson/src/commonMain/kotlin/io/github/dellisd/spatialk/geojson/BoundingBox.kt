@@ -29,6 +29,7 @@ data class BoundingBox @JvmOverloads constructor(val southwest: Position, val no
     )
 
     // Not the prettiest... but it works™
+    @Suppress("MagicNumber")
     constructor(coordinates: DoubleArray) : this(
         LngLat(
             coordinates[0],
