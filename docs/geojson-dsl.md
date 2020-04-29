@@ -4,6 +4,8 @@ The `geojson-dsl` library provides a Kotlin DSL for constructing GeoJson objects
 
 ## Installation
 
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.dellisd.spatialk/geojson-dsl?server=https%3A%2F%2Foss.sonatype.org)
+
 ```groovy
 dependencies {
     implementation "io.github.dellisd.spatialk:geojson-dsl:0.1.0"
