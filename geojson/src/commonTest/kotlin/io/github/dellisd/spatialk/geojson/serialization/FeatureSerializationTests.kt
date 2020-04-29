@@ -18,12 +18,13 @@ class FeatureSerializationTests {
     fun testSerializeFeature() {
         val geometry = Point(LngLat(12.3, 45.6))
         val feature = Feature(
-            geometry, mapOf(
+            geometry,
+            id = "001",
+            bbox = BoundingBox(11.6, 45.1, 12.7, 45.7),
+            properties = mapOf(
                 "size" to JsonLiteral(45.1),
                 "name" to JsonLiteral("Nowhere")
-            ),
-            id = "001",
-            bbox = BoundingBox(11.6, 45.1, 12.7, 45.7)
+            )
         )
 
         assertEquals(
@@ -38,7 +39,8 @@ class FeatureSerializationTests {
     fun testDeserializeFeature() {
         val geometry = Point(LngLat(12.3, 45.6))
         val feature = Feature(
-            geometry, mapOf(
+            geometry,
+            properties = mapOf(
                 "size" to JsonLiteral(45.1),
                 "name" to JsonLiteral("Nowhere")
             ),

@@ -26,10 +26,10 @@ import kotlin.jvm.JvmStatic
  */
 @Suppress("TooManyFunctions")
 class Feature @JvmOverloads constructor(
-    var geometry: Geometry?,
-    properties: Map<String, JsonElement> = emptyMap(),
-    var id: String? = null,
-    override val bbox: BoundingBox? = null
+    val geometry: Geometry?,
+    val id: String? = null,
+    override val bbox: BoundingBox? = null,
+    properties: Map<String, JsonElement> = emptyMap()
 ) : GeoJson {
     private val _properties: MutableMap<String, JsonElement> = properties.toMutableMap()
     val properties: Map<String, JsonElement> get() = _properties
