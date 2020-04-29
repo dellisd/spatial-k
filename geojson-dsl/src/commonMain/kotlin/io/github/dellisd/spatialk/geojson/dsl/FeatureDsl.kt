@@ -16,7 +16,7 @@ class FeatureDsl(
     var id: String? = null,
     private val properties: MutableMap<String, JsonElement> = mutableMapOf()
 ) {
-    fun create() = Feature(geometry, properties, id, bbox)
+    fun create() = Feature(geometry, id, bbox, properties)
 
     inner class PropertiesDsl {
         infix fun String.to(string: String?) {
