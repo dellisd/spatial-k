@@ -16,7 +16,7 @@ class FeatureCollectionSerializationTests {
     fun testSerializeFeatureCollection() {
         val geometry = Point(LngLat(12.3, 45.6))
         val feature = Feature(
-            geometry, mapOf(
+            geometry, properties = mapOf(
                 "size" to JsonLiteral(45.1),
                 "name" to JsonLiteral("Nowhere")
             )
@@ -38,7 +38,7 @@ class FeatureCollectionSerializationTests {
     fun testDeserializeFeatureCollection() {
         val geometry = Point(LngLat(12.3, 45.6))
         val feature = Feature(
-            geometry, mapOf(
+            geometry, properties = mapOf(
                 "size" to JsonLiteral(45.1),
                 "name" to JsonLiteral("Nowhere")
             )

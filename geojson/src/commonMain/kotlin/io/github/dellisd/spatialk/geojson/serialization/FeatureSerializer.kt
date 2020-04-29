@@ -33,7 +33,7 @@ internal object FeatureSerializer : JsonSerializer<Feature> {
         val id = tree["id"]?.content
         val properties = tree["properties"]?.jsonObject?.content
 
-        return Feature(geometry, properties ?: emptyMap(), id, bbox)
+        return Feature(geometry, id, bbox, properties ?: emptyMap())
     }
 
     override fun serialize(output: JsonOutput, value: Feature) {
