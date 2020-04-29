@@ -2,7 +2,7 @@
 
 The `geojson` module contains an implementation of the [GeoJson standard](https://tools.ietf.org/html/rfc7946).
 
-In Kotlin projects, it's recommended to u se the DSL for constructing GeoJson objects which is available in the [`geojson-dsl`](geojson-dsl/) module.
+In Kotlin projects, it's recommended to use the DSL for constructing GeoJson objects which is available in the [`geojson-dsl`](geojson-dsl/) module.
 
 ## Installation 
 
@@ -240,7 +240,7 @@ The first ring defines the outer shape of the polygon, while all the following r
 
 #### MultiPolygon
 
-A MultiPolygon is an array of Polygons.
+A `MultiPolygon` is an array of Polygons.
 
 === "Kotlin"
     ```kotlin
@@ -301,7 +301,7 @@ A MultiPolygon is an array of Polygons.
 
 #### GeometryCollection
 
-A GeometryCollection is a collection of different types of Geometry. It implements the `Collection` interface and can be used in any place that a collection can be used.
+A `GeometryCollection` is a collection of different types of Geometry. It implements the `Collection` interface and can be used in any place that a collection can be used.
 
 === "Kotlin"
     ```kotlin
