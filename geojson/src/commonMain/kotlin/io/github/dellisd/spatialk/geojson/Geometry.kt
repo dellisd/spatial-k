@@ -10,7 +10,9 @@ import kotlin.jvm.JvmOverloads
 private fun DoubleArray.toLngLat() = LngLat(this[0], this[1], this.getOrNull(2))
 
 @Serializable(with = GeometrySerializer::class)
-sealed class Geometry(final override val bbox: BoundingBox? = null) : GeoJson {
+sealed class Geometry : GeoJson {
+    abstract override val bbox: BoundingBox?
+
     @UnstableDefault
     @Suppress("INAPPLICABLE_JVM_NAME")
     @get:JvmName("toJson")
@@ -21,11 +23,14 @@ sealed class Geometry(final override val bbox: BoundingBox? = null) : GeoJson {
     override fun toString(): String = json
 }
 
-class Point @JvmOverloads constructor(val coordinates: Position, bbox: BoundingBox? = null) : Geometry(bbox),
+class Point @JvmOverloads constructor(val coordinates: Position, override val bbox: BoundingBox? = null) :
+    Geometry(),
     Position by coordinates {
 
     @JvmOverloads
     constructor(coordinates: DoubleArray, bbox: BoundingBox? = null) : this(coordinates.toLngLat(), bbox)
+
+    operator fun component4() = bbox
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -41,8 +46,11 @@ class Point @JvmOverloads constructor(val coordinates: Position, bbox: BoundingB
     override fun hashCode(): Int = coordinates.hashCode()
 }
 
-class MultiPoint @JvmOverloads constructor(val coordinates: List<Position>, bbox: BoundingBox? = null) :
-    Geometry(bbox) {
+data class MultiPoint @JvmOverloads constructor(
+    val coordinates: List<Position>,
+    override val bbox: BoundingBox? = null
+) :
+    Geometry() {
     @JvmOverloads
     constructor(vararg coordinates: Position, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
@@ -51,23 +59,13 @@ class MultiPoint @JvmOverloads constructor(val coordinates: List<Position>, bbox
         coordinates: Array<DoubleArray>,
         bbox: BoundingBox? = null
     ) : this(coordinates.map(DoubleArray::toLngLat), bbox)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as MultiPoint
-
-        if (coordinates != other.coordinates) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = coordinates.hashCode()
 }
 
-class LineString @JvmOverloads constructor(val coordinates: List<Position>, bbox: BoundingBox? = null) :
-    Geometry(bbox) {
+data class LineString @JvmOverloads constructor(
+    val coordinates: List<Position>,
+    override val bbox: BoundingBox? = null
+) :
+    Geometry() {
     @JvmOverloads
     constructor(vararg coordinates: Position, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
@@ -82,23 +80,13 @@ class LineString @JvmOverloads constructor(val coordinates: List<Position>, bbox
             throw IllegalArgumentException("LineString must have at least two positions")
         }
     }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as LineString
-
-        if (coordinates != other.coordinates) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = coordinates.hashCode()
 }
 
-class MultiLineString @JvmOverloads constructor(val coordinates: List<List<Position>>, bbox: BoundingBox? = null) :
-    Geometry(bbox) {
+data class MultiLineString @JvmOverloads constructor(
+    val coordinates: List<List<Position>>,
+    override val bbox: BoundingBox? = null
+) :
+    Geometry() {
     @JvmOverloads
     constructor(vararg coordinates: List<Position>, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
@@ -115,23 +103,13 @@ class MultiLineString @JvmOverloads constructor(val coordinates: List<List<Posit
             }
         }
     }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as MultiLineString
-
-        if (coordinates != other.coordinates) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = coordinates.hashCode()
 }
 
-class Polygon @JvmOverloads constructor(val coordinates: List<List<Position>>, bbox: BoundingBox? = null) :
-    Geometry(bbox) {
+data class Polygon @JvmOverloads constructor(
+    val coordinates: List<List<Position>>,
+    override val bbox: BoundingBox? = null
+) :
+    Geometry() {
     @JvmOverloads
     constructor(vararg coordinates: List<Position>, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
@@ -140,23 +118,13 @@ class Polygon @JvmOverloads constructor(val coordinates: List<List<Position>>, b
         coordinates: Array<Array<DoubleArray>>,
         bbox: BoundingBox? = null
     ) : this(coordinates.map { it.map(DoubleArray::toLngLat) }, bbox)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as Polygon
-
-        if (coordinates != other.coordinates) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = coordinates.hashCode()
 }
 
-class MultiPolygon @JvmOverloads constructor(val coordinates: List<List<List<Position>>>, bbox: BoundingBox? = null) :
-    Geometry(bbox) {
+data class MultiPolygon @JvmOverloads constructor(
+    val coordinates: List<List<List<Position>>>,
+    override val bbox: BoundingBox? = null
+) :
+    Geometry() {
     @JvmOverloads
     constructor(vararg coordinates: List<List<Position>>, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
@@ -165,36 +133,13 @@ class MultiPolygon @JvmOverloads constructor(val coordinates: List<List<List<Pos
         coordinates: Array<Array<Array<DoubleArray>>>,
         bbox: BoundingBox? = null
     ) : this(coordinates.map { ring -> ring.map { it.map(DoubleArray::toLngLat) } }, bbox)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as MultiPolygon
-
-        if (coordinates != other.coordinates) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = coordinates.hashCode()
 }
 
-class GeometryCollection @JvmOverloads constructor(val geometries: List<Geometry>, bbox: BoundingBox? = null) :
-    Geometry(bbox), Collection<Geometry> by geometries {
+data class GeometryCollection @JvmOverloads constructor(
+    val geometries: List<Geometry>,
+    override val bbox: BoundingBox? = null
+) :
+    Geometry(), Collection<Geometry> by geometries {
     @JvmOverloads
     constructor(vararg geometries: Geometry, bbox: BoundingBox? = null) : this(geometries.toList(), bbox)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as GeometryCollection
-
-        if (geometries != other.geometries) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int = geometries.hashCode()
 }

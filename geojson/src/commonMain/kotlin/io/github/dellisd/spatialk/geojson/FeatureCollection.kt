@@ -17,8 +17,8 @@ import kotlin.jvm.JvmStatic
  *
  * @property features The collection of [Feature] objects stored in this collection
  */
-class FeatureCollection @JvmOverloads constructor(
-    val features: List<Feature> = mutableListOf(),
+data class FeatureCollection @JvmOverloads constructor(
+    val features: List<Feature> = emptyList(),
     override val bbox: BoundingBox? = null
 ) :
     Collection<Feature> by features, GeoJson {

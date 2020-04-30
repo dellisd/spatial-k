@@ -98,8 +98,8 @@ internal object GeometrySerializer : KSerializer<Geometry> {
                 }
             }
 
-            if (value.bbox != null) {
-                "bbox" to output.json.toJson(BoundingBox.serializer(), value.bbox)
+            value.bbox?.let {
+                "bbox" to output.json.toJson(BoundingBox.serializer(), it)
             }
         }
 
