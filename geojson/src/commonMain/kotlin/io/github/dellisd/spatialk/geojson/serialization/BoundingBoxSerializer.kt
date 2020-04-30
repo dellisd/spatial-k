@@ -56,6 +56,7 @@ internal object BoundingBoxSerializer : KSerializer<BoundingBox> {
     override fun serialize(encoder: Encoder, value: BoundingBox) {
         val output = encoder as? JsonOutput ?: throw SerializationException("This class can only be saved as JSON")
 
+        println(value)
         val includeAltitudes = value.southwest.altitude != null && value.northeast.altitude != null
         val array = jsonArray {
             +(value.southwest.longitude as Double?)
