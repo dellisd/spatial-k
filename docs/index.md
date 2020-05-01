@@ -1,3 +1,7 @@
+<p align="center">
+    <img width="200" src="images/colour.svg" alt="Spatial K Logo" title="Part of a complete breakfast">
+</p>
+
 # Spatial K
 
 Spatial K is a set of libraries for working with geospatial data in Kotlin inlcuding an implementation of GeoJson and 
