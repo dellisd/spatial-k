@@ -8,10 +8,12 @@ copyright: 'Copyright &copy; 2020 Derek Ellis'
 remote_branch: gh-pages
 
 nav:
-  - 'Overview': index.md
+  - 'Introduction': index.md
   - 'GeoJson': geojson.md
   - 'GeoJson DSL': geojson-dsl.md
-  - 'Turf': turf.md
+  - 'Turf':
+      - 'Overview':  turf.md
+      - 'Ported Functions': ported-functions.md
   - 'API':
       - 'geojson': api/geojson/index.md
       - 'geojson-dsl': api/geojson-dsl/index.md
@@ -19,6 +21,8 @@ nav:
 
 theme:
   name: 'material'
+  favicon: images/logo.png
+  logo: images/logo.png
   palette:
     primary: 'green'
     accent: 'blue'
