@@ -40,7 +40,5 @@ class MeasurementTests {
         }
 
         assertEquals(42.560767589197006, length(lineString, Units.Kilometers))
-
-
     }
 }
