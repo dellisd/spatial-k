@@ -16,7 +16,7 @@ You can view porting progress for the next release [here](https://github.com/del
 - [x] [`destination`](../api/turf/io.github.dellisd.spatialk.turf/destination/)
 - [x] [`distance`](../api/turf/io.github.dellisd.spatialk.turf/distance/)
 - [ ] `envelope`
-- [ ] `length`
+- [x] [`length`](../api/turf/io.github.dellisd.spatialk.turf/length/)
 - [ ] `midpoint`
 - [ ] `pointOnFeature`
 - [ ] `polygonTangents`
