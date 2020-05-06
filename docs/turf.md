@@ -28,7 +28,7 @@ Turf functions are available as top-level functions in Kotlin, or as static memb
 === "Java"
     ```java
     Position point = new LngLat(-75.0, 45.0);
-    Position result = Measurement.destination(point, 100.0, 0.0);
+    Position result = TurfMeasurement.destination(point, 100.0, 0.0);
     ```
     
 ## Turf Functions

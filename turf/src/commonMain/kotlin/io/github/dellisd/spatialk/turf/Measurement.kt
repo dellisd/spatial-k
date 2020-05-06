@@ -1,4 +1,4 @@
-@file:JvmName("Measurement")
+@file:JvmName("TurfMeasurement")
 @file:Suppress("TooManyFunctions")
 
 package io.github.dellisd.spatialk.turf
@@ -378,4 +378,62 @@ fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Dou
 
     val a = sin(dLat / 2).pow(2) + sin(dLon / 2).pow(2) * cos(lat1) * cos(lat2)
     return radiansToLength(2 * atan2(sqrt(a), sqrt(1 - a)), units)
+}
+
+/**
+ * Calculates the length of the given [LineString] in the given [Units].
+ *
+ * @param lineString The geometry to measure
+ * @param units The unit of measurement to return the length in
+ * @return The length of the geometry in [units].
+ */
+fun length(lineString: LineString, units: Units): Double = length(lineString.coordinates, units)
+
+/**
+ * Calculates the combined length of all [LineString]s from the given [MultiLineString] in the given [Units].
+ *
+ * @param multiLineString The geometry to measure
+ * @param units The unit of measurement to return the length in
+ * @return The length of the geometry in [units].
+ */
+fun length(multiLineString: MultiLineString, units: Units): Double =
+    multiLineString.coordinates.fold(0.0) { acc, coords -> acc + length(coords, units) }
+
+/**
+ * Calculates the length of perimeter the given [Polygon] in the given [Units].
+ * Any holes in the polygon will be included in the length.
+ *
+ * @param polygon The geometry to measure
+ * @param units The unit of measurement to return the length in
+ * @return The length of the geometry in [units].
+ */
+fun length(polygon: Polygon, units: Units): Double =
+    polygon.coordinates.fold(0.0) { acc, ring -> acc + length(ring, units) }
+
+/**
+ * Calculates the combined length of perimeter the [Polygon]s in the [MultiPolygon] in the given [Units].
+ * Any holes in the polygons will be included in the length.
+ *
+ * @param multiPolygon The geometry to measure
+ * @param units The unit of measurement to return the length in
+ * @return The length of the geometry in [units].
+ */
+fun length(multiPolygon: MultiPolygon, units: Units): Double =
+    multiPolygon.coordinates.fold(0.0) { total, polygon ->
+        total + polygon.fold(0.0) { acc, ring ->
+            acc + length(
+                ring,
+                units
+            )
+        }
+    }
+
+private fun length(coords: List<Position>, units: Units): Double {
+    var travelled = 0.0
+    var prevCoords = coords[0]
+    for (i in 1 until coords.size) {
+        travelled += distance(prevCoords, coords[i], units)
+        prevCoords = coords[i]
+    }
+    return travelled
 }

@@ -8,8 +8,9 @@ apply plugin: 'maven-publish'
 kotlin {
     jvm()
     js {
-        browser {
-        }
+//        browser {
+//
+//        }
         nodejs {
         }
     }
@@ -63,5 +64,14 @@ kotlin {
         }
     }
 }
+
+
+task copyTestResourcesForJs(type: Copy) {
+    from "$projectDir/src/commonTest/resources"
+    into "${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-test/src/commonTest/resources"
+}
+
+jsNodeTest.dependsOn copyTestResourcesForJs
+
 
 apply from: rootProject.file("dokka.gradle")

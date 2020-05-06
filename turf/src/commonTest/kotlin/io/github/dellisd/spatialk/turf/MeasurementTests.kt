@@ -2,7 +2,10 @@
 
 package io.github.dellisd.spatialk.turf
 
+import io.github.dellisd.spatialk.geojson.LineString
 import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.toGeometry
+import io.github.dellisd.spatialk.turf.utils.readResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -14,8 +17,10 @@ class MeasurementTests {
         val end = LngLat(20.0, 60.0)
 
         assertEquals(37.75, bearing(start, end).coerceIn(37.75, 37.75), "Initial Bearing")
-        assertEquals(120.01, bearing(start, end, final = true)
-            .coerceIn(120.01, 120.01), "Final Bearing")
+        assertEquals(
+            120.01, bearing(start, end, final = true)
+                .coerceIn(120.01, 120.01), "Final Bearing"
+        )
     }
 
     @Test
@@ -25,5 +30,12 @@ class MeasurementTests {
 
         assertEquals(-75.0, longitude.coerceIn(-75.0, -75.0))
         assertEquals(39.000281, latitude.coerceIn(39.000281, 39.000281))
+    }
+
+    @Test
+    fun testLength() {
+        val geometry = readResource("measurement/length/lineString.json").toGeometry<LineString>()
+
+        assertEquals(42.560767589197006, length(geometry, Units.Kilometers))
     }
 }
