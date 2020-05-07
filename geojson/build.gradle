@@ -18,7 +18,7 @@ kotlin {
     // For Linux, should be changed to e.g. linuxX64
     // For MacOS, should be changed to e.g. macosX64
     // For Windows, should be changed to e.g. mingwX64
-    mingwX64("native")
+    mingwX64("mingw")
     linuxX64("linux")
     macosX64("macos")
     ios("ios")
@@ -66,13 +66,11 @@ kotlin {
         }
         nativeTest {
         }
+    }
 
-        configure([linuxMain, macosMain, iosMain]) {
-            dependsOn nativeMain
-        }
-        configure([linuxTest, macosTest, iosTest]) {
-            dependsOn nativeTest
-        }
+    configure([targets.linux, targets.macos, targets.iosArm64, targets.iosX64, targets.mingw]) {
+        compilations.main.source(sourceSets.nativeMain)
+        compilations.test.source(sourceSets.nativeTest)
     }
 }
 
