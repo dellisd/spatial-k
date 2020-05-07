@@ -7,7 +7,6 @@ apply plugin: "com.vanniktech.maven.publish"
 apply plugin: 'maven-publish'
 
 kotlin {
-
     jvm()
     js {
         browser {
@@ -19,7 +18,11 @@ kotlin {
     // For Linux, should be changed to e.g. linuxX64
     // For MacOS, should be changed to e.g. macosX64
     // For Windows, should be changed to e.g. mingwX64
+    linuxX64("native")
     mingwX64("mingw")
+    macosX64("macos")
+    ios("ios")
+
     sourceSets {
         commonMain {
             dependencies {
@@ -56,12 +59,19 @@ kotlin {
                 implementation kotlin('test-js')
             }
         }
-        mingwMain {
+        nativeMain {
             dependencies {
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
             }
         }
-        mingwTest {
+        nativeTest {
+        }
+
+        configure([macosMain, iosMain, mingwMain]) {
+            dependsOn nativeMain
+        }
+        configure([macosTest, iosTest, mingwTest]) {
+            dependsOn nativeTest
         }
     }
 }
