@@ -42,3 +42,7 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 ```
+
+## Supported targets
+
+Spatial K currently supports the following platform targets: `jvm`, `js`, `mingwX64`, `linuxX64`, `macosX64`, `iosX64`, `iosArm64`, and `iosArm32`.

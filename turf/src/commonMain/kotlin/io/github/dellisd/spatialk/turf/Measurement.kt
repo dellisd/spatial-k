@@ -88,18 +88,6 @@ fun area(geometry: Geometry): Double {
     }
 }
 
-/**
- * Takes multiple geometries and returns their area in square meters.
- *
- * @param geometry input geometries
- * @return area in square meters
- */
-fun area(geometry: Iterable<Geometry>): Double = geometry.fold(0.0) { acc, geom ->
-    acc + area(
-        geom
-    )
-}
-
 private fun calculateArea(geometry: Geometry): Double {
     return when (geometry) {
         is Polygon -> polygonArea(geometry.coordinates)
@@ -122,6 +110,8 @@ private fun polygonArea(coordinates: List<List<Position>>): Double {
     }
     return total
 }
+
+const val AREA_EARTH_RADIUS = 6378137
 
 /**
  * Calculates the approximate area of the [polygon][coordinates] were it projected onto the earth.
@@ -163,11 +153,9 @@ private fun ringArea(coordinates: List<Position>): Double {
             p1 = coordinates[lowerIndex]
             p2 = coordinates[middleIndex]
             p3 = coordinates[upperIndex]
-            total = (radians(p3.longitude) - radians(
-                p1.longitude
-            )) * sin(radians(p2.latitude))
+            total += (radians(p3.longitude) - radians(p1.longitude)) * sin(radians(p2.latitude))
         }
-        total = total * EARTH_RADIUS * EARTH_RADIUS / 2
+        total = total * AREA_EARTH_RADIUS * AREA_EARTH_RADIUS / 2
     }
     return total
 }
@@ -286,9 +274,10 @@ fun bboxPolygon(bbox: BoundingBox): Polygon {
     return Polygon(
         listOf(
             bbox.southwest,
-            LngLat(bbox.southwest.longitude, bbox.northeast.latitude),
+            LngLat(bbox.northeast.longitude, bbox.southwest.latitude),
             bbox.northeast,
-            LngLat(bbox.northeast.longitude, bbox.southwest.latitude)
+            LngLat(bbox.southwest.longitude, bbox.northeast.latitude),
+            bbox.southwest
         )
     )
 }

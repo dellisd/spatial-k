@@ -2,9 +2,15 @@
 
 package io.github.dellisd.spatialk.turf
 
+import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.LineString
 import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.Point
+import io.github.dellisd.spatialk.geojson.Polygon
+import io.github.dellisd.spatialk.geojson.dsl.geometryCollection
+import io.github.dellisd.spatialk.geojson.dsl.polygon
 import io.github.dellisd.spatialk.geojson.toGeometry
+import io.github.dellisd.spatialk.turf.utils.assertDoubleEquals
 import io.github.dellisd.spatialk.turf.utils.readResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -12,15 +18,73 @@ import kotlin.test.assertEquals
 class MeasurementTests {
 
     @Test
+    fun testAlong() {
+        val geometry = readResource("measurement/along/lineString.json").toGeometry<LineString>()
+
+        assertEquals(LngLat(-79.4179672644524, 43.636029126566484), along(geometry, 1.0))
+        assertEquals(LngLat(-79.39973865844715, 43.63797943080659), along(geometry, 2.5))
+        assertEquals(LngLat(-79.37493324279785, 43.64470906117713), along(geometry, 100.0))
+        assertEquals(geometry.coordinates.last(), along(geometry, 100.0))
+    }
+
+    @Test
+    fun testArea() {
+        val geometry = readResource("measurement/area/polygon.json").toGeometry<Polygon>()
+        assertDoubleEquals(236446.506, area(geometry), 0.001, "Single polygon")
+
+        val other = readResource("measurement/area/other.json").toGeometry<Polygon>()
+        val collection = geometryCollection {
+            +geometry
+            +other
+        }
+        assertDoubleEquals(4173831.866, area(collection), 0.001, "Geometry Collection")
+    }
+
+    @Test
+    fun testBbox() {
+        val point = readResource("measurement/bbox/point.json").toGeometry<Point>()
+        assertEquals(
+            BoundingBox(LngLat(point.longitude, point.latitude), LngLat(point.longitude, point.latitude)),
+            bbox(point)
+        )
+
+        val lineString = readResource("measurement/bbox/lineString.json").toGeometry<LineString>()
+        assertEquals(
+            BoundingBox(-79.376220703125, 43.65197548731187, -73.58642578125, 45.4986468234261),
+            bbox(lineString)
+        )
+
+        val polygon = readResource("measurement/bbox/polygon.json").toGeometry<Polygon>()
+        assertEquals(
+            BoundingBox(-64.44580078125, 45.9511496866914, -61.973876953125, 47.07012182383309),
+            bbox(polygon)
+        )
+    }
+
+    @Test
+    fun testBboxPolygon() {
+        val bbox = BoundingBox(12.1, 34.3, 56.5, 78.7)
+
+        val polygon = polygon {
+            ring {
+                +LngLat(12.1, 34.3)
+                +LngLat(56.5, 34.3)
+                +LngLat(56.5, 78.7)
+                +LngLat(12.1, 78.7)
+                complete()
+            }
+        }
+
+        assertEquals(polygon, bboxPolygon(bbox))
+    }
+
+    @Test
     fun testBearing() {
         val start = LngLat(-75.0, 45.0)
         val end = LngLat(20.0, 60.0)
 
-        assertEquals(37.75, bearing(start, end).coerceIn(37.75, 37.75), "Initial Bearing")
-        assertEquals(
-            120.01, bearing(start, end, final = true)
-                .coerceIn(120.01, 120.01), "Final Bearing"
-        )
+        assertDoubleEquals(37.75, bearing(start, end), 0.01, "Initial Bearing")
+        assertDoubleEquals(120.01, bearing(start, end, final = true), 0.01, "Final Bearing")
     }
 
     @Test
@@ -28,8 +92,16 @@ class MeasurementTests {
         val point0 = LngLat(-75.0, 38.10096062273525)
         val (longitude, latitude) = destination(point0, 100.0, 0.0)
 
-        assertEquals(-75.0, longitude.coerceIn(-75.0, -75.0))
-        assertEquals(39.000281, latitude.coerceIn(39.000281, 39.000281))
+        assertDoubleEquals(-75.0, longitude, 0.1)
+        assertDoubleEquals(39.000281, latitude, 0.000001)
+    }
+
+    @Test
+    fun testDistance() {
+        val a = LngLat(-73.67, 45.48)
+        val b = LngLat(-79.48, 43.68)
+
+        assertEquals(501.64563403765925, distance(a, b))
     }
 
     @Test
