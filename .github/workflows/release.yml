@@ -7,6 +7,17 @@ on:
       - "*"
 
 jobs:
+  macos-build:
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish artifacts
+        env:
+          SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+        run: ./gradlew uploadArchives --no-daemon --no-parallel
+
   windows-build:
     runs-on: windows-latest
 
@@ -16,4 +27,4 @@ jobs:
       env:
         SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
         SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}   
-      run: ./gradlew uploadArchives --no-daemon --no-parallel
+      run: ./gradlew publishMingwPublicationToMavenRepository --no-daemon --no-parallel
