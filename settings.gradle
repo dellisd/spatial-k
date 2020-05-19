@@ -1,5 +1,3 @@
 rootProject.name = 'spatial-k'
 
 include "geojson", "geojson-dsl", "turf"
-
-enableFeaturePreview('GRADLE_METADATA')

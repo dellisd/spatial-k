@@ -2,9 +2,6 @@ plugins {
     id 'org.jetbrains.kotlin.multiplatform'
 }
 
-apply plugin: "com.vanniktech.maven.publish"
-apply plugin: 'maven-publish'
-
 kotlin {
     jvm()
     js {
@@ -77,3 +74,4 @@ kotlin {
 }
 
 apply from: rootProject.file("dokka.gradle")
+apply plugin: "com.vanniktech.maven.publish"

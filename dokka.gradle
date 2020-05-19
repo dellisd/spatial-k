@@ -4,5 +4,10 @@ dokka {
     outputDirectory = "$rootDir/docs/api"
     outputFormat = "gfm"
 
-    impliedPlatforms = ["Common"]
+    multiplatform {
+        common {}
+        js {}
+        jvm {}
+        "native" {}
+    }
 }
