@@ -75,9 +75,16 @@ task copyTestResourcesForJs(type: Copy) {
     into "${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-test/src/commonTest/resources"
 }
 
-jsNodeTest.dependsOn copyTestResourcesForJs
+task copyTestResourcesForJsIr(type: Copy) {
+    from "$projectDir/src/commonTest/resources"
+    into "${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-jsIr-test/src/commonTest/resources"
+}
 
-jsBrowserTest.enabled = false
+jsIrNodeTest.dependsOn copyTestResourcesForJsIr
+legacyjsTest.dependsOn copyTestResourcesForJs
+
+jsIrBrowserTest.enabled = false
+legacyjsBrowserTest.enabled = false
 
 apply from: rootProject.file("dokka.gradle")
 apply plugin: "com.vanniktech.maven.publish"
