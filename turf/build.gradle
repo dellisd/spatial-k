@@ -72,7 +72,7 @@ kotlin {
 
 task copyTestResourcesForJs(type: Copy) {
     from "$projectDir/src/commonTest/resources"
-    into "${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-test/src/commonTest/resources"
+    into "${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-jsLegacy-test/src/commonTest/resources"
 }
 
 task copyTestResourcesForJsIr(type: Copy) {
@@ -81,10 +81,10 @@ task copyTestResourcesForJsIr(type: Copy) {
 }
 
 jsIrNodeTest.dependsOn copyTestResourcesForJsIr
-legacyjsTest.dependsOn copyTestResourcesForJs
+jsLegacyTest.dependsOn copyTestResourcesForJs
 
 jsIrBrowserTest.enabled = false
-legacyjsBrowserTest.enabled = false
+jsLegacyBrowserTest.enabled = false
 
 apply from: rootProject.file("dokka.gradle")
 apply plugin: "com.vanniktech.maven.publish"
