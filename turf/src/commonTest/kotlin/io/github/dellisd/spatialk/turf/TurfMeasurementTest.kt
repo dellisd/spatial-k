@@ -15,7 +15,7 @@ import io.github.dellisd.spatialk.turf.utils.readResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MeasurementTests {
+class TurfMeasurementTest {
 
     @Test
     fun testAlong() {
@@ -109,5 +109,16 @@ class MeasurementTests {
         val geometry = readResource("measurement/length/lineString.json").toGeometry<LineString>()
 
         assertEquals(42.560767589197006, length(geometry, Units.Kilometers))
+    }
+
+    @Test
+    fun testMidpoint() {
+        val point1 = LngLat(-79.3801, 43.6463)
+        val point2 = LngLat(-74.0071, 40.7113)
+
+        val midpoint = midpoint(point1, point2)
+
+        assertDoubleEquals(-76.6311, midpoint.longitude, 0.0001)
+        assertDoubleEquals(42.2101, midpoint.latitude, 0.0001)
     }
 }
