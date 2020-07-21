@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Publish Website
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+    tags: 
+      - "*"
+
+jobs:
+  publish-website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      
+      - name: Build Dokka docs
+        run: ./gradlew dokka --no-daemon --no-parallel
+      
+      - name: Build mkdocs
+        run: |
+          pip3 install mkdocs-material
+          mkdocs build
+        
+      - name: Deploy 🚀
+        if: success()
+        uses: JamesIves/github-pages-deploy-action@3.5.8
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: site 
+          SINGLE_COMMIT: true
