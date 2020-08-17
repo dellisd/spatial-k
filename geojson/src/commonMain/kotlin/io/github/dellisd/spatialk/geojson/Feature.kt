@@ -1,14 +1,15 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.FeatureSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.boolean
-import kotlinx.serialization.json.content
 import kotlinx.serialization.json.double
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.collections.set
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
@@ -50,11 +51,11 @@ class Feature @JvmOverloads constructor(
         _properties[key] = value
     }
 
-    fun getStringProperty(key: String): String? = properties[key]?.content
+    fun getStringProperty(key: String): String? = properties[key]?.jsonPrimitive?.content
 
-    fun getNumberProperty(key: String): Number? = properties[key]?.double
+    fun getNumberProperty(key: String): Number? = properties[key]?.jsonPrimitive?.double
 
-    fun getBooleanProperty(key: String): Boolean? = properties[key]?.boolean
+    fun getBooleanProperty(key: String): Boolean? = properties[key]?.jsonPrimitive?.boolean
 
     fun getJsonProperty(key: String): JsonElement? = properties[key]
 
@@ -96,22 +97,20 @@ class Feature @JvmOverloads constructor(
     operator fun component3() = id
     operator fun component4() = bbox
 
-    @UnstableDefault
     override fun toString(): String = json
 
-    @UnstableDefault
     @Suppress("INAPPLICABLE_JVM_NAME")
     @get:JvmName("toJson")
     override val json: String
-        get() = Json.stringify(serializer(), this)
+        get() = Json.encodeToString(serializer(), this)
 
     companion object {
+        @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
         @JvmStatic
         fun serializer(): KSerializer<Feature> = FeatureSerializer
 
-        @UnstableDefault
         @JvmStatic
         @JvmName("fromJson")
-        fun String.toFeature(): Feature = Json.parse(serializer(), this)
+        fun String.toFeature(): Feature = Json.decodeFromString(serializer(), this)
     }
 }

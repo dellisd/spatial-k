@@ -1,25 +1,25 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.GeometrySerializer
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
 private fun DoubleArray.toLngLat() = LngLat(this[0], this[1], this.getOrNull(2))
 
+@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 @Serializable(with = GeometrySerializer::class)
 sealed class Geometry : GeoJson {
     abstract override val bbox: BoundingBox?
 
-    @UnstableDefault
     @Suppress("INAPPLICABLE_JVM_NAME")
     @get:JvmName("toJson")
     override val json: String
-        get() = Json.stringify(serializer(), this)
+        get() = Json.encodeToString(serializer(), this)
 
-    @UnstableDefault
     override fun toString(): String = json
 }
 

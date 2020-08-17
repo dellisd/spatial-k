@@ -5,7 +5,7 @@ import io.github.dellisd.spatialk.geojson.FeatureCollection
 import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
 import io.github.dellisd.spatialk.geojson.LngLat
 import io.github.dellisd.spatialk.geojson.Point
-import kotlinx.serialization.json.JsonLiteral
+import kotlinx.serialization.json.JsonPrimitive
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -17,8 +17,8 @@ class FeatureCollectionSerializationTests {
         val geometry = Point(LngLat(12.3, 45.6))
         val feature = Feature(
             geometry, mapOf(
-                "size" to JsonLiteral(45.1),
-                "name" to JsonLiteral("Nowhere")
+                "size" to JsonPrimitive(45.1),
+                "name" to JsonPrimitive("Nowhere")
             )
         )
         val collection = FeatureCollection(feature, feature)
@@ -39,8 +39,8 @@ class FeatureCollectionSerializationTests {
         val geometry = Point(LngLat(12.3, 45.6))
         val feature = Feature(
             geometry, properties = mapOf(
-                "size" to JsonLiteral(45.1),
-                "name" to JsonLiteral("Nowhere")
+                "size" to JsonPrimitive(45.1),
+                "name" to JsonPrimitive("Nowhere")
             )
         )
         val collection = FeatureCollection(feature, feature)

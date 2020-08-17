@@ -2,48 +2,55 @@ package io.github.dellisd.spatialk.geojson.serialization
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.LngLat
-import kotlinx.serialization.Decoder
-import kotlinx.serialization.Encoder
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialDescriptor
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.Serializer
-import kotlinx.serialization.StructureKind
-import kotlinx.serialization.json.JsonInput
-import kotlinx.serialization.json.JsonOutput
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.StructureKind
+import kotlinx.serialization.descriptors.buildSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 
-@Serializer(forClass = BoundingBox::class)
+@ExperimentalSerializationApi
+@InternalSerializationApi
 internal object BoundingBoxSerializer : KSerializer<BoundingBox> {
     private const val ARRAY_SIZE_2D = 4
     private const val ARRAY_SIZE_3D = 6
 
     override val descriptor: SerialDescriptor
-        get() = SerialDescriptor("BoundingBox", StructureKind.LIST)
+        get() = buildSerialDescriptor("BoundingBox", StructureKind.LIST)
 
     @Suppress("MagicNumber")
     override fun deserialize(decoder: Decoder): BoundingBox {
-        val input = decoder as? JsonInput ?: throw SerializationException("This class can only be loaded from JSON")
-        val array = input.decodeJson().jsonArray
+        val input = decoder as? JsonDecoder ?: throw SerializationException("This class can only be loaded from JSON")
+        val array = input.decodeJsonElement().jsonArray
 
         return when (array.size) {
             ARRAY_SIZE_2D -> {
                 BoundingBox(
-                    LngLat(array.getPrimitive(0).double, array.getPrimitive(1).double),
-                    LngLat(array.getPrimitive(2).double, array.getPrimitive(3).double)
+                    LngLat(array[0].jsonPrimitive.double, array[1].jsonPrimitive.double),
+                    LngLat(array[2].jsonPrimitive.double, array[3].jsonPrimitive.double)
                 )
             }
             ARRAY_SIZE_3D -> {
                 BoundingBox(
                     LngLat(
-                        array.getPrimitive(0).double,
-                        array.getPrimitive(1).double,
-                        array.getPrimitiveOrNull(2)?.double
+                        array[0].jsonPrimitive.double,
+                        array[1].jsonPrimitive.double,
+                        array.getOrNull(2)?.jsonPrimitive?.double
                     ),
                     LngLat(
-                        array.getPrimitive(3).double,
-                        array.getPrimitive(4).double,
-                        array.getPrimitiveOrNull(5)?.double
+                        array[3].jsonPrimitive.double,
+                        array[4].jsonPrimitive.double,
+                        array.getOrNull(5)?.jsonPrimitive?.double
                     )
                 )
             }
@@ -54,24 +61,24 @@ internal object BoundingBoxSerializer : KSerializer<BoundingBox> {
     }
 
     override fun serialize(encoder: Encoder, value: BoundingBox) {
-        val output = encoder as? JsonOutput ?: throw SerializationException("This class can only be saved as JSON")
+        val output = encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
 
         println(value)
         val includeAltitudes = value.southwest.altitude != null && value.northeast.altitude != null
-        val array = jsonArray {
-            +(value.southwest.longitude as Double?)
-            +(value.southwest.latitude as Double?)
+        val array = buildJsonArray {
+            add((value.southwest.longitude as Double?))
+            add(value.southwest.latitude as Double?)
             if (includeAltitudes) {
-                +value.southwest.altitude
+                add(value.southwest.altitude)
             }
 
-            +(value.northeast.longitude as Double?)
-            +(value.northeast.latitude as Double?)
+            add(value.northeast.longitude as Double?)
+            add(value.northeast.latitude as Double?)
             if (includeAltitudes) {
-                +value.northeast.altitude
+                add(value.northeast.altitude)
             }
         }
 
-        output.encodeJson(array)
+        output.encodeJsonElement(array)
     }
 }

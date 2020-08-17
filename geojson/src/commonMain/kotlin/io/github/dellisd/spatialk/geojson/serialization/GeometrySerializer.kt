@@ -10,99 +10,163 @@ import io.github.dellisd.spatialk.geojson.MultiPolygon
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
-import kotlinx.serialization.Decoder
-import kotlinx.serialization.Encoder
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.PolymorphicKind
-import kotlinx.serialization.SerialDescriptor
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.Serializer
-import kotlinx.serialization.builtins.list
-import kotlinx.serialization.json.JsonInput
-import kotlinx.serialization.json.JsonLiteral
-import kotlinx.serialization.json.JsonOutput
-import kotlinx.serialization.json.content
-import kotlinx.serialization.json.json
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.descriptors.PolymorphicKind
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
+@InternalSerializationApi
+@ExperimentalSerializationApi
 @Serializer(forClass = Geometry::class)
+@Suppress("LongMethod")
 internal object GeometrySerializer : KSerializer<Geometry> {
     override val descriptor: SerialDescriptor
-        get() = SerialDescriptor("Geometry", PolymorphicKind.SEALED)
+        get() = buildSerialDescriptor("Geometry", PolymorphicKind.SEALED)
 
     override fun deserialize(decoder: Decoder): Geometry {
-        val input = decoder as? JsonInput ?: throw SerializationException("This class can only be loaded from JSON")
+        val input = decoder as? JsonDecoder ?: throw SerializationException("This class can only be loaded from JSON")
 
-        val tree = input.decodeJson().jsonObject
+        val tree = input.decodeJsonElement().jsonObject
         val bbox = tree["bbox"]?.let {
-            input.json.fromJson(BoundingBoxSerializer, it)
+            input.json.decodeFromJsonElement(BoundingBoxSerializer, it)
         }
 
-        return when (val type = tree["type"]?.content) {
+        return when (val type = tree["type"]?.jsonPrimitive?.content) {
             "Point" -> {
-                Point(input.json.fromJson(Position.serializer(), tree["coordinates"]!!), bbox)
+                Point(input.json.decodeFromJsonElement(Position.serializer(), tree["coordinates"]!!), bbox)
             }
             "MultiPoint" -> {
-                MultiPoint(input.json.fromJson(Position.serializer().list, tree["coordinates"]!!), bbox)
+                MultiPoint(
+                    input.json.decodeFromJsonElement(
+                        ListSerializer(Position.serializer()),
+                        tree["coordinates"]!!
+                    ), bbox
+                )
             }
             "LineString" -> {
-                LineString(input.json.fromJson(Position.serializer().list, tree["coordinates"]!!), bbox)
+                LineString(
+                    input.json.decodeFromJsonElement(
+                        ListSerializer(Position.serializer()),
+                        tree["coordinates"]!!
+                    ), bbox
+                )
             }
             "MultiLineString" -> {
-                MultiLineString(input.json.fromJson(Position.serializer().list.list, tree["coordinates"]!!), bbox)
+                MultiLineString(
+                    input.json.decodeFromJsonElement(
+                        ListSerializer(ListSerializer(Position.serializer())),
+                        tree["coordinates"]!!
+                    ), bbox
+                )
             }
             "Polygon" -> {
-                Polygon(input.json.fromJson(Position.serializer().list.list, tree["coordinates"]!!), bbox)
+                Polygon(
+                    input.json.decodeFromJsonElement(
+                        ListSerializer(ListSerializer(Position.serializer())),
+                        tree["coordinates"]!!
+                    ), bbox
+                )
             }
             "MultiPolygon" -> {
-                MultiPolygon(input.json.fromJson(Position.serializer().list.list.list, tree["coordinates"]!!), bbox)
+                MultiPolygon(
+                    input.json.decodeFromJsonElement(
+                        ListSerializer(ListSerializer(ListSerializer(Position.serializer()))),
+                        tree["coordinates"]!!
+                    ), bbox
+                )
             }
             "GeometryCollection" -> {
-                GeometryCollection(input.json.fromJson(Geometry.serializer().list, tree["geometries"]!!), bbox)
+                GeometryCollection(
+                    input.json.decodeFromJsonElement(
+                        ListSerializer(Geometry.serializer()),
+                        tree["geometries"]!!
+                    ), bbox
+                )
             }
             else -> throw SerializationException("Unknown Geometry type $type")
         }
     }
 
     override fun serialize(encoder: Encoder, value: Geometry) {
-        val output = encoder as? JsonOutput ?: throw SerializationException("This class can only be saved as JSON")
+        val output = encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
 
-        val tree = json {
+        val tree = buildJsonObject {
             when (value) {
                 is Point -> {
-                    "type" to JsonLiteral("Point")
-                    "coordinates" to output.json.toJson(Position.serializer(), value.coordinates)
+                    put("type", JsonPrimitive("Point"))
+                    put(
+                        "coordinates",
+                        output.json.encodeToJsonElement(Position.serializer(), value.coordinates)
+                    )
                 }
                 is MultiPoint -> {
-                    "type" to JsonLiteral("MultiPoint")
-                    "coordinates" to output.json.toJson(Position.serializer().list, value.coordinates)
+                    put("type", JsonPrimitive("MultiPoint"))
+                    put(
+                        "coordinates",
+                        output.json.encodeToJsonElement(ListSerializer(Position.serializer()), value.coordinates)
+                    )
                 }
                 is LineString -> {
-                    "type" to JsonLiteral("LineString")
-                    "coordinates" to output.json.toJson(Position.serializer().list, value.coordinates)
+                    put("type", JsonPrimitive("LineString"))
+                    put(
+                        "coordinates",
+                        output.json.encodeToJsonElement(ListSerializer(Position.serializer()), value.coordinates)
+                    )
                 }
                 is MultiLineString -> {
-                    "type" to JsonLiteral("MultiLineString")
-                    "coordinates" to output.json.toJson(Position.serializer().list.list, value.coordinates)
+                    put("type", JsonPrimitive("MultiLineString"))
+                    put(
+                        "coordinates", output.json.encodeToJsonElement(
+                            ListSerializer(ListSerializer(Position.serializer())),
+                            value.coordinates
+                        )
+                    )
                 }
                 is Polygon -> {
-                    "type" to JsonLiteral("Polygon")
-                    "coordinates" to output.json.toJson(Position.serializer().list.list, value.coordinates)
+                    put("type", JsonPrimitive("Polygon"))
+                    put(
+                        "coordinates", output.json.encodeToJsonElement(
+                            ListSerializer(ListSerializer(Position.serializer())),
+                            value.coordinates
+                        )
+                    )
                 }
                 is MultiPolygon -> {
-                    "type" to JsonLiteral("MultiPolygon")
-                    "coordinates" to output.json.toJson(Position.serializer().list.list.list, value.coordinates)
+                    put("type", JsonPrimitive("MultiPolygon"))
+                    put(
+                        "coordinates", output.json.encodeToJsonElement(
+                            ListSerializer(ListSerializer(ListSerializer(Position.serializer()))),
+                            value.coordinates
+                        )
+                    )
                 }
                 is GeometryCollection -> {
-                    "type" to JsonLiteral("GeometryCollection")
-                    "geometries" to output.json.toJson(Geometry.serializer().list, value.geometries)
+                    put("type", JsonPrimitive("GeometryCollection"))
+                    put(
+                        "geometries",
+                        output.json.encodeToJsonElement(ListSerializer(Geometry.serializer()), value.geometries)
+                    )
                 }
             }
 
             value.bbox?.let {
-                "bbox" to output.json.toJson(BoundingBox.serializer(), it)
+                put("bbox", output.json.encodeToJsonElement(BoundingBox.serializer(), it))
             }
         }
 
-        encoder.encodeJson(tree)
+        encoder.encodeJsonElement(tree)
     }
 }

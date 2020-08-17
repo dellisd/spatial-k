@@ -2,7 +2,6 @@ package io.github.dellisd.spatialk.geojson.dsl
 
 import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
 import io.github.dellisd.spatialk.geojson.LngLat
-import kotlinx.serialization.UnstableDefault
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -106,7 +105,6 @@ class GeoJsonDslTests {
 |{"type":"LineString","coordinates":[[45.0,45.0],[0.0,0.0]]},{"type":"Polygon","coordinates":[[[45.0,45.0],[0.0,0.0],
 |[12.0,12.0],[45.0,45.0]],[[4.0,4.0],[2.0,2.0],[3.0,3.0],[4.0,4.0]]]}]},"properties":{}}]}""".trimMargin()
 
-    @UnstableDefault
     @Test
     fun testDslConstruction() {
         assertEquals(collectionJson.toFeatureCollection(), collectionDsl)

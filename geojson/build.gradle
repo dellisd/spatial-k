@@ -21,10 +21,13 @@ kotlin {
     ios("ios")
 
     sourceSets {
+        all {
+            languageSettings.useExperimentalAnnotation("kotlin.RequiresOptIn")
+        }
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
-                api "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+                api "org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version"
             }
         }
         commonTest {

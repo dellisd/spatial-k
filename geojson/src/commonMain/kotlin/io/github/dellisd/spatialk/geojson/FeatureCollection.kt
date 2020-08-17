@@ -2,7 +2,6 @@ package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.FeatureCollectionSerializer
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
@@ -26,11 +25,10 @@ data class FeatureCollection @JvmOverloads constructor(
     @JvmOverloads
     constructor(vararg features: Feature, bbox: BoundingBox? = null) : this(features.toMutableList(), bbox)
 
-    @UnstableDefault
     @Suppress("INAPPLICABLE_JVM_NAME")
     @get:JvmName("toJson")
     override val json: String
-        get() = Json.stringify(serializer(), this)
+        get() = Json.encodeToString(serializer(), this)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -50,7 +48,6 @@ data class FeatureCollection @JvmOverloads constructor(
         return result
     }
 
-    @UnstableDefault
     override fun toString(): String = json
 
     companion object {
@@ -58,8 +55,7 @@ data class FeatureCollection @JvmOverloads constructor(
         fun serializer(): KSerializer<FeatureCollection> = FeatureCollectionSerializer
 
         @JvmStatic
-        @UnstableDefault
         @JvmName("fromJson")
-        fun String.toFeatureCollection() = Json.parse(serializer(), this)
+        fun String.toFeatureCollection() = Json.decodeFromString(serializer(), this)
     }
 }

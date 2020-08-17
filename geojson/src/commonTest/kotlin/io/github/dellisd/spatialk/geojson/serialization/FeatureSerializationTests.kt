@@ -5,12 +5,10 @@ import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.Feature.Companion.toFeature
 import io.github.dellisd.spatialk.geojson.LngLat
 import io.github.dellisd.spatialk.geojson.Point
-import kotlinx.serialization.UnstableDefault
-import kotlinx.serialization.json.JsonLiteral
+import kotlinx.serialization.json.JsonPrimitive
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@UnstableDefault
 @Suppress("MagicNumber")
 class FeatureSerializationTests {
 
@@ -20,8 +18,8 @@ class FeatureSerializationTests {
         val feature = Feature(
             geometry,
             mapOf(
-                "size" to JsonLiteral(45.1),
-                "name" to JsonLiteral("Nowhere")
+                "size" to JsonPrimitive(45.1),
+                "name" to JsonPrimitive("Nowhere")
             ),
             "001",
             BoundingBox(11.6, 45.1, 12.7, 45.7)
@@ -41,8 +39,8 @@ class FeatureSerializationTests {
         val feature = Feature(
             geometry,
             properties = mapOf(
-                "size" to JsonLiteral(45.1),
-                "name" to JsonLiteral("Nowhere")
+                "size" to JsonPrimitive(45.1),
+                "name" to JsonPrimitive("Nowhere")
             ),
             id = "001",
             bbox = BoundingBox(11.6, 45.1, 12.7, 45.7)

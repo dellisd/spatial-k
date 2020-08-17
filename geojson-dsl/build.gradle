@@ -24,7 +24,7 @@ kotlin {
             dependencies {
                 implementation kotlin('stdlib-common')
                 implementation project(":geojson")
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version"
             }
         }
         commonTest {
