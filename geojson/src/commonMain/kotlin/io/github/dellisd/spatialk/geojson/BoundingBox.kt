@@ -1,6 +1,8 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.BoundingBoxSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmOverloads
 
@@ -21,6 +23,7 @@ import kotlin.jvm.JvmOverloads
  * @property northeast The northeastern corner of the BoundingBox
  * @property southwest The southwestern corner of the BoundingBox
  */
+@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 @Serializable(with = BoundingBoxSerializer::class)
 data class BoundingBox @JvmOverloads constructor(val southwest: Position, val northeast: Position) {
     constructor(west: Double, south: Double, east: Double, north: Double) : this(

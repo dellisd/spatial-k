@@ -2,16 +2,23 @@ package io.github.dellisd.spatialk.geojson.serialization
 
 import io.github.dellisd.spatialk.geojson.LngLat
 import io.github.dellisd.spatialk.geojson.Position
-import kotlinx.serialization.Decoder
-import kotlinx.serialization.Encoder
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialDescriptor
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.Serializer
-import kotlinx.serialization.StructureKind
-import kotlinx.serialization.json.JsonInput
-import kotlinx.serialization.json.JsonOutput
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.StructureKind
+import kotlinx.serialization.descriptors.buildSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 
 /**
  * [KSerializer] implementation for implementations of the [Position] interface.
@@ -26,36 +33,39 @@ import kotlinx.serialization.json.jsonArray
  *
  * @see Position.Companion.serializer
  */
+@InternalSerializationApi
+@ExperimentalSerializationApi
 @Serializer(forClass = Position::class)
 internal object PositionSerializer : KSerializer<Position> {
     override val descriptor: SerialDescriptor
-        get() = SerialDescriptor("Position", StructureKind.LIST)
+        get() = buildSerialDescriptor("Position", StructureKind.LIST)
 
     override fun deserialize(decoder: Decoder): Position {
-        val input = decoder as? JsonInput ?: throw SerializationException("This class can only be loaded from JSON")
+        val input = decoder as? JsonDecoder ?: throw SerializationException("This class can only be loaded from JSON")
 
-        val array = input.decodeJson().jsonArray
+        val array = input.decodeJsonElement().jsonArray
 
         return LngLat(
-            array.getPrimitive(0).double,
-            array.getPrimitive(1).double,
-            array.getPrimitiveOrNull(2)?.double
+            array[0].jsonPrimitive.double,
+            array[1].jsonPrimitive.double,
+            array.getOrNull(2)?.jsonPrimitive?.double
         )
     }
 
     override fun serialize(encoder: Encoder, value: Position) {
-        val output = encoder as? JsonOutput ?: throw SerializationException("This class can only be saved as JSON")
+        val output = encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
 
-        val array = jsonArray {
-            +(value.longitude as Double?)
-            +(value.latitude as Double?)
+        val array = buildJsonArray {
+            add((value.longitude as Double?))
+            add((value.latitude as Double?))
             if (value.altitude != null) {
-                +value.altitude
+                add(value.altitude)
             }
         }
 
-        output.encodeJson(array)
+        output.encodeJsonElement(array)
     }
 }
 
+@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 fun Position.Companion.serializer(): KSerializer<Position> = PositionSerializer

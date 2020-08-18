@@ -1,6 +1,8 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.PositionSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmSynthetic
 
@@ -30,6 +32,7 @@ import kotlin.jvm.JvmSynthetic
  * @property longitude The longitude value of this position (or easting value for projected coordinates)
  * @property altitude Optionally, an altitude or elevation for this position
  */
+@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 @Serializable(with = PositionSerializer::class)
 interface Position {
     val latitude: Double
