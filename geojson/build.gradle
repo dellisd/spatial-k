@@ -26,8 +26,7 @@ kotlin {
         }
         commonMain {
             dependencies {
-                implementation kotlin('stdlib-common')
-                api "org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version"
+                api "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
             }
         }
         commonTest {
@@ -38,7 +37,6 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                implementation kotlin('stdlib-jdk8')
             }
         }
         jvmTest {
@@ -49,7 +47,6 @@ kotlin {
         }
         jsMain {
             dependencies {
-                implementation kotlin('stdlib-js')
             }
         }
         jsTest {
