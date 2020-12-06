@@ -2,7 +2,7 @@
 
 The `geojson` module contains an implementation of the [GeoJson standard](https://tools.ietf.org/html/rfc7946).
 
-In Kotlin projects, it's recommended to use the DSL for constructing GeoJson objects which is available in the [`geojson-dsl`](geojson-dsl/) module.
+In Kotlin projects, it's recommended to use the DSL for constructing GeoJson objects which is available in the [`geojson-dsl`](../geojson-dsl/) module.
 
 ## Installation 
 
@@ -38,7 +38,7 @@ type checks in Kotlin using a `when` block.
         is GeometryCollection -> "GeometryCollection"
     }
     ```
-All seven types of GeoJSON geometries are implemented and summarized below. Full documentation can be found in the [API pages](api/geojson/).
+All seven types of GeoJSON geometries are implemented and summarized below. Full documentation can be found in the [API pages](../api/geojson/).
 
 #### Position
 

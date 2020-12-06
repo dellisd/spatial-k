@@ -71,15 +71,15 @@ Use `round` or `Math.round` from the standard library instead.
 - [ ] `kinks`
 - [ ] `lineArc`
 - [ ] `lineChunk`
-- [x] [`lineIntersect`](../api/turf/io.github.dellisd.spatialk.turf/lineIntersect/)
+- [x] [`lineIntersect`](../api/turf/io.github.dellisd.spatialk.turf/line-intersect/)
   Partially implemented.
 - [ ] `lineOverlap`
 - [ ] `lineSegment`
-- [x] [`lineSlice`](../api/turf/io.github.dellisd.spatialk.turf/lineSlice/)
+- [x] [`lineSlice`](../api/turf/io.github.dellisd.spatialk.turf/line-slice/)
 - [ ] `lineSliceAlong`
 - [ ] `lineSplit`
 - [ ] `mask`
-- [x] [`nearestPointOnLine`](../api/turf/io.github.dellisd.spatialk.turf/nearestPointOnLine/)
+- [x] [`nearestPointOnLine`](../api/turf/io.github.dellisd.spatialk.turf/nearest-point-on-line/)
 - [ ] `sector`
 - [ ] `shortestPath`
 - [ ] `unkinkPolygon`
