@@ -1,6 +1,6 @@
 # Ported Functions
 
-The following functions have been ported as of version `0.0.1-SNAPSHOT` of this library.
+The following functions have been ported as of version `0.0.3-SNAPSHOT` of this library.
 
 You can view porting progress for the next release [here](https://github.com/dellisd/spatial-k/milestone/1).
 
@@ -71,14 +71,15 @@ Use `round` or `Math.round` from the standard library instead.
 - [ ] `kinks`
 - [ ] `lineArc`
 - [ ] `lineChunk`
-- [ ] `lineIntersect`
+- [x] [`lineIntersect`](../api/turf/io.github.dellisd.spatialk.turf/lineIntersect/)
+  Partially implemented.
 - [ ] `lineOverlap`
 - [ ] `lineSegment`
-- [ ] `lineSlice`
+- [x] [`lineSlice`](../api/turf/io.github.dellisd.spatialk.turf/lineSlice/)
 - [ ] `lineSliceAlong`
 - [ ] `lineSplit`
 - [ ] `mask`
-- [ ] `nearestPointOnLine`
+- [x] [`nearestPointOnLine`](../api/turf/io.github.dellisd.spatialk.turf/nearestPointOnLine/)
 - [ ] `sector`
 - [ ] `shortestPath`
 - [ ] `unkinkPolygon`
