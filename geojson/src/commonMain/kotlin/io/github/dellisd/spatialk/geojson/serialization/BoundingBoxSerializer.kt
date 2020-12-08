@@ -21,7 +21,7 @@ import kotlinx.serialization.json.jsonPrimitive
 
 @ExperimentalSerializationApi
 @InternalSerializationApi
-internal object BoundingBoxSerializer : KSerializer<BoundingBox> {
+object BoundingBoxSerializer : KSerializer<BoundingBox> {
     private const val ARRAY_SIZE_2D = 4
     private const val ARRAY_SIZE_3D = 6
 

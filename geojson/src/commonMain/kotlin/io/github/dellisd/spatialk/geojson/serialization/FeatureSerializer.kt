@@ -19,7 +19,7 @@ import kotlinx.serialization.json.put
 
 @ExperimentalSerializationApi
 @InternalSerializationApi
-internal object FeatureSerializer : JsonSerializer<Feature> {
+object FeatureSerializer : JsonSerializer<Feature> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Feature")
 
     override fun deserialize(input: JsonDecoder): Feature {

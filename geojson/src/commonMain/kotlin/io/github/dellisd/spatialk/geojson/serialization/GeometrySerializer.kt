@@ -32,7 +32,7 @@ import kotlinx.serialization.json.jsonPrimitive
 @ExperimentalSerializationApi
 @Serializer(forClass = Geometry::class)
 @Suppress("LongMethod")
-internal object GeometrySerializer : KSerializer<Geometry> {
+object GeometrySerializer : KSerializer<Geometry> {
     override val descriptor: SerialDescriptor
         get() = buildSerialDescriptor("Geometry", PolymorphicKind.SEALED)
 
