@@ -1,0 +1,14 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.Feature)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-feature/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.FeatureCollection)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-feature-collection/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.Geometry)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-geometry/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.GeometryCollection)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-geometry-collection/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.LineString)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-line-string/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.MultiLineString)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-multi-line-string/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.MultiPoint)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-multi-point/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.MultiPolygon)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-multi-polygon/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.Point)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-point/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$coordAll(io.github.dellisd.spatialk.geojson.Polygon)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-polygon/coord-all.md
+$dokka.location:io.github.dellisd.spatialk.turf$toPolygon(io.github.dellisd.spatialk.geojson.BoundingBox)io.github.dellisd.spatialk.turf/io.github.dellisd.spatialk.geojson.-bounding-box/to-polygon.md
+io.github.dellisd.spatialk.turf

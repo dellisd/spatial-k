@@ -1,0 +1,4 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+io.github.dellisd.spatialk.geojson.dsl

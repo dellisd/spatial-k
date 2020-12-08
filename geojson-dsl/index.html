@@ -1,0 +1,953 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Kotlin Multiplatform GeoJson library and Turfjs port">
+      
+      
+      
+        <link rel="canonical" href="https://dellisd.github.io/spatial-k/geojson-dsl/">
+      
+      
+        <meta name="author" content="Derek Ellis">
+      
+      <link rel="shortcut icon" href="../images/logo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>GeoJson DSL - Spatial K</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4cae4f">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="blue">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#geojson-dsl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dellisd.github.io/spatial-k" title="Spatial K" class="md-header-nav__button md-logo" aria-label="Spatial K">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Spatial K
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              GeoJson DSL
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dellisd/spatial-k/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    spatial-k
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dellisd.github.io/spatial-k" title="Spatial K" class="md-nav__button md-logo" aria-label="Spatial K">
+      
+  <img src="../images/logo.png" alt="logo">
+
+    </a>
+    Spatial K
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dellisd/spatial-k/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    spatial-k
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../geojson/" class="md-nav__link">
+      GeoJson
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        GeoJson DSL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      GeoJson DSL
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dsl" class="md-nav__link">
+    DSL
+  </a>
+  
+    <nav class="md-nav" aria-label="DSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    Geometry
+  </a>
+  
+    <nav class="md-nav" aria-label="Geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#point" class="md-nav__link">
+    Point
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipoint" class="md-nav__link">
+    MultiPoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linestring" class="md-nav__link">
+    LineString
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multilinestring" class="md-nav__link">
+    MultiLineString
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polygon" class="md-nav__link">
+    Polygon
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipolygon" class="md-nav__link">
+    MultiPolygon
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry-collection" class="md-nav__link">
+    Geometry Collection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature" class="md-nav__link">
+    Feature
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-collection" class="md-nav__link">
+    Feature Collection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      Turf
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Turf" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Turf
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../turf/" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ported-functions/" class="md-nav__link">
+      Ported Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      API
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="API" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/geojson/" class="md-nav__link">
+      geojson
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/geojson-dsl/" class="md-nav__link">
+      geojson-dsl
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/turf/" class="md-nav__link">
+      turf
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dsl" class="md-nav__link">
+    DSL
+  </a>
+  
+    <nav class="md-nav" aria-label="DSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    Geometry
+  </a>
+  
+    <nav class="md-nav" aria-label="Geometry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#point" class="md-nav__link">
+    Point
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipoint" class="md-nav__link">
+    MultiPoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linestring" class="md-nav__link">
+    LineString
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multilinestring" class="md-nav__link">
+    MultiLineString
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polygon" class="md-nav__link">
+    Polygon
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipolygon" class="md-nav__link">
+    MultiPolygon
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry-collection" class="md-nav__link">
+    Geometry Collection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature" class="md-nav__link">
+    Feature
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-collection" class="md-nav__link">
+    Feature Collection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dellisd/spatial-k/edit/master/docs/geojson-dsl.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="geojson-dsl">GeoJson DSL</h1>
+<p>The <code>geojson-dsl</code> library provides a Kotlin DSL for constructing GeoJson objects from the <a href="/geojson"><code>geojson</code></a> library.</p>
+<h2 id="installation">Installation</h2>
+<p><img alt="Sonatype Nexus (Snapshots)" src="https://img.shields.io/nexus/s/io.github.dellisd.spatialk/geojson-dsl?server=https%3A%2F%2Foss.sonatype.org" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s2">&quot;io.github.dellisd.spatialk:geojson-dsl:0.1.0&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<h2 id="dsl">DSL</h2>
+<h3 id="geometry">Geometry</h3>
+<p>Each geometry type has a corresponding DSL.</p>
+<p>A GeoJson object's <code>bbox</code> value can be assigned in any of the DSLs.</p>
+<h4 id="point">Point</h4>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">point</span><span class="p">(</span><span class="n">longitude</span> <span class="p">=</span> <span class="p">-</span><span class="m">75.0</span><span class="p">,</span> <span class="n">latitude</span> <span class="p">=</span> <span class="m">45.0</span><span class="p">,</span> <span class="n">altitude</span> <span class="p">=</span> <span class="m">100.0</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span> 
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h4 id="multipoint">MultiPoint</h4>
+<p>The <code>MultiPoint</code> DSL uses the unary plus operator to add <code>Position</code> instances as positions in the geometry.
+This means that it is possible to add <code>Point</code> objects as well as <code>LngLat</code> objects as positions to a <code>MultiPoint</code>.</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">multiPoint</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">point</span><span class="p">(-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(-</span><span class="m">78.0</span><span class="p">,</span> <span class="m">44.0</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiPoint&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">-78.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h4 id="linestring">LineString</h4>
+<p>Like with <code>MultiPoint</code>, the <code>LineString</code> DSL uses the unary plus operator to add positions as part of the line.
+The order in which positions are added to the <code>LineString</code> is the order that the <code>LineString</code> will follow.</p>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">lineString</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LineString&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h4 id="multilinestring">MultiLineString</h4>
+<p>The <code>MultiLineString</code> DSL uses the unary plus operator to add multiple line strings. The <code>LineString</code> DSL can be used to
+create <code>LineString</code> objects to add.</p>
+<div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="k">val</span> <span class="py">simpleLine</span> <span class="p">=</span> <span class="n">lineString</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">multiLineString</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">simpleLine</span>
+
+    <span class="c1">// Inline LineString creation</span>
+    <span class="p">+</span><span class="n">lineString</span> <span class="p">{</span>
+        <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">44.4</span><span class="p">,</span> <span class="m">55.5</span><span class="p">)</span>
+        <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">55.5</span><span class="p">,</span> <span class="m">66.6</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiLineString&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]],</span>
+    <span class="p">[[</span><span class="mf">44.4</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">55.5</span><span class="p">,</span> <span class="mf">66.6</span><span class="p">]]</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h4 id="polygon">Polygon</h4>
+<p>The <code>Polygon</code> DSL is used by specifying linear rings that make up the polygon's shape and holes.
+The first <code>ring</code> is the exterior ring with four or more positions. The last position must be the same as the first position.
+All <code>ring</code>s that follow will represent interior rings (i.e. holes) in the polygon.</p>
+<p>For convenience, the <code>complete()</code> function can be used to "complete" a ring. 
+It adds the last position in the ring by copying the first position that was added.</p>
+<div class="tabbed-set" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="k">val</span> <span class="py">simpleLine</span> <span class="p">=</span> <span class="n">lineString</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">polygon</span> <span class="p">{</span>
+     <span class="n">ring</span> <span class="p">{</span>
+         <span class="c1">// LineStrings can be used as part of a ring</span>
+         <span class="p">+</span><span class="n">simpleLine</span>
+         <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">12.0</span><span class="p">,</span> <span class="m">12.0</span><span class="p">)</span>
+         <span class="n">complete</span><span class="p">()</span>
+     <span class="p">}</span>
+     <span class="n">ring</span> <span class="p">{</span>
+         <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">4.0</span><span class="p">,</span> <span class="m">4.0</span><span class="p">)</span>
+         <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">2.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">)</span>
+         <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">3.0</span><span class="p">,</span> <span class="m">3.0</span><span class="p">)</span>
+         <span class="n">complete</span><span class="p">()</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]],</span>
+    <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h4 id="multipolygon">MultiPolygon</h4>
+<p>Like with previous "Multi" geometries, the unary plus operator is used to add multipl <code>Polygon</code> objects. 
+The <code>Polygon</code> DSL can also be used here.</p>
+<div class="tabbed-set" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="k">val</span> <span class="py">simplePolygon</span> <span class="p">=</span> <span class="n">previousExample</span><span class="p">()</span>
+
+<span class="n">multiPolygon</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">simplePolygon</span>
+    <span class="p">+</span><span class="n">polygon</span> <span class="p">{</span>
+        <span class="n">ring</span> <span class="p">{</span>
+            <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">12.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+            <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">12.0</span><span class="p">)</span>
+            <span class="p">+</span><span class="n">LngLat</span><span class="p">(-</span><span class="m">12.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+            <span class="p">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">5.0</span><span class="p">,</span> <span class="m">5.0</span><span class="p">)</span>
+            <span class="n">complete</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[</span>
+      <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]],</span>
+      <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]</span>
+    <span class="p">],</span> <span class="p">[</span>
+      <span class="p">[[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">-12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h4 id="geometry-collection">Geometry Collection</h4>
+<p>The unary plus operator can be used to add any geometry to a <code>GeometryCollection</code>.</p>
+<div class="tabbed-set" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="k">val</span> <span class="py">simplePoint</span><span class="p">:</span> <span class="n">Point</span> <span class="p">=</span> <span class="n">previousPoint</span><span class="p">()</span>
+<span class="k">val</span> <span class="py">simpleLine</span><span class="p">:</span> <span class="n">LineString</span> <span class="p">=</span> <span class="n">previousLineString</span><span class="p">()</span>
+<span class="k">val</span> <span class="py">simplePolygon</span><span class="p">:</span> <span class="n">Polygon</span> <span class="p">=</span> <span class="n">previousPolygon</span><span class="p">()</span>
+
+<span class="n">geometryCollection</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">simplePoint</span>
+    <span class="p">+</span><span class="n">simpleLine</span>
+    <span class="p">+</span><span class="n">simplePolygon</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;GeometryCollection&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;geometries&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> 
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LineString&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]],</span>
+        <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h3 id="feature">Feature</h3>
+<p>The <code>Feature</code> DSL can construct a <code>Feature</code> object with a geometry, a set of properties, a bounding box, and an id.</p>
+<div class="tabbed-set" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><label for="__tabbed_8_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">feature</span> <span class="p">{</span>
+    <span class="n">geometry</span> <span class="p">=</span> <span class="n">point</span><span class="p">(-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="n">id</span> <span class="p">=</span> <span class="s">&quot;point1&quot;</span>
+    <span class="n">bbox</span> <span class="p">=</span> <span class="n">BoundingBox</span><span class="p">(-</span><span class="m">76.9</span><span class="p">,</span> <span class="m">44.1</span><span class="p">,</span> <span class="p">-</span><span class="m">74.2</span><span class="p">,</span> <span class="m">45.7</span><span class="p">)</span>
+    <span class="n">properties</span> <span class="p">{</span>
+        <span class="s">&quot;name&quot;</span> <span class="n">to</span> <span class="s">&quot;Hello World&quot;</span>
+        <span class="s">&quot;value&quot;</span> <span class="n">to</span> <span class="m">13</span>
+        <span class="s">&quot;cool&quot;</span> <span class="n">to</span> <span class="k">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><label for="__tabbed_8_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;point1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;bbox&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-76.9</span><span class="p">,</span> <span class="mf">44.1</span><span class="p">,</span> <span class="mf">-74.2</span><span class="p">,</span> <span class="mf">45.7</span><span class="p">],</span>
+  <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="nt">&quot;cool&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<h3 id="feature-collection">Feature Collection</h3>
+<p>A <code>FeatureCollection</code> is constructed by adding multiple <code>Feature</code> objects using the unary plus operator.</p>
+<div class="tabbed-set" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><label for="__tabbed_9_1">Kotlin</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">featureCollection</span> <span class="p">{</span>
+    <span class="p">+</span><span class="n">feature</span> <span class="p">{</span>
+        <span class="n">geometry</span> <span class="p">=</span> <span class="n">point</span><span class="p">(-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><label for="__tabbed_9_2">JSON</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../geojson/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                GeoJson
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../turf/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Overview
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Derek Ellis
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
