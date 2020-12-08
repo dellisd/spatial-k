@@ -36,7 +36,7 @@ import kotlinx.serialization.json.jsonPrimitive
 @InternalSerializationApi
 @ExperimentalSerializationApi
 @Serializer(forClass = Position::class)
-internal object PositionSerializer : KSerializer<Position> {
+object PositionSerializer : KSerializer<Position> {
     override val descriptor: SerialDescriptor
         get() = buildSerialDescriptor("Position", StructureKind.LIST)
 
