@@ -1,6 +1,6 @@
-$dokka.format:gfm
+$dokka.format:gfm-v1
 $dokka.linkExtension:md
-$dokka.location:io.github.dellisd.spatialk.geojson$toGeometry(kotlin.String)io.github.dellisd.spatialk.geojson/kotlin.-string/to-geometry.md
-$dokka.location:io.github.dellisd.spatialk.geojson$toGeometryOrNull(kotlin.String)io.github.dellisd.spatialk.geojson/kotlin.-string/to-geometry-or-null.md
+
 io.github.dellisd.spatialk.geojson
 io.github.dellisd.spatialk.geojson.serialization
+
