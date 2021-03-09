@@ -1,10 +1,7 @@
 .idea
 .gradle
 
-/build
-/turf/build
-/geojson/build
-/geojson-dsl/build
+**/build
 
 /site
 /docs/api
