@@ -4,7 +4,7 @@ repo_name: "spatial-k"
 repo_url: https://github.com/dellisd/spatial-k
 site_description: "Kotlin Multiplatform GeoJson library and Turfjs port"
 site_author: Derek Ellis
-copyright: 'Copyright &copy; 2020 Derek Ellis'
+copyright: 'Copyright &copy; 2021 Derek Ellis'
 remote_branch: gh-pages
 
 nav:

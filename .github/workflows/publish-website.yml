@@ -22,7 +22,7 @@ jobs:
           python-version: 3.8
       
       - name: Build Dokka docs
-        run: ./gradlew dokka --no-daemon --no-parallel
+        run: ./gradlew dokkaGfmMultiModule --no-daemon --no-parallel
       
       - name: Build mkdocs
         run: |
@@ -31,7 +31,7 @@ jobs:
         
       - name: Deploy 🚀
         if: success()
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
