@@ -65,4 +65,9 @@ kotlin {
     }
 }
 
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+    // custom output directory
+    outputDirectory.set(buildDir.resolve("$rootDir/docs/api"))
+}
+
 apply(plugin = "com.vanniktech.maven.publish")
