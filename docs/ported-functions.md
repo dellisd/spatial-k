@@ -173,7 +173,7 @@ Use [`geojson-dsl`](../geojson-dsl/) instead.
 
 ## Unit Conversion
 
-- [ ] `bearingToAzimuth`
+- [x] [`bearingToAzimuth`](../api/turf/io.github.dellisd.spatialk.turf/bearing-to-azimuth/)
 - [x] [`convertArea`](../api/turf/io.github.dellisd.spatialk.turf/convert-area/)
 - [x] [`convertLength`](../api/turf/io.github.dellisd.spatialk.turf/convert-length/)
 - [ ] `degreesToRadians`
