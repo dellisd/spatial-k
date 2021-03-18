@@ -8,4 +8,4 @@ pluginManagement {
 
 rootProject.name = "spatial-k"
 
-include("geojson", "geojson-dsl", "turf")
+include("geojson", "turf")

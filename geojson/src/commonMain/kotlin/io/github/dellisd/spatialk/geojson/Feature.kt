@@ -26,7 +26,7 @@ import kotlin.jvm.JvmStatic
  * @property id An optionally included string that commonly identifies this feature.
  */
 @Suppress("TooManyFunctions")
-class Feature @JvmOverloads constructor(
+class Feature(
     val geometry: Geometry?,
     properties: Map<String, JsonElement> = emptyMap(),
     val id: String? = null,

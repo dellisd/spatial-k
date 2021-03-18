@@ -29,7 +29,6 @@ kotlin {
     sourceSets["commonTest"].dependencies {
         implementation(kotlin("test-common"))
         implementation(kotlin("test-annotations-common"))
-        implementation(project(":geojson-dsl"))
     }
 
     sourceSets["jvmMain"].dependencies {
@@ -70,12 +69,12 @@ kotlin {
 tasks.create<Copy>("copyTestResourcesForJs") {
     from("$projectDir/src/commonTest/resources")
     into("${rootProject.buildDir}/js/packages/${rootProject.name}" +
-            "-${project.name}-jsLegacy-test/src/commonTest/resources")
+            "-${project.name}-js-legacy-test/src/commonTest/resources")
 }
 
 tasks.create<Copy>("copyTestResourcesForJsIr") {
     from("$projectDir/src/commonTest/resources")
-    into("${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-jsIr-test/src/commonTest/resources")
+    into("${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-js-ir-test/src/commonTest/resources")
 }
 
 tasks.named("jsIrNodeTest") {

@@ -3,7 +3,7 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
-import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.dsl.feature
 import io.github.dellisd.spatialk.geojson.dsl.featureCollection
 import io.github.dellisd.spatialk.geojson.dsl.lineString
@@ -16,53 +16,53 @@ import kotlin.test.assertEquals
 
 private val point = point(102.0, 0.5)
 private val line = lineString {
-    +LngLat(102.0, -10.0)
-    +LngLat(103.0, 1.0)
-    +LngLat(104.0, 0.0)
-    +LngLat(130.0, 4.0)
+    +Position(102.0, -10.0)
+    +Position(103.0, 1.0)
+    +Position(104.0, 0.0)
+    +Position(130.0, 4.0)
 }
 private val polygon = polygon {
     ring {
-        +LngLat(101.0, 0.0)
-        +LngLat(101.0, 1.0)
-        +LngLat(100.0, 1.0)
-        +LngLat(100.0, 0.0)
+        +Position(101.0, 0.0)
+        +Position(101.0, 1.0)
+        +Position(100.0, 1.0)
+        +Position(100.0, 0.0)
         complete()
     }
 }
 private val multiLine = multiLineString {
     +lineString {
-        +LngLat(100.0, 0.0)
-        +LngLat(101.0, 1.0)
+        +Position(100.0, 0.0)
+        +Position(101.0, 1.0)
     }
     +lineString {
-        +LngLat(102.0, 2.0)
-        +LngLat(103.0, 3.0)
+        +Position(102.0, 2.0)
+        +Position(103.0, 3.0)
     }
 }
 private val multiPolygon = multiPolygon {
     +polygon {
         ring {
-            +LngLat(102.0, 2.0)
-            +LngLat(103.0, 2.0)
-            +LngLat(103.0, 3.0)
-            +LngLat(102.0, 3.0)
+            +Position(102.0, 2.0)
+            +Position(103.0, 2.0)
+            +Position(103.0, 3.0)
+            +Position(102.0, 3.0)
             complete()
         }
     }
     +polygon {
         ring {
-            +LngLat(100.0, 0.0)
-            +LngLat(101.0, 0.0)
-            +LngLat(101.0, 1.0)
-            +LngLat(100.0, 1.0)
+            +Position(100.0, 0.0)
+            +Position(101.0, 0.0)
+            +Position(101.0, 1.0)
+            +Position(100.0, 1.0)
             complete()
         }
         ring {
-            +LngLat(100.2, 0.2)
-            +LngLat(101.8, 0.2)
-            +LngLat(101.8, 0.8)
-            +LngLat(100.2, 0.8)
+            +Position(100.2, 0.2)
+            +Position(101.8, 0.2)
+            +Position(101.8, 0.8)
+            +Position(100.2, 0.8)
             complete()
         }
     }

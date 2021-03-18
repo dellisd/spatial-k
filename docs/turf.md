@@ -1,6 +1,6 @@
 # Turf
 
-[Turfjs](https://turfjs.org) is a spatial analysis library for JavaScript applications and the `turf` module contains a Kotlin port of it with support for Kotlin Multiplatform projects, as well as a Java API.
+[Turfjs](https://turfjs.org) is a spatial analysis library for JavaScript applications and the `turf` module contains a Kotlin port of it with support for Kotlin Multiplatform projects.
 
 This module makes use of the classes defined in the [`geojson`](geojson/) module as the GeoJson inputs to many of the turf functions.
 
@@ -10,11 +10,18 @@ The documentation for the ported functions can be found in the [API docs](api/tu
 
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.dellisd.spatialk/turf?server=https%3A%2F%2Foss.sonatype.org)
 
-```groovy
-dependencies {
-    implementation "io.github.dellisd.spatialk:turf:0.1.0"
-}
-```
+=== "Kotlin"
+    ```kotlin
+    dependencies {
+    implementation("io.github.dellisd.spatialk:turf:<version>")
+    }
+    ```
+=== "Groovy"
+    ```groovy
+    dependencies {
+        implementation "io.github.dellisd.spatialk:turf:<version>"
+    }
+    ```
 
 ## Example
 
@@ -24,11 +31,6 @@ Turf functions are available as top-level functions in Kotlin, or as static memb
     ```kotlin
     val point = LngLat(-75.0, 45.0)
     val (longitude, latitude) = destination(point, 100.0, 0.0)
-    ```
-=== "Java"
-    ```java
-    Position point = new LngLat(-75.0, 45.0);
-    Position result = TurfMeasurement.destination(point, 100.0, 0.0);
     ```
     
 ## Turf Functions
@@ -42,10 +44,6 @@ Units of measurement are represented using the [`Units`](../api/turf/io.github.d
 === "Kotlin"
     ```kotlin
     val result = convertLength(12.5, from = Units.Kilometers, to = Units.Miles)
-    ``` 
-=== "Java"
-    ```java
-    double result = TurfUtils.convertLength(12.5, Units.Kilometers, Units.Miles);
     ```
     
 Not all units are valid for every function. For example: acres cannot be used as a measure of distance.

@@ -4,7 +4,7 @@ import io.github.dellisd.spatialk.geojson.serialization.BoundingBoxSerializer
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
-import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmSynthetic
 
 /**
  * Represents an area bounded by a [northeast] and [southwest] [Position].
@@ -22,52 +22,20 @@ import kotlin.jvm.JvmOverloads
  *
  * @property northeast The northeastern corner of the BoundingBox
  * @property southwest The southwestern corner of the BoundingBox
+ * @property coordinates The GeoJSON bounding box coordinate array
  */
 @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 @Serializable(with = BoundingBoxSerializer::class)
-data class BoundingBox @JvmOverloads constructor(val southwest: Position, val northeast: Position) {
-    constructor(west: Double, south: Double, east: Double, north: Double) : this(
-        LngLat(west, south),
-        LngLat(east, north)
-    )
+@Suppress("MagicNumber")
+class BoundingBox constructor(val coordinates: DoubleArray) {
+    init {
+        require(coordinates.size == 4 || coordinates.size == 6) {
+            "Bounding Box coordinates must either have 4 or 6 values"
+        }
+    }
 
-    // Not the prettiest... but it works™
-    @Suppress("MagicNumber")
-    constructor(coordinates: DoubleArray) : this(
-        LngLat(
-            coordinates[0],
-            coordinates[1],
-            when (coordinates.size) {
-                4 -> null
-                6 -> coordinates[2]
-                else -> throw IllegalArgumentException(
-                    "Invalid number of values in coordinates array"
-                )
-            }
-        ),
-        LngLat(
-            when (coordinates.size) {
-                4 -> coordinates[2]
-                6 -> coordinates[3]
-                else -> throw IllegalArgumentException(
-                    "Invalid number of values in coordinates array"
-                )
-            },
-            when (coordinates.size) {
-                4 -> coordinates[3]
-                6 -> coordinates[4]
-                else -> throw IllegalArgumentException(
-                    "Invalid number of values in coordinates array"
-                )
-            },
-            when (coordinates.size) {
-                4 -> null
-                6 -> coordinates[5]
-                else -> throw IllegalArgumentException(
-                    "Invalid number of values in coordinates array"
-                )
-            }
-        )
+    constructor(west: Double, south: Double, east: Double, north: Double) : this(
+        doubleArrayOf(west, south, east, north)
     )
 
     constructor(coordinates: List<Double>) : this(coordinates.toDoubleArray())
@@ -79,8 +47,52 @@ data class BoundingBox @JvmOverloads constructor(val southwest: Position, val no
         east: Double,
         north: Double,
         maxAltitude: Double
-    ) : this(
-        LngLat(west, south, minAltitude),
-        LngLat(east, north, maxAltitude)
+    ) : this(doubleArrayOf(west, south, minAltitude, east, north, maxAltitude))
+
+    constructor(southwest: Position, northeast: Position) : this(
+        when (southwest.hasAltitude && northeast.hasAltitude) {
+            true -> southwest.coordinates + northeast.coordinates
+            false -> doubleArrayOf(southwest.longitude, southwest.latitude, northeast.longitude, northeast.latitude)
+        }
     )
+
+    val southwest: Position
+        get() = when (hasAltitude) {
+            true -> Position(coordinates[0], coordinates[1], coordinates[2])
+            false -> Position(coordinates[0], coordinates[1])
+        }
+
+    val northeast: Position
+        get() = when (hasAltitude) {
+            true -> Position(coordinates[3], coordinates[4], coordinates[5])
+            false -> Position(coordinates[2], coordinates[3])
+        }
+
+    @JvmSynthetic
+    operator fun component1(): Position = southwest
+
+    @JvmSynthetic
+    operator fun component2(): Position = northeast
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BoundingBox
+
+        if (!coordinates.contentEquals(other.coordinates)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return coordinates.contentHashCode()
+    }
+
+    override fun toString(): String {
+        return "BoundingBox(southwest=$southwest, northeast=$northeast)"
+    }
 }
+
+@Suppress("MagicNumber")
+val BoundingBox.hasAltitude: Boolean
+    get() = coordinates.size == 6

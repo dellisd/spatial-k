@@ -10,13 +10,11 @@ remote_branch: gh-pages
 nav:
   - 'Introduction': index.md
   - 'GeoJson': geojson.md
-  - 'GeoJson DSL': geojson-dsl.md
   - 'Turf':
       - 'Overview':  turf.md
       - 'Ported Functions': ported-functions.md
   - 'API':
       - 'geojson': api/geojson/index.md
-      - 'geojson-dsl': api/geojson-dsl/index.md
       - 'turf': api/turf/index.md
 
 theme:

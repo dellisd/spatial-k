@@ -1,7 +1,7 @@
 package io.github.dellisd.spatialk.geojson.dsl
 
 import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
-import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.Position
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -22,14 +22,14 @@ class GeoJsonDslTests {
         +feature {
             geometry = multiPoint {
                 +simplePoint
-                +LngLat(45.0, 45.0)
-                +LngLat(0.0, 0.0)
+                +Position(45.0, 45.0)
+                +Position(0.0, 0.0)
             }
         }
 
         val simpleLine = lineString {
-            +LngLat(45.0, 45.0)
-            +LngLat(0.0, 0.0)
+            +Position(45.0, 45.0)
+            +Position(0.0, 0.0)
         }
 
         // LineString
@@ -42,8 +42,8 @@ class GeoJsonDslTests {
             geometry = multiLineString {
                 +simpleLine
                 +lineString {
-                    +LngLat(44.4, 55.5)
-                    +LngLat(55.5, 66.6)
+                    +Position(44.4, 55.5)
+                    +Position(55.5, 66.6)
                 }
             }
         }
@@ -51,13 +51,13 @@ class GeoJsonDslTests {
         val simplePolygon = polygon {
             ring {
                 +simpleLine
-                +LngLat(12.0, 12.0)
+                +Position(12.0, 12.0)
                 complete()
             }
             ring {
-                +LngLat(4.0, 4.0)
-                +LngLat(2.0, 2.0)
-                +LngLat(3.0, 3.0)
+                +Position(4.0, 4.0)
+                +Position(2.0, 2.0)
+                +Position(3.0, 3.0)
                 complete()
             }
         }
@@ -72,10 +72,10 @@ class GeoJsonDslTests {
                 +simplePolygon
                 +polygon {
                     ring {
-                        +LngLat(12.0, 0.0)
-                        +LngLat(0.0, 12.0)
-                        +LngLat(-12.0, 0.0)
-                        +LngLat(5.0, 5.0)
+                        +Position(12.0, 0.0)
+                        +Position(0.0, 12.0)
+                        +Position(-12.0, 0.0)
+                        +Position(5.0, 5.0)
                         complete()
                     }
                 }

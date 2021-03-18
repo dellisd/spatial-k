@@ -53,6 +53,8 @@ kotlin {
             with(languageSettings) {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlin.js.ExperimentalJsExport")
+                useExperimentalAnnotation("kotlinx.serialization.InternalSerializationApi")
+                useExperimentalAnnotation("kotlinx.serialization.ExperimentalSerializationApi")
             }
         }
 

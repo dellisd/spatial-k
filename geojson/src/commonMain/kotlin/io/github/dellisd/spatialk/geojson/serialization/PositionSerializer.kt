@@ -1,6 +1,5 @@
 package io.github.dellisd.spatialk.geojson.serialization
 
-import io.github.dellisd.spatialk.geojson.LngLat
 import io.github.dellisd.spatialk.geojson.Position
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
@@ -33,9 +32,6 @@ import kotlinx.serialization.json.jsonPrimitive
  *
  * @see Position.Companion.serializer
  */
-@InternalSerializationApi
-@ExperimentalSerializationApi
-@Serializer(forClass = Position::class)
 object PositionSerializer : KSerializer<Position> {
     override val descriptor: SerialDescriptor
         get() = buildSerialDescriptor("Position", StructureKind.LIST)
@@ -45,7 +41,7 @@ object PositionSerializer : KSerializer<Position> {
 
         val array = input.decodeJsonElement().jsonArray
 
-        return LngLat(
+        return Position(
             array[0].jsonPrimitive.double,
             array[1].jsonPrimitive.double,
             array.getOrNull(2)?.jsonPrimitive?.double
@@ -66,6 +62,3 @@ object PositionSerializer : KSerializer<Position> {
         output.encodeJsonElement(array)
     }
 }
-
-@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
-fun Position.Companion.serializer(): KSerializer<Position> = PositionSerializer

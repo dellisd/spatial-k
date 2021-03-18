@@ -9,13 +9,12 @@ import io.github.dellisd.spatialk.geojson.FeatureCollection
 import io.github.dellisd.spatialk.geojson.Geometry
 import io.github.dellisd.spatialk.geojson.GeometryCollection
 import io.github.dellisd.spatialk.geojson.LineString
-import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.MultiLineString
 import io.github.dellisd.spatialk.geojson.MultiPoint
 import io.github.dellisd.spatialk.geojson.MultiPolygon
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
-import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
@@ -28,7 +27,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * Takes a [LineString] and returns a [position][LngLat] at a specified distance along the line.
+ * Takes a [LineString] and returns a [position][Position] at a specified distance along the line.
  *
  * @param line input line
  * @param distance distance along the line
@@ -255,7 +254,7 @@ private fun computeBbox(coordinates: List<Position>): BoundingBox {
         }
     }
 
-    return BoundingBox(result[0], result[1], result[2], result[3])
+    return BoundingBox(result)
 }
 
 /**
@@ -274,9 +273,9 @@ fun bboxPolygon(bbox: BoundingBox): Polygon {
     return Polygon(
         listOf(
             bbox.southwest,
-            LngLat(bbox.northeast.longitude, bbox.southwest.latitude),
+            Position(bbox.northeast.longitude, bbox.southwest.latitude),
             bbox.northeast,
-            LngLat(bbox.southwest.longitude, bbox.northeast.latitude),
+            Position(bbox.southwest.longitude, bbox.northeast.latitude),
             bbox.southwest
         )
     )
@@ -341,7 +340,7 @@ fun destination(origin: Position, distance: Double, bearing: Double, units: Unit
         cos(radians) - sin(latitude1) * sin(latitude2)
     )
 
-    return LngLat(
+    return Position(
         degrees(longitude2),
         degrees(latitude2)
     )

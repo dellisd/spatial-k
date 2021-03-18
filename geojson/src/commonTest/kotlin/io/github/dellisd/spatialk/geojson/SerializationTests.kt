@@ -1,6 +1,5 @@
 package io.github.dellisd.spatialk.geojson
 
-import io.github.dellisd.spatialk.geojson.serialization.serializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -14,15 +13,15 @@ class SerializationTests {
 
     @Test
     fun testSerializePosition() {
-        val position = LngLat(-75.1, 45.1)
+        val position = Position(-75.1, 45.1)
         val result = Json.encodeToString(Position.serializer(), position)
         assertEquals("[-75.1,45.1]", result)
 
-        val altitude = LngLat(60.2, 23.2354, 100.5)
+        val altitude = Position(60.2, 23.2354, 100.5)
         val altitudeResult = Json.encodeToString(Position.serializer(), altitude)
         assertEquals("[60.2,23.2354,100.5]", altitudeResult)
 
-        val list = listOf(LngLat(12.3, 45.6), LngLat(78.9, 12.3))
+        val list = listOf(Position(12.3, 45.6), Position(78.9, 12.3))
         val listResult = Json.encodeToString(ListSerializer(Position.serializer()), list)
         assertEquals("[[12.3,45.6],[78.9,12.3]]", listResult)
     }
@@ -30,33 +29,33 @@ class SerializationTests {
     @Test
     fun testDeserializePosition() {
         val position = Json.decodeFromString(Position.serializer(), "[32.4,54.1234]")
-        assertEquals(LngLat(32.4, 54.1234), position)
+        assertEquals(Position(32.4, 54.1234), position)
 
         val altitude = Json.decodeFromString(Position.serializer(), "[60.2,23.2354,100.5]")
-        assertEquals(LngLat(60.2, 23.2354, 100.5), altitude)
+        assertEquals(Position(60.2, 23.2354, 100.5), altitude)
 
         val list = Json.decodeFromString(ListSerializer(Position.serializer()), "[[12.3,45.6],[78.9,12.3]]")
-        assertEquals(listOf(LngLat(12.3, 45.6), LngLat(78.9, 12.3)), list)
+        assertEquals(listOf(Position(12.3, 45.6), Position(78.9, 12.3)), list)
     }
 
     @Test
     fun testSerializeBoundingBox() {
         val bbox =
-            BoundingBox(LngLat(-10.5, -10.5), LngLat(10.5, 10.5))
+            BoundingBox(Position(-10.5, -10.5), Position(10.5, 10.5))
         val result = Json.encodeToString(BoundingBox.serializer(), bbox)
         assertEquals("[-10.5,-10.5,10.5,10.5]", result)
 
         val bbox3D = BoundingBox(
-            LngLat(-10.5, -10.5, -100.8),
-            LngLat(10.5, 10.5, 5.5)
+            Position(-10.5, -10.5, -100.8),
+            Position(10.5, 10.5, 5.5)
         )
         val result3D = Json.encodeToString(BoundingBox.serializer(), bbox3D)
         assertEquals("[-10.5,-10.5,-100.8,10.5,10.5,5.5]", result3D)
 
         // One altitude unspecified
         val bboxFake3D = BoundingBox(
-            LngLat(-10.5, -10.5, -100.8),
-            LngLat(10.5, 10.5)
+            Position(-10.5, -10.5, -100.8),
+            Position(10.5, 10.5)
         )
         val fakeResult = Json.encodeToString(BoundingBox.serializer(), bboxFake3D)
         assertEquals("[-10.5,-10.5,10.5,10.5]", fakeResult)
@@ -67,15 +66,15 @@ class SerializationTests {
         val bbox = Json.decodeFromString(BoundingBox.serializer(), "[-10.5,-10.5,10.5,10.5]")
         assertEquals(
             BoundingBox(
-                LngLat(-10.5, -10.5),
-                LngLat(10.5, 10.5)
+                Position(-10.5, -10.5),
+                Position(10.5, 10.5)
             ), bbox)
 
         val bbox3D = Json.decodeFromString(BoundingBox.serializer(), "[-10.5,-10.5,-100.8,10.5,10.5,5.5]")
         assertEquals(
             BoundingBox(
-                LngLat(-10.5, -10.5, -100.8),
-                LngLat(10.5, 10.5, 5.5)
+                Position(-10.5, -10.5, -100.8),
+                Position(10.5, 10.5, 5.5)
             ), bbox3D)
 
         assertFailsWith<SerializationException> {
@@ -87,21 +86,21 @@ class SerializationTests {
     // Point
     @Test
     fun testSerializePoint() {
-        val point = Point(LngLat(12.3, 45.6))
+        val point = Point(Position(12.3, 45.6))
         assertEquals("""{"type":"Point","coordinates":[12.3,45.6]}""", point.json, "Point")
     }
 
     @Test
     fun testDeserializePoint() {
         val point = """{"type":"Point","coordinates":[12.3,45.6]}""".toGeometry<Point>()
-        assertEquals(Point(LngLat(12.3, 45.6)), point)
+        assertEquals(Point(Position(12.3, 45.6)), point)
         assertNull("""{"type":"MultiPoint","coordinates":[12.3,45.6]}""".toGeometryOrNull<Point>())
     }
 
     // MultiPoint
     @Test
     fun testSerializeMultiPoint() {
-        val multiPoint = MultiPoint(LngLat(12.3, 45.6), LngLat(78.9, 12.3))
+        val multiPoint = MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3))
         assertEquals(
             """{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}""",
             multiPoint.json,
@@ -112,13 +111,13 @@ class SerializationTests {
     @Test
     fun testDeserializeMultiPoint() {
         val point = """{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}""".toGeometry<MultiPoint>()
-        assertEquals(MultiPoint(LngLat(12.3, 45.6), LngLat(78.9, 12.3)), point)
+        assertEquals(MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3)), point)
     }
 
     // LineString
     @Test
     fun testSerializeLineString() {
-        val lineString = LineString(LngLat(12.3, 45.6), LngLat(78.9, 12.3))
+        val lineString = LineString(Position(12.3, 45.6), Position(78.9, 12.3))
         assertEquals(
             """{"type":"LineString","coordinates":[[12.3,45.6],[78.9,12.3]]}""",
             lineString.json,
@@ -130,7 +129,7 @@ class SerializationTests {
     fun testDeserializeLineString() {
         val lineString = """{"type":"LineString","coordinates":[[12.3,45.6],[78.9,12.3]]}""".toGeometry<LineString>()
         assertEquals(
-            LineString(LngLat(12.3, 45.6), LngLat(78.9, 12.3)),
+            LineString(Position(12.3, 45.6), Position(78.9, 12.3)),
             lineString,
             "LineString"
         )
@@ -140,8 +139,8 @@ class SerializationTests {
     @Test
     fun testSerializeMultiLineString() {
         val multiLineString = MultiLineString(
-            listOf(LngLat(12.3, 45.6), LngLat(78.9, 12.3)),
-            listOf(LngLat(87.6, 54.3), LngLat(21.9, 56.4))
+            listOf(Position(12.3, 45.6), Position(78.9, 12.3)),
+            listOf(Position(87.6, 54.3), Position(21.9, 56.4))
         )
         assertEquals(
             """{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}""",
@@ -157,8 +156,8 @@ class SerializationTests {
                 .toGeometry<MultiLineString>()
         assertEquals(
             MultiLineString(
-                listOf(LngLat(12.3, 45.6), LngLat(78.9, 12.3)),
-                listOf(LngLat(87.6, 54.3), LngLat(21.9, 56.4))
+                listOf(Position(12.3, 45.6), Position(78.9, 12.3)),
+                listOf(Position(87.6, 54.3), Position(21.9, 56.4))
             ),
             multiLineString,
             "MultiLineString"
@@ -170,17 +169,17 @@ class SerializationTests {
     fun testSerializePolygon() {
         val polygon = Polygon(
             listOf(
-                LngLat(-79.87, 43.42),
-                LngLat(-78.89, 43.49),
-                LngLat(-79.07, 44.02),
-                LngLat(-79.95, 43.87),
-                LngLat(-79.87, 43.42)
+                Position(-79.87, 43.42),
+                Position(-78.89, 43.49),
+                Position(-79.07, 44.02),
+                Position(-79.95, 43.87),
+                Position(-79.87, 43.42)
             ),
             listOf(
-                LngLat(-79.75, 43.81),
-                LngLat(-79.56, 43.85),
-                LngLat(-79.7, 43.88),
-                LngLat(-79.75, 43.81)
+                Position(-79.75, 43.81),
+                Position(-79.56, 43.85),
+                Position(-79.7, 43.88),
+                Position(-79.75, 43.81)
             )
         )
         assertEquals(
@@ -204,17 +203,17 @@ class SerializationTests {
         assertEquals(
             Polygon(
                 listOf(
-                    LngLat(-79.87, 43.42),
-                    LngLat(-78.89, 43.49),
-                    LngLat(-79.07, 44.02),
-                    LngLat(-79.95, 43.87),
-                    LngLat(-79.87, 43.42)
+                    Position(-79.87, 43.42),
+                    Position(-78.89, 43.49),
+                    Position(-79.07, 44.02),
+                    Position(-79.95, 43.87),
+                    Position(-79.87, 43.42)
                 ),
                 listOf(
-                    LngLat(-79.75, 43.81),
-                    LngLat(-79.56, 43.85),
-                    LngLat(-79.7, 43.88),
-                    LngLat(-79.75, 43.81)
+                    Position(-79.75, 43.81),
+                    Position(-79.56, 43.85),
+                    Position(-79.7, 43.88),
+                    Position(-79.75, 43.81)
                 )
             ),
             polygon,
@@ -228,32 +227,32 @@ class SerializationTests {
         val multiPolygon = MultiPolygon(
             listOf(
                 listOf(
-                    LngLat(-79.87, 43.42),
-                    LngLat(-78.89, 43.49),
-                    LngLat(-79.07, 44.02),
-                    LngLat(-79.95, 43.87),
-                    LngLat(-79.87, 43.42)
+                    Position(-79.87, 43.42),
+                    Position(-78.89, 43.49),
+                    Position(-79.07, 44.02),
+                    Position(-79.95, 43.87),
+                    Position(-79.87, 43.42)
                 ),
                 listOf(
-                    LngLat(-79.75, 43.81),
-                    LngLat(-79.56, 43.85),
-                    LngLat(-79.7, 43.88),
-                    LngLat(-79.75, 43.81)
+                    Position(-79.75, 43.81),
+                    Position(-79.56, 43.85),
+                    Position(-79.7, 43.88),
+                    Position(-79.75, 43.81)
                 )
             ),
             listOf(
                 listOf(
-                    LngLat(-79.87, 43.42),
-                    LngLat(-78.89, 43.49),
-                    LngLat(-79.07, 44.02),
-                    LngLat(-79.95, 43.87),
-                    LngLat(-79.87, 43.42)
+                    Position(-79.87, 43.42),
+                    Position(-78.89, 43.49),
+                    Position(-79.07, 44.02),
+                    Position(-79.95, 43.87),
+                    Position(-79.87, 43.42)
                 ),
                 listOf(
-                    LngLat(-79.75, 43.81),
-                    LngLat(-79.56, 43.85),
-                    LngLat(-79.7, 43.88),
-                    LngLat(-79.75, 43.81)
+                    Position(-79.75, 43.81),
+                    Position(-79.56, 43.85),
+                    Position(-79.7, 43.88),
+                    Position(-79.75, 43.81)
                 )
             )
         )
@@ -284,32 +283,32 @@ class SerializationTests {
             MultiPolygon(
                 listOf(
                     listOf(
-                        LngLat(-79.87, 43.42),
-                        LngLat(-78.89, 43.49),
-                        LngLat(-79.07, 44.02),
-                        LngLat(-79.95, 43.87),
-                        LngLat(-79.87, 43.42)
+                        Position(-79.87, 43.42),
+                        Position(-78.89, 43.49),
+                        Position(-79.07, 44.02),
+                        Position(-79.95, 43.87),
+                        Position(-79.87, 43.42)
                     ),
                     listOf(
-                        LngLat(-79.75, 43.81),
-                        LngLat(-79.56, 43.85),
-                        LngLat(-79.7, 43.88),
-                        LngLat(-79.75, 43.81)
+                        Position(-79.75, 43.81),
+                        Position(-79.56, 43.85),
+                        Position(-79.7, 43.88),
+                        Position(-79.75, 43.81)
                     )
                 ),
                 listOf(
                     listOf(
-                        LngLat(-79.87, 43.42),
-                        LngLat(-78.89, 43.49),
-                        LngLat(-79.07, 44.02),
-                        LngLat(-79.95, 43.87),
-                        LngLat(-79.87, 43.42)
+                        Position(-79.87, 43.42),
+                        Position(-78.89, 43.49),
+                        Position(-79.07, 44.02),
+                        Position(-79.95, 43.87),
+                        Position(-79.87, 43.42)
                     ),
                     listOf(
-                        LngLat(-79.75, 43.81),
-                        LngLat(-79.56, 43.85),
-                        LngLat(-79.7, 43.88),
-                        LngLat(-79.75, 43.81)
+                        Position(-79.75, 43.81),
+                        Position(-79.56, 43.85),
+                        Position(-79.7, 43.88),
+                        Position(-79.75, 43.81)
                     )
                 )
             ),
@@ -321,8 +320,8 @@ class SerializationTests {
     // GeometryCollection
     @Test
     fun testSerializeGeometryCollection() {
-        val point = Point(LngLat(12.3, 45.6))
-        val multiPoint = MultiPoint(LngLat(12.3, 45.6), LngLat(78.9, 12.3))
+        val point = Point(Position(12.3, 45.6))
+        val multiPoint = MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3))
 
         val collection = GeometryCollection(point, multiPoint)
 
@@ -338,8 +337,8 @@ class SerializationTests {
 
     @Test
     fun testDeserializeGeometryCollection() {
-        val point = Point(LngLat(12.3, 45.6))
-        val multiPoint = MultiPoint(LngLat(12.3, 45.6), LngLat(78.9, 12.3))
+        val point = Point(Position(12.3, 45.6))
+        val multiPoint = MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3))
 
         val collection = """{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[12.3,45.6]},
             |{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}]}"""

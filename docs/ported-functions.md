@@ -86,7 +86,7 @@ Use `round` or `Math.round` from the standard library instead.
 
 ## Helper
 
-Use [`geojson-dsl`](../geojson-dsl/) instead.
+Use the [GeoJson DSL](../geojson/#geojson-dsl) instead.
 
 ## Random
 
