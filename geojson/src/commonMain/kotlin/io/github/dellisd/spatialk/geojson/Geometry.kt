@@ -6,8 +6,6 @@ import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
-private fun DoubleArray.toLngLat() = Position(this[0], this[1], this.getOrNull(2))
-
 @Serializable(with = GeometrySerializer::class)
 sealed class Geometry protected constructor() : GeoJson {
     abstract override val bbox: BoundingBox?

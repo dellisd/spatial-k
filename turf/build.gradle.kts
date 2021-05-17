@@ -22,30 +22,24 @@ kotlin {
     ios("ios")
 
     sourceSets["commonMain"].dependencies {
-        implementation(kotlin("stdlib-common"))
         api(project(":geojson"))
     }
 
     sourceSets["commonTest"].dependencies {
-        implementation(kotlin("test-common"))
+        implementation(kotlin("test"))
         implementation(kotlin("test-annotations-common"))
     }
 
     sourceSets["jvmMain"].dependencies {
-        implementation(kotlin("stdlib-jdk8"))
     }
 
     sourceSets["jvmTest"].dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 
     sourceSets["jsMain"].dependencies {
-        implementation(kotlin("stdlib-js"))
     }
 
     sourceSets["jsTest"].dependencies {
-        implementation(kotlin("test-js"))
     }
 
     sourceSets["nativeMain"].dependencies {

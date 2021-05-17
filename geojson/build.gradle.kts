@@ -26,7 +26,7 @@ kotlin {
     }
 
     sourceSets["commonTest"].dependencies {
-        implementation(kotlin("test-common"))
+        implementation(kotlin("test"))
         implementation(kotlin("test-annotations-common"))
     }
 
@@ -34,15 +34,12 @@ kotlin {
     }
 
     sourceSets["jvmTest"].dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 
     sourceSets["jsMain"].dependencies {
     }
 
     sourceSets["jsTest"].dependencies {
-        implementation(kotlin("test-js"))
     }
 
     sourceSets["nativeMain"].dependencies {}
