@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://dellisd.github.io/spatial-k/</loc>
-     <lastmod>2021-03-18</lastmod>
+     <lastmod>2021-05-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dellisd.github.io/spatial-k/geojson/</loc>
-     <lastmod>2021-03-18</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dellisd.github.io/spatial-k/geojson-dsl/</loc>
-     <lastmod>2021-03-18</lastmod>
+     <lastmod>2021-05-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dellisd.github.io/spatial-k/turf/</loc>
-     <lastmod>2021-03-18</lastmod>
+     <lastmod>2021-05-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://dellisd.github.io/spatial-k/ported-functions/</loc>
-     <lastmod>2021-03-18</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dellisd.github.io/spatial-k/api/geojson/</loc>
-     <lastmod>2021-03-18</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dellisd.github.io/spatial-k/api/geojson-dsl/</loc>
-     <lastmod>2021-03-18</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://dellisd.github.io/spatial-k/api/turf/</loc>
-     <lastmod>2021-03-18</lastmod>
+     <lastmod>2021-05-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
