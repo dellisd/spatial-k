@@ -74,7 +74,7 @@ tasks.create<Copy>("copyTestResourcesForJsIr") {
 tasks.named("jsIrNodeTest") {
     dependsOn("copyTestResourcesForJsIr")
 }
-tasks.named("jsLegacyTest") {
+tasks.named("jsLegacyNodeTest") {
     dependsOn("copyTestResourcesForJs")
 }
 
