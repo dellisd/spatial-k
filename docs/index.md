@@ -1,11 +1,11 @@
 <p align="center">
-    <img width="200" src="images/colour.svg" alt="Spatial K Logo" title="Part of a complete breakfast">
+    <img width="200" src="images/colour.svg" alt="Spatial K Logo" title="Part of a complete breakfast!">
 </p>
 
 # Spatial K
 
-Spatial K is a set of libraries for working with geospatial data in Kotlin inlcuding an implementation of GeoJson and 
-a port of Turfjs written in pure Kotlin. It supports Kotlin Multiplatform and Java projects while also featuring a 
+Spatial K is a set of libraries for working with geospatial data in Kotlin including an implementation of GeoJson and 
+a port of Turfjs written in pure Kotlin. It supports Kotlin Multiplatform projects and also features a 
 Kotlin DSL for building GeoJson objects.
 
 ## Installation
@@ -14,11 +14,8 @@ Kotlin DSL for building GeoJson objects.
 
 ```groovy
 dependencies {
-    implementation "io.github.dellisd.spatialk:geojson:0.1.0"
-    implementation "io.github.dellisd.spatialk:turf:0.1.0"
-
-    // Kotlin only
-    implementation "io.github.dellisd.spatialk:geojson-dsl:0.1.0" 
+    implementation "io.github.dellisd.spatialk:geojson:<version>"
+    implementation "io.github.dellisd.spatialk:turf:<version>"
 }
 ```
 
@@ -26,9 +23,8 @@ dependencies {
 ```groovy
 commonMain {
     dependencies {
-        implementation "io.github.dellisd.spatialk:geojson:0.1.0"
-        implementation "io.github.dellisd.spatialk:turf:0.1.0"
-        implementation "io.github.dellisd.spatialk:geojson-dsl:0.1.0" 
+        implementation "io.github.dellisd.spatialk:geojson:<version>"
+        implementation "io.github.dellisd.spatialk:turf:<version>"
     }
 }
 ```

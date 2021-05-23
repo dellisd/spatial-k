@@ -3,8 +3,6 @@ package io.github.dellisd.spatialk.geojson.serialization
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.Geometry
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
@@ -17,8 +15,6 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 
-@ExperimentalSerializationApi
-@InternalSerializationApi
 object FeatureSerializer : JsonSerializer<Feature> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Feature")
 

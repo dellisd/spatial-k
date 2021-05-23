@@ -3,9 +3,8 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.LineString
-import io.github.dellisd.spatialk.geojson.LngLat
-import io.github.dellisd.spatialk.geojson.MultiLineString
 import io.github.dellisd.spatialk.geojson.Position
+import io.github.dellisd.spatialk.geojson.MultiLineString
 import kotlin.jvm.JvmName
 import kotlin.math.max
 
@@ -61,7 +60,7 @@ internal fun intersects(line1: LineString, line2: LineString): Position? {
     if (uA in 0.0..1.0 && uB in 0.0..1.0) {
         val x = x1 + (uA * (x2 - x1))
         val y = y1 + (uA * (y2 - y1))
-        return LngLat(x, y)
+        return Position(x, y)
     }
 
     return null
@@ -135,7 +134,7 @@ internal fun nearestPointOnLine(
     units: Units = Units.Kilometers
 ): NearestPointOnLineResult {
     var closest = NearestPointOnLineResult(
-        LngLat(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY),
+        Position(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY),
         Double.POSITIVE_INFINITY,
         Double.POSITIVE_INFINITY,
         -1

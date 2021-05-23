@@ -22,31 +22,24 @@ kotlin {
     ios("ios")
 
     sourceSets["commonMain"].dependencies {
-        implementation(kotlin("stdlib-common"))
         api(project(":geojson"))
     }
 
     sourceSets["commonTest"].dependencies {
-        implementation(kotlin("test-common"))
+        implementation(kotlin("test"))
         implementation(kotlin("test-annotations-common"))
-        implementation(project(":geojson-dsl"))
     }
 
     sourceSets["jvmMain"].dependencies {
-        implementation(kotlin("stdlib-jdk8"))
     }
 
     sourceSets["jvmTest"].dependencies {
-        implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
     }
 
     sourceSets["jsMain"].dependencies {
-        implementation(kotlin("stdlib-js"))
     }
 
     sourceSets["jsTest"].dependencies {
-        implementation(kotlin("test-js"))
     }
 
     sourceSets["nativeMain"].dependencies {
@@ -70,18 +63,18 @@ kotlin {
 tasks.create<Copy>("copyTestResourcesForJs") {
     from("$projectDir/src/commonTest/resources")
     into("${rootProject.buildDir}/js/packages/${rootProject.name}" +
-            "-${project.name}-jsLegacy-test/src/commonTest/resources")
+            "-${project.name}-js-legacy-test/src/commonTest/resources")
 }
 
 tasks.create<Copy>("copyTestResourcesForJsIr") {
     from("$projectDir/src/commonTest/resources")
-    into("${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-jsIr-test/src/commonTest/resources")
+    into("${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-js-ir-test/src/commonTest/resources")
 }
 
 tasks.named("jsIrNodeTest") {
     dependsOn("copyTestResourcesForJsIr")
 }
-tasks.named("jsLegacyTest") {
+tasks.named("jsLegacyNodeTest") {
     dependsOn("copyTestResourcesForJs")
 }
 

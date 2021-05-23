@@ -4,7 +4,7 @@ package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.LineString
-import io.github.dellisd.spatialk.geojson.LngLat
+import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.dsl.geometryCollection
@@ -21,9 +21,9 @@ class TurfMeasurementTest {
     fun testAlong() {
         val geometry = readResource("measurement/along/lineString.json").toGeometry<LineString>()
 
-        assertEquals(LngLat(-79.4179672644524, 43.636029126566484), along(geometry, 1.0))
-        assertEquals(LngLat(-79.39973865844715, 43.63797943080659), along(geometry, 2.5))
-        assertEquals(LngLat(-79.37493324279785, 43.64470906117713), along(geometry, 100.0))
+        assertEquals(Position(-79.4179672644524, 43.636029126566484), along(geometry, 1.0))
+        assertEquals(Position(-79.39973865844715, 43.63797943080659), along(geometry, 2.5))
+        assertEquals(Position(-79.37493324279785, 43.64470906117713), along(geometry, 100.0))
         assertEquals(geometry.coordinates.last(), along(geometry, 100.0))
     }
 
@@ -44,7 +44,7 @@ class TurfMeasurementTest {
     fun testBbox() {
         val point = readResource("measurement/bbox/point.json").toGeometry<Point>()
         assertEquals(
-            BoundingBox(LngLat(point.longitude, point.latitude), LngLat(point.longitude, point.latitude)),
+            BoundingBox(point.coordinates, point.coordinates),
             bbox(point)
         )
 
@@ -67,10 +67,10 @@ class TurfMeasurementTest {
 
         val polygon = polygon {
             ring {
-                +LngLat(12.1, 34.3)
-                +LngLat(56.5, 34.3)
-                +LngLat(56.5, 78.7)
-                +LngLat(12.1, 78.7)
+                +Position(12.1, 34.3)
+                +Position(56.5, 34.3)
+                +Position(56.5, 78.7)
+                +Position(12.1, 78.7)
                 complete()
             }
         }
@@ -80,8 +80,8 @@ class TurfMeasurementTest {
 
     @Test
     fun testBearing() {
-        val start = LngLat(-75.0, 45.0)
-        val end = LngLat(20.0, 60.0)
+        val start = Position(-75.0, 45.0)
+        val end = Position(20.0, 60.0)
 
         assertDoubleEquals(37.75, bearing(start, end), 0.01, "Initial Bearing")
         assertDoubleEquals(120.01, bearing(start, end, final = true), 0.01, "Final Bearing")
@@ -89,7 +89,7 @@ class TurfMeasurementTest {
 
     @Test
     fun testDestination() {
-        val point0 = LngLat(-75.0, 38.10096062273525)
+        val point0 = Position(-75.0, 38.10096062273525)
         val (longitude, latitude) = destination(point0, 100.0, 0.0)
 
         assertDoubleEquals(-75.0, longitude, 0.1)
@@ -98,8 +98,8 @@ class TurfMeasurementTest {
 
     @Test
     fun testDistance() {
-        val a = LngLat(-73.67, 45.48)
-        val b = LngLat(-79.48, 43.68)
+        val a = Position(-73.67, 45.48)
+        val b = Position(-79.48, 43.68)
 
         assertEquals(501.64563403765925, distance(a, b))
     }
@@ -113,8 +113,8 @@ class TurfMeasurementTest {
 
     @Test
     fun testMidpoint() {
-        val point1 = LngLat(-79.3801, 43.6463)
-        val point2 = LngLat(-74.0071, 40.7113)
+        val point1 = Position(-79.3801, 43.6463)
+        val point2 = Position(-74.0071, 40.7113)
 
         val midpoint = midpoint(point1, point2)
 
