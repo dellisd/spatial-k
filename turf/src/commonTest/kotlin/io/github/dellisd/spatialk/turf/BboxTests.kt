@@ -3,6 +3,7 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
+import io.github.dellisd.spatialk.geojson.ExperimentalGeoJsonApi
 import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.dsl.feature
 import io.github.dellisd.spatialk.geojson.dsl.featureCollection
@@ -86,6 +87,7 @@ private val featureCollection = featureCollection {
     }
 }
 
+@ExperimentalTurfApi
 class BboxTests {
 
     @Test

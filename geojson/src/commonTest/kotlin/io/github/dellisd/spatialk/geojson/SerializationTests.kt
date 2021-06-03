@@ -8,6 +8,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
+@ExperimentalGeoJsonApi
 @Suppress("MagicNumber", "TooManyFunctions")
 class SerializationTests {
 
