@@ -1,13 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Publish Website
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
-    branches: [ master ]
-    tags: 
+    tags:
       - "*"
 
 jobs:
