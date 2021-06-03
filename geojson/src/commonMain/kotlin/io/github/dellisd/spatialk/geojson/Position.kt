@@ -98,7 +98,6 @@ class Position(val coordinates: DoubleArray) {
     override fun toString(): String {
         return "LngLat(longitude=$longitude, latitude=$latitude, altitude=$altitude)"
     }
-
 }
 
 @Suppress("MagicNumber")

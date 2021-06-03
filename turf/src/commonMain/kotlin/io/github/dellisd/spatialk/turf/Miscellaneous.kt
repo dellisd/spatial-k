@@ -16,6 +16,7 @@ import kotlin.math.max
  * @return A list containing any intersections between [line1] and [line2]
  * @throws NotImplementedError if either LineString does not contain exactly two points
  */
+@ExperimentalTurfApi
 fun lineIntersect(line1: LineString, line2: LineString): List<Position> {
     if (line1.coordinates.size == 2 && line2.coordinates.size == 2) {
         val intersect = intersects(line1, line2)
@@ -33,6 +34,7 @@ fun lineIntersect(line1: LineString, line2: LineString): List<Position> {
  * @return The position of the intersection, or null if the two lines do not intersect.
  */
 @Suppress("ReturnCount")
+@ExperimentalTurfApi
 internal fun intersects(line1: LineString, line2: LineString): Position? {
     if (line1.coordinates.size != 2) throw IllegalStateException("line1 must contain exactly 2 coordinates")
     if (line2.coordinates.size != 2) throw IllegalStateException("line2 must contain exactly 2 coordinates")
@@ -75,6 +77,7 @@ internal fun intersects(line1: LineString, line2: LineString): Position? {
  * @param line The line string to slice
  * @return The sliced subsection of the line
  */
+@ExperimentalTurfApi
 fun lineSlice(start: Position, stop: Position, line: LineString): LineString {
     val startVertex = nearestPointOnLine(line, start)
     val stopVertex = nearestPointOnLine(line, stop)
@@ -99,6 +102,7 @@ fun lineSlice(start: Position, stop: Position, line: LineString): LineString {
  * @property location Distance along the line from the stat to the [point]
  * @property index Index of the segment of the line on which [point] lies.
  */
+@ExperimentalTurfApi
 data class NearestPointOnLineResult(val point: Position, val distance: Double, val location: Double, val index: Int)
 
 /**
@@ -108,6 +112,7 @@ data class NearestPointOnLineResult(val point: Position, val distance: Double, v
  * @param point The [Position] given to find the closest point along the [line]
  * @return The closest position along the line
  */
+@ExperimentalTurfApi
 fun nearestPointOnLine(line: LineString, point: Position, units: Units = Units.Kilometers): NearestPointOnLineResult {
     return nearestPointOnLine(listOf(line.coordinates), point, units)
 }
@@ -119,6 +124,7 @@ fun nearestPointOnLine(line: LineString, point: Position, units: Units = Units.K
  * @param point The [Position] given to find the closest point along the [lines]
  * @return The closest position along the lines
  */
+@ExperimentalTurfApi
 fun nearestPointOnLine(
     lines: MultiLineString,
     point: Position,
@@ -128,6 +134,7 @@ fun nearestPointOnLine(
 }
 
 @Suppress("MagicNumber")
+@ExperimentalTurfApi
 internal fun nearestPointOnLine(
     lines: List<List<Position>>,
     point: Position,

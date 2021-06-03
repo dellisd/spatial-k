@@ -36,6 +36,7 @@ import kotlin.math.sqrt
  */
 @JvmOverloads
 @Suppress("MagicNumber")
+@ExperimentalTurfApi
 fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): Position {
     var travelled = 0.0
 
@@ -76,6 +77,7 @@ fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): 
  * @param geometry input geometry
  * @return area in square meters
  */
+@ExperimentalTurfApi
 fun area(geometry: Geometry): Double {
     return when (geometry) {
         is GeometryCollection -> geometry.geometries.fold(0.0) { acc, geom ->
@@ -165,6 +167,7 @@ private fun ringArea(coordinates: List<Position>): Double {
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: Geometry): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
@@ -173,6 +176,7 @@ fun bbox(geometry: Geometry): BoundingBox = computeBbox(geometry.coordAll())
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: Point) = computeBbox(geometry.coordAll())
 
 /**
@@ -181,6 +185,7 @@ fun bbox(geometry: Point) = computeBbox(geometry.coordAll())
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: MultiPoint) = computeBbox(geometry.coordAll())
 
 /**
@@ -189,6 +194,7 @@ fun bbox(geometry: MultiPoint) = computeBbox(geometry.coordAll())
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: LineString) = computeBbox(geometry.coordAll())
 
 /**
@@ -197,6 +203,7 @@ fun bbox(geometry: LineString) = computeBbox(geometry.coordAll())
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: MultiLineString) = computeBbox(geometry.coordAll())
 
 /**
@@ -205,6 +212,7 @@ fun bbox(geometry: MultiLineString) = computeBbox(geometry.coordAll())
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: Polygon) = computeBbox(geometry.coordAll())
 
 /**
@@ -213,6 +221,7 @@ fun bbox(geometry: Polygon) = computeBbox(geometry.coordAll())
  * @param geometry The geometry to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(geometry: MultiPolygon) = computeBbox(geometry.coordAll())
 
 /**
@@ -221,6 +230,7 @@ fun bbox(geometry: MultiPolygon) = computeBbox(geometry.coordAll())
  * @param feature The feature to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(feature: Feature): BoundingBox? = computeBbox(feature.coordAll() ?: emptyList())
 
 /**
@@ -229,6 +239,7 @@ fun bbox(feature: Feature): BoundingBox? = computeBbox(feature.coordAll() ?: emp
  * @param featureCollection The collection of features to compute a bounding box for.
  * @return A [BoundingBox] that covers the geometry.
  */
+@ExperimentalTurfApi
 fun bbox(featureCollection: FeatureCollection): BoundingBox = computeBbox(featureCollection.coordAll())
 
 @Suppress("MagicNumber")
@@ -265,6 +276,7 @@ private fun computeBbox(coordinates: List<Position>): BoundingBox {
  * @param bbox The bounding box to convert to a Polygon.
  * @return The bounding box as a polygon
  */
+@ExperimentalTurfApi
 fun bboxPolygon(bbox: BoundingBox): Polygon {
     if (bbox.northeast.altitude != null || bbox.southwest.altitude != null) {
         throw IllegalArgumentException("Bounding Box cannot have altitudes")
@@ -282,6 +294,7 @@ fun bboxPolygon(bbox: BoundingBox): Polygon {
 }
 
 @JvmSynthetic
+@ExperimentalTurfApi
 fun BoundingBox.toPolygon() = bboxPolygon(this)
 
 /**
@@ -294,6 +307,7 @@ fun BoundingBox.toPolygon() = bboxPolygon(this)
  * @return bearing in decimal degrees, between -180 and 180 degrees (positive clockwise)
  */
 @JvmOverloads
+@ExperimentalTurfApi
 fun bearing(start: Position, end: Position, final: Boolean = false): Double {
     if (final) return finalBearing(start, end)
 
@@ -309,6 +323,7 @@ fun bearing(start: Position, end: Position, final: Boolean = false): Double {
 }
 
 @Suppress("MagicNumber")
+@ExperimentalTurfApi
 internal fun finalBearing(start: Position, end: Position): Double = (bearing(
     end,
     start
@@ -328,6 +343,7 @@ internal fun finalBearing(start: Position, end: Position): Double = (bearing(
  * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
  */
 @JvmOverloads
+@ExperimentalTurfApi
 fun destination(origin: Position, distance: Double, bearing: Double, units: Units = Units.Kilometers): Position {
     val longitude1 = radians(origin.longitude)
     val latitude1 = radians(origin.latitude)
@@ -358,6 +374,7 @@ fun destination(origin: Position, distance: Double, bearing: Double, units: Unit
  * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine formula</a>
  */
 @JvmOverloads
+@ExperimentalTurfApi
 fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Double {
     val dLat = radians(to.latitude - from.latitude)
     val dLon = radians(to.longitude - from.longitude)
@@ -375,6 +392,7 @@ fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Dou
  * @param units The unit of measurement to return the length in
  * @return The length of the geometry in [units].
  */
+@ExperimentalTurfApi
 fun length(lineString: LineString, units: Units): Double = length(lineString.coordinates, units)
 
 /**
@@ -384,6 +402,7 @@ fun length(lineString: LineString, units: Units): Double = length(lineString.coo
  * @param units The unit of measurement to return the length in
  * @return The length of the geometry in [units].
  */
+@ExperimentalTurfApi
 fun length(multiLineString: MultiLineString, units: Units): Double =
     multiLineString.coordinates.fold(0.0) { acc, coords -> acc + length(coords, units) }
 
@@ -395,6 +414,7 @@ fun length(multiLineString: MultiLineString, units: Units): Double =
  * @param units The unit of measurement to return the length in
  * @return The length of the geometry in [units].
  */
+@ExperimentalTurfApi
 fun length(polygon: Polygon, units: Units): Double =
     polygon.coordinates.fold(0.0) { acc, ring -> acc + length(ring, units) }
 
@@ -406,6 +426,7 @@ fun length(polygon: Polygon, units: Units): Double =
  * @param units The unit of measurement to return the length in
  * @return The length of the geometry in [units].
  */
+@ExperimentalTurfApi
 fun length(multiPolygon: MultiPolygon, units: Units): Double =
     multiPolygon.coordinates.fold(0.0) { total, polygon ->
         total + polygon.fold(0.0) { acc, ring ->
@@ -416,6 +437,7 @@ fun length(multiPolygon: MultiPolygon, units: Units): Double =
         }
     }
 
+@ExperimentalTurfApi
 private fun length(coords: List<Position>, units: Units): Double {
     var travelled = 0.0
     var prevCoords = coords[0]
@@ -434,6 +456,7 @@ private fun length(coords: List<Position>, units: Units): Double {
  * @param point2 the second point
  * @return A [Position] midway between [point1] and [point2]
  */
+@ExperimentalTurfApi
 fun midpoint(point1: Position, point2: Position): Position {
     val dist = distance(point1, point2)
     val heading = bearing(point1, point2)

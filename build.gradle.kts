@@ -57,5 +57,5 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
 }
 
 tasks.dokkaGfmMultiModule.configure {
-
+    outputDirectory.set(rootDir.absoluteFile.resolve("docs/api"))
 }

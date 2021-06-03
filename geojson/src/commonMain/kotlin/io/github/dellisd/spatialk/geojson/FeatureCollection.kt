@@ -16,11 +16,10 @@ import kotlin.jvm.JvmStatic
  *
  * @property features The collection of [Feature] objects stored in this collection
  */
-data class FeatureCollection(
+class FeatureCollection(
     val features: List<Feature> = emptyList(),
     override val bbox: BoundingBox? = null
-) :
-    Collection<Feature> by features, GeoJson {
+) : Collection<Feature> by features, GeoJson {
 
     constructor(vararg features: Feature, bbox: BoundingBox? = null) : this(features.toMutableList(), bbox)
 
@@ -48,6 +47,9 @@ data class FeatureCollection(
     }
 
     override fun toString(): String = json
+
+    operator fun component1(): List<Feature> = features
+    operator fun component2(): BoundingBox? = bbox
 
     companion object {
         @JvmStatic

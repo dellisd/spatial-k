@@ -104,6 +104,13 @@ class Feature(
     override val json: String
         get() = Json.encodeToString(serializer(), this)
 
+    fun copy(
+        geometry: Geometry? = this.geometry,
+        properties: Map<String, JsonElement> = this.properties,
+        id: String? = this.id,
+        bbox: BoundingBox? = this.bbox
+    ): Feature = Feature(geometry, properties, id, bbox)
+
     companion object {
         @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
         @JvmStatic

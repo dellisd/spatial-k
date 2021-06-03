@@ -9,8 +9,6 @@ class Point @JvmOverloads constructor(val coordinates: Position, override val bb
     @JvmOverloads
     constructor(coordinates: DoubleArray, bbox: BoundingBox? = null) : this(Position(coordinates), bbox)
 
-    operator fun component4() = bbox
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
@@ -18,9 +16,14 @@ class Point @JvmOverloads constructor(val coordinates: Position, override val bb
         other as Point
 
         if (coordinates != other.coordinates) return false
+        if (bbox != other.bbox) return false
 
         return true
     }
 
-    override fun hashCode(): Int = coordinates.hashCode()
+    override fun hashCode(): Int {
+        var result = coordinates.hashCode()
+        result = 31 * result + (bbox?.hashCode() ?: 0)
+        return result
+    }
 }

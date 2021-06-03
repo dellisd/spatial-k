@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmOverloads
 
 @Serializable(with = GeometrySerializer::class)
-data class LineString @JvmOverloads constructor(
+class LineString @JvmOverloads constructor(
     val coordinates: List<Position>,
     override val bbox: BoundingBox? = null
 ) : Geometry() {
@@ -22,5 +22,23 @@ data class LineString @JvmOverloads constructor(
         if (coordinates.size < 2) {
             throw IllegalArgumentException("LineString must have at least two positions")
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as LineString
+
+        if (coordinates != other.coordinates) return false
+        if (bbox != other.bbox) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = coordinates.hashCode()
+        result = 31 * result + (bbox?.hashCode() ?: 0)
+        return result
     }
 }

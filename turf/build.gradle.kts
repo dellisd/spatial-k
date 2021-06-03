@@ -57,6 +57,12 @@ kotlin {
         getByName("macosTest").dependsOn(nativeTest)
         getByName("iosTest").dependsOn(nativeTest)
         getByName("mingwTest").dependsOn(nativeTest)
+
+        all {
+            with(languageSettings) {
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
+            }
+        }
     }
 }
 
