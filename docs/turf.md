@@ -8,6 +8,7 @@ The documentation for the ported functions can be found in the [API docs](api/tu
 
 ## Installation 
 
+![Maven Central](https://img.shields.io/maven-central/v/io.github.dellisd.spatialk/turf)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.dellisd.spatialk/turf?server=https%3A%2F%2Foss.sonatype.org)
 
 === "Kotlin"
