@@ -68,11 +68,9 @@ class BoundingBox constructor(val coordinates: DoubleArray) {
             false -> Position(coordinates[2], coordinates[3])
         }
 
-    @JvmSynthetic
     operator fun component1(): Position = southwest
-
-    @JvmSynthetic
     operator fun component2(): Position = northeast
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false

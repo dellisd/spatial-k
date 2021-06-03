@@ -1,5 +1,6 @@
 package io.github.dellisd.spatialk.turf
 
+import io.github.dellisd.spatialk.geojson.ExperimentalGeoJsonApi
 import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
 import io.github.dellisd.spatialk.geojson.LineString
 import io.github.dellisd.spatialk.geojson.Position
@@ -12,6 +13,8 @@ import io.github.dellisd.spatialk.turf.utils.readResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@ExperimentalGeoJsonApi
+@ExperimentalTurfApi
 @Suppress("MagicNumber")
 class TurfMiscTest {
 
