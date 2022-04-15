@@ -21,15 +21,20 @@ allprojects {
 
 detekt {
     buildUponDefaultConfig = true
-    reports {
-        html.enabled = true
-    }
 
-    input = files(rootProject.projectDir)
+    source = files(
+        project(":geojson").projectDir.resolve("src"),
+        project(":turf").projectDir.resolve("src")
+    )
 }
 
+
 tasks.withType<Detekt> {
+    buildUponDefaultConfig = true
     jvmTarget = "11"
+    reports {
+        html.required.set(true)
+    }
 }
 
 tasks.dokkaGfmMultiModule.configure {
