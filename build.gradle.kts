@@ -1,49 +1,25 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath(deps.plugins.publish)
-    }
-}
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform") version Versions.kotlin apply false
-    id("org.jetbrains.kotlin.plugin.serialization") version Versions.kotlin apply false
-    id("io.gitlab.arturbosch.detekt") version Versions.detekt
-    id("org.jetbrains.dokka") version Versions.dokka
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.publish) apply false
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.dokka)
 }
 
 repositories {
     mavenCentral()
-    jcenter()
-    jcenter {
-        content {
-            // just allow to include kotlinx projects
-            // detekt needs "kotlinx-html" for the html report
-            includeGroup("org.jetbrains.kotlinx")
-        }
-    }
-    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
-}
-
-subprojects {
-    group = "io.github.dellisd.spatialk"
-    version = "0.0.2"
+    google()
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap" )
-        maven(url = "https://kotlin.bintray.com/kotlinx" )
+        google()
     }
 }
 
 detekt {
-    failFast = false
     buildUponDefaultConfig = true
     reports {
         html.enabled = true
@@ -52,7 +28,7 @@ detekt {
     input = files(rootProject.projectDir)
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+tasks.withType<Detekt> {
     jvmTarget = "11"
 }
 

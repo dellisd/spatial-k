@@ -1,12 +1,7 @@
 package io.github.dellisd.spatialk.turf.utils
 
+import com.goncalossilva.resources.Resource
+
 const val RESOURCE_PATH = "./src/commonTest/resources"
 
-expect class Resource(name: String) {
-    val name: String
-
-    fun exists(): Boolean
-    fun readText(): String
-}
-
-fun readResource(name: String) = Resource(name).readText()
+fun readResource(name: String) = Resource("${RESOURCE_PATH}/${name}").readText()

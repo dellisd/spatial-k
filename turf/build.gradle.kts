@@ -1,6 +1,8 @@
 plugins {
-    id("org.jetbrains.kotlin.multiplatform")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.publish)
+    alias(libs.plugins.resources)
 }
 
 kotlin {
@@ -28,6 +30,7 @@ kotlin {
     sourceSets["commonTest"].dependencies {
         implementation(kotlin("test"))
         implementation(kotlin("test-annotations-common"))
+        implementation(libs.resources)
     }
 
     sourceSets["jvmMain"].dependencies {
@@ -60,36 +63,16 @@ kotlin {
 
         all {
             with(languageSettings) {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
+                optIn("kotlin.RequiresOptIn")
             }
         }
     }
 }
 
-tasks.create<Copy>("copyTestResourcesForJs") {
-    from("$projectDir/src/commonTest/resources")
-    into("${rootProject.buildDir}/js/packages/${rootProject.name}" +
-            "-${project.name}-js-legacy-test/src/commonTest/resources")
-}
-
-tasks.create<Copy>("copyTestResourcesForJsIr") {
-    from("$projectDir/src/commonTest/resources")
-    into("${rootProject.buildDir}/js/packages/${rootProject.name}-${project.name}-js-ir-test/src/commonTest/resources")
-}
-
-tasks.named("jsIrNodeTest") {
-    dependsOn("copyTestResourcesForJsIr")
-}
-tasks.named("jsLegacyNodeTest") {
-    dependsOn("copyTestResourcesForJs")
-}
-
-tasks.named("jsIrBrowserTest") { enabled = false }
-tasks.named("jsLegacyBrowserTest") { enabled = false }
+// https://github.com/goncalossilva/kotlinx-resources/pull/18
+tasks.named("jsBrowserTest") { enabled = false }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
     // custom output directory
     outputDirectory.set(buildDir.resolve("$rootDir/docs/api"))
 }
-
-apply(plugin = "com.vanniktech.maven.publish")
