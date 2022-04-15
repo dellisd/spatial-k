@@ -1,7 +1,8 @@
 plugins {
-    id("org.jetbrains.kotlin.multiplatform")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.publish)
 }
 
 kotlin {
@@ -22,7 +23,7 @@ kotlin {
     ios("ios")
 
     sourceSets["commonMain"].dependencies {
-        api(deps.kotlinx.serialization)
+        api(libs.kotlinx.serialization)
     }
 
     sourceSets["commonTest"].dependencies {
@@ -48,10 +49,10 @@ kotlin {
     sourceSets {
         all {
             with(languageSettings) {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlin.js.ExperimentalJsExport")
-                useExperimentalAnnotation("kotlinx.serialization.InternalSerializationApi")
-                useExperimentalAnnotation("kotlinx.serialization.ExperimentalSerializationApi")
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlin.js.ExperimentalJsExport")
+                optIn("kotlinx.serialization.InternalSerializationApi")
+                optIn("kotlinx.serialization.ExperimentalSerializationApi")
             }
         }
 
@@ -71,5 +72,3 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
     // custom output directory
     outputDirectory.set(buildDir.resolve("$rootDir/docs/api"))
 }
-
-apply(plugin = "com.vanniktech.maven.publish")
