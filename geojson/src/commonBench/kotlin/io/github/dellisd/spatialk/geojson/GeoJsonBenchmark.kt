@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
@@ -64,11 +66,11 @@ open class GeoJsonBenchmark {
 
     @Benchmark
     fun serialization() {
-        val result = dataset.json
+        dataset.json
     }
 
     @Benchmark
     fun deserialization() {
-        val result = geojson.toFeatureCollection()
+        geojson.toFeatureCollection()
     }
 }
