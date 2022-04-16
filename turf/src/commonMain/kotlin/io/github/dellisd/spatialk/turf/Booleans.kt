@@ -1,8 +1,13 @@
 @file:OptIn(ExperimentalTurfApi::class)
+@file:Suppress("LongMethod", "MagicNumber", "NestedBlockDepth")
 
 package io.github.dellisd.spatialk.turf
 
-import io.github.dellisd.spatialk.geojson.*
+import io.github.dellisd.spatialk.geojson.BoundingBox
+import io.github.dellisd.spatialk.geojson.MultiPolygon
+import io.github.dellisd.spatialk.geojson.Point
+import io.github.dellisd.spatialk.geojson.Polygon
+import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmOverloads
 
 /**
@@ -40,6 +45,7 @@ fun booleanPointInPolygon(point: Point, polygon: MultiPolygon, ignoreBoundary: B
     return booleanPointInPolygon(point.coordinates, bbox, polys, ignoreBoundary)
 }
 
+@Suppress("ReturnCount")
 private fun booleanPointInPolygon(
     point: Position,
     bbox: BoundingBox,
@@ -73,7 +79,7 @@ private fun booleanPointInPolygon(
 private fun inRing(point: Position, ring: List<Position>, ignoreBoundary: Boolean): Boolean {
     val pt = point.coordinates
     var isInside = false
-    val ring = if (
+    @Suppress("NAME_SHADOWING") val ring = if (
         ring[0].coordinates[0] == ring.last().coordinates[0] &&
         ring[0].coordinates[1] == ring.last().coordinates[1]
     ) {
@@ -90,14 +96,14 @@ private fun inRing(point: Position, ring: List<Position>, ignoreBoundary: Boolea
         val yj = ring[j].coordinates[1]
         val onBoundary =
             pt[1] * (xi - xj) + yi * (xj - pt[0]) + yj * (pt[0] - xi) == 0.0 &&
-            (xi - pt[0]) * (xj - pt[0]) <= 0 &&
-            (yi - pt[1]) * (yj - pt[1]) <= 0
+                    (xi - pt[0]) * (xj - pt[0]) <= 0 &&
+                    (yi - pt[1]) * (yj - pt[1]) <= 0
         if (onBoundary) {
             return !ignoreBoundary
         }
         val intersect =
             yi > pt[1] != yj > pt[1] &&
-            pt[0] < ((xj - xi) * (pt[1] - yi)) / (yj - yi) + xi
+                    pt[0] < ((xj - xi) * (pt[1] - yi)) / (yj - yi) + xi
         if (intersect) {
             isInside = !isInside
         }
