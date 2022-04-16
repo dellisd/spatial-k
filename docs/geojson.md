@@ -1,4 +1,4 @@
-_# GeoJson
+# GeoJson
 
 The `geojson` module contains an implementation of the [GeoJson standard](https://tools.ietf.org/html/rfc7946).
 
