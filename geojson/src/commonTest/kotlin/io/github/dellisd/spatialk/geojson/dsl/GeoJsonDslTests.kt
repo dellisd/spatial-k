@@ -1,9 +1,13 @@
 package io.github.dellisd.spatialk.geojson.dsl
 
 import io.github.dellisd.spatialk.geojson.FeatureCollection
+import io.github.dellisd.spatialk.geojson.LineString
+import io.github.dellisd.spatialk.geojson.MultiPoint
+import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 @Suppress("MagicNumber")
 class GeoJsonDslTests {
@@ -93,5 +97,42 @@ class GeoJsonDslTests {
     @Test
     fun testDslConstruction() {
         assertEquals(FeatureCollection.fromJson(collectionJson), collectionDsl)
+    }
+
+    @Test
+    fun testLngLatRequirements() {
+        assertFails { lngLat(-200.0, 50.0) }
+        assertFails { lngLat(0.0, 99.0) }
+        assertFails { lngLat(500.0, -180.0) }
+    }
+
+    @Test
+    fun testNoInlinePositionRequirements() {
+        assertEquals(MultiPoint(Position(-200.0, 0.0), Position(200.0, 99.0)), multiPoint {
+            point(-200.0, 0.0)
+            point(200.0, 99.0)
+        })
+
+        assertEquals(LineString(Position(-200.0, 0.0), Position(200.0, 99.0)), lineString {
+            point(-200.0, 0.0)
+            point(200.0, 99.0)
+        })
+
+        assertEquals(Polygon(
+            listOf(
+                Position(-200.0, 0.0),
+                Position(200.0, 99.0),
+                Position(500.0, 99.0),
+                Position(-200.0, 0.0)
+            )
+        ),
+            polygon {
+                ring {
+                    point(-200.0, 0.0)
+                    point(200.0, 99.0)
+                    point(500.0, 99.0)
+                    complete()
+                }
+            })
     }
 }

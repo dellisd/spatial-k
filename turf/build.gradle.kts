@@ -69,7 +69,6 @@ kotlin {
     }
 }
 
-// https://github.com/goncalossilva/kotlinx-resources/pull/18
 tasks.named("jsBrowserTest") { enabled = false }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {

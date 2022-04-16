@@ -54,7 +54,7 @@ class MultiPointDsl(private val points: MutableList<Position> = mutableListOf())
     }
 
     fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
-        points.add(lngLat(longitude, latitude, altitude))
+        points.add(Position(longitude, latitude, altitude))
     }
 }
 
@@ -76,7 +76,7 @@ class LineStringDsl(internal val points: MutableList<Position> = mutableListOf()
     }
 
     fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
-        points.add(lngLat(longitude, latitude, altitude))
+        points.add(Position(longitude, latitude, altitude))
     }
 }
 
@@ -122,7 +122,7 @@ class PolygonDsl(internal val coordinates: MutableList<List<Position>> = mutable
         }
 
         fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
-            points.add(lngLat(longitude, latitude, altitude))
+            points.add(Position(longitude, latitude, altitude))
         }
 
         operator fun LineString.unaryPlus() {
