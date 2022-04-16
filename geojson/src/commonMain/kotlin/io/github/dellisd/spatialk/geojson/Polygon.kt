@@ -63,7 +63,7 @@ class Polygon @JvmOverloads constructor(
         }
 
         @JvmStatic
-        internal fun fromJson(json: JsonObject): Polygon {
+        public fun fromJson(json: JsonObject): Polygon {
             if (json.getValue("type").jsonPrimitive.content != "Polygon") {
                 throw IllegalArgumentException("Object \"type\" is not \"Polygon\".")
             }

@@ -17,7 +17,7 @@ jobs:
           python-version: 3.8
       
       - name: Build Dokka docs
-        run: ./gradlew dokkaGfmMultiModule --no-daemon --no-parallel
+        run: ./gradlew dokkaHtmlMultiModule --no-daemon --no-parallel
       
       - name: Build mkdocs
         run: |

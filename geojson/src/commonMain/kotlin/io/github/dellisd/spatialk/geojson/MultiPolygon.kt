@@ -68,7 +68,7 @@ class MultiPolygon @JvmOverloads constructor(
         }
 
         @JvmStatic
-        internal fun fromJson(json: JsonObject): MultiPolygon {
+        public fun fromJson(json: JsonObject): MultiPolygon {
             if (json.getValue("type").jsonPrimitive.content != "MultiPolygon") {
                 throw IllegalArgumentException("Object \"type\" is not \"MultiPolygon\".")
             }
