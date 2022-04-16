@@ -9,14 +9,13 @@
         <meta name="description" content="Kotlin Multiplatform GeoJson library and Turfjs port">
       
       
-      
         <meta name="author" content="Derek Ellis">
       
       
         <link rel="canonical" href="https://dellisd.github.io/spatial-k/geojson/">
       
       <link rel="icon" href="../images/logo.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.6">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.875de78c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.120efc48.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
         
           
           
@@ -39,15 +38,17 @@
     
       
         
+        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
     
     
   </head>
@@ -61,7 +62,6 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="green" data-md-color-accent="blue">
   
     
-    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -78,7 +78,10 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+    
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Spatial K" class="md-header__button md-logo" aria-label="Spatial K" data-md-component="logo">
       
@@ -86,7 +89,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -108,21 +111,24 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -139,11 +145,10 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/dellisd/spatial-k/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/dellisd/spatial-k" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     spatial-k
@@ -152,11 +157,14 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -181,11 +189,10 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/dellisd/spatial-k/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/dellisd/spatial-k" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     spatial-k
@@ -237,6 +244,7 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -380,26 +388,6 @@
     From Json
   </a>
   
-    <nav class="md-nav" aria-label="From Json">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#geometry_1" class="md-nav__link">
-    Geometry
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-and-featurecollection" class="md-nav__link">
-    Feature and FeatureCollection
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -423,7 +411,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#geometry_2" class="md-nav__link">
+  <a href="#geometry_1" class="md-nav__link">
     Geometry
   </a>
   
@@ -524,10 +512,14 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
-      <label class="md-nav__link" for="__nav_3">
-        Turf
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Turf
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Turf" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
@@ -536,6 +528,7 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
   
@@ -546,8 +539,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -558,6 +553,7 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -578,10 +574,14 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
-      <label class="md-nav__link" for="__nav_4">
-        API
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="API" data-md-level="1">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
@@ -590,6 +590,7 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
   
@@ -600,8 +601,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -612,6 +615,7 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -631,6 +635,7 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -774,26 +779,6 @@
     From Json
   </a>
   
-    <nav class="md-nav" aria-label="From Json">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#geometry_1" class="md-nav__link">
-    Geometry
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-and-featurecollection" class="md-nav__link">
-    Feature and FeatureCollection
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -817,7 +802,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#geometry_2" class="md-nav__link">
+  <a href="#geometry_1" class="md-nav__link">
     Geometry
   </a>
   
@@ -909,12 +894,13 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/dellisd/spatial-k/edit/master/docs/geojson.md" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
-                
-                
-                <h1 id="geojson">GeoJson</h1>
+  <a href="https://github.com/dellisd/spatial-k/edit/master/docs/geojson.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="geojson">GeoJson</h1>
 <p>The <code>geojson</code> module contains an implementation of the <a href="https://tools.ietf.org/html/rfc7946">GeoJson standard</a>.</p>
 <p>See below for constructing GeoJson objects using the DSL.</p>
 <h2 id="installation">Installation</h2>
@@ -922,13 +908,13 @@
 <img alt="Sonatype Nexus (Snapshots)" src="https://img.shields.io/nexus/s/io.github.dellisd.spatialk/geojson?server=https%3A%2F%2Foss.sonatype.org" /></p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span> <span class="p">{</span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.dellisd.spatialk:geojson:&lt;version&gt;&quot;</span><span class="p">)</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.dellisd.spatialk:geojson:&lt;version&gt;&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Groovy</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
-<span class="n">implementation</span> <span class="s2">&quot;io.github.dellisd.spatialk:geojson:&lt;version&gt;&quot;</span>
+    <span class="n">implementation</span> <span class="s2">&quot;io.github.dellisd.spatialk:geojson:&lt;version&gt;&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
 </div>
@@ -940,7 +926,7 @@ which is a <code>BoundingBox</code> that represents the bounds of that object's 
 <p>Geometry objects are a sealed hierarchy of classes that inherit from the <code>Geometry</code> class. This allows for exhaustive 
 type checks in Kotlin using a <code>when</code> block.</p>
 <div class="tabbed-set" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Kotlin</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">geometry</span><span class="p">:</span> <span class="n">Geometry</span> <span class="o">=</span> <span class="n">getGeometry</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">geometry</span><span class="p">:</span> <span class="n">Geometry</span> <span class="o">=</span> <span class="n">getSomeGeometry</span><span class="p">()</span>
 
 <span class="kd">val</span> <span class="nv">type</span> <span class="o">=</span> <span class="k">when</span> <span class="p">(</span><span class="n">geometry</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">is</span> <span class="n">Point</span> <span class="o">-&gt;</span> <span class="s">&quot;Point&quot;</span>
@@ -971,7 +957,7 @@ properties. The basic implementation of the <code>Position</code> interface is t
 </code></pre></div>
 </div>
 <input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">]</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -985,10 +971,10 @@ properties. The basic implementation of the <code>Position</code> interface is t
 </code></pre></div>
 </div>
 <input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -999,10 +985,10 @@ properties. The basic implementation of the <code>Position</code> interface is t
 </code></pre></div>
 </div>
 <input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiPoint&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span> <span class="p">[</span><span class="mi">-79</span><span class="p">,</span> <span class="mi">44</span><span class="p">]]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MultiPoint&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">-79</span><span class="p">,</span><span class="w"> </span><span class="mi">44</span><span class="p">]]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1013,10 +999,10 @@ properties. The basic implementation of the <code>Position</code> interface is t
 </code></pre></div>
 </div>
 <input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LineString&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span> <span class="p">[</span><span class="mi">-79</span><span class="p">,</span> <span class="mi">44</span><span class="p">]]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LineString&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">-79</span><span class="p">,</span><span class="w"> </span><span class="mi">44</span><span class="p">]]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1030,13 +1016,13 @@ properties. The basic implementation of the <code>Position</code> interface is t
 </code></pre></div>
 </div>
 <input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiLineString&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">[[</span><span class="mf">12.3</span><span class="p">,</span> <span class="mf">45.6</span><span class="p">],</span> <span class="p">[</span><span class="mf">78.9</span><span class="p">,</span> <span class="mf">12.3</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mf">87.6</span><span class="p">,</span> <span class="mf">54.3</span><span class="p">],</span> <span class="p">[</span><span class="mf">21.9</span><span class="p">,</span> <span class="mf">56.4</span><span class="p">]]</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MultiLineString&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">[[</span><span class="mf">12.3</span><span class="p">,</span><span class="w"> </span><span class="mf">45.6</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">78.9</span><span class="p">,</span><span class="w"> </span><span class="mf">12.3</span><span class="p">]],</span><span class="w"></span>
+<span class="w">        </span><span class="p">[[</span><span class="mf">87.6</span><span class="p">,</span><span class="w"> </span><span class="mf">54.3</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">21.9</span><span class="p">,</span><span class="w"> </span><span class="mf">56.4</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1062,13 +1048,13 @@ The first ring defines the outer shape of the polygon, while all the following r
 </code></pre></div>
 </div>
 <input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><label for="__tabbed_8_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">[[</span><span class="mf">-79.87</span><span class="p">,</span> <span class="mf">43.42</span><span class="p">],</span> <span class="p">[</span><span class="mf">-78.89</span><span class="p">,</span> <span class="mf">43.49</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.07</span><span class="p">,</span> <span class="mf">44.02</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.95</span><span class="p">,</span> <span class="mf">43.87</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.87</span><span class="p">,</span> <span class="mf">43.42</span><span class="p">]],</span>
-        <span class="p">[[</span><span class="mf">-79.75</span><span class="p">,</span> <span class="mf">43.81</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.56</span><span class="p">,</span> <span class="mf">43.85</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.7</span><span class="p">,</span> <span class="mf">43.88</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.75</span><span class="p">,</span> <span class="mf">43.81</span><span class="p">]]</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Polygon&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">[[</span><span class="mf">-79.87</span><span class="p">,</span><span class="w"> </span><span class="mf">43.42</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-78.89</span><span class="p">,</span><span class="w"> </span><span class="mf">43.49</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.07</span><span class="p">,</span><span class="w"> </span><span class="mf">44.02</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.95</span><span class="p">,</span><span class="w"> </span><span class="mf">43.87</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.87</span><span class="p">,</span><span class="w"> </span><span class="mf">43.42</span><span class="p">]],</span><span class="w"></span>
+<span class="w">        </span><span class="p">[[</span><span class="mf">-79.75</span><span class="p">,</span><span class="w"> </span><span class="mf">43.81</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.56</span><span class="p">,</span><span class="w"> </span><span class="mf">43.85</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.7</span><span class="p">,</span><span class="w"> </span><span class="mf">43.88</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.75</span><span class="p">,</span><span class="w"> </span><span class="mf">43.81</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1092,19 +1078,19 @@ The first ring defines the outer shape of the polygon, while all the following r
 </code></pre></div>
 </div>
 <input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><label for="__tabbed_9_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">[</span>
-            <span class="p">[[</span><span class="mf">-79.87</span><span class="p">,</span> <span class="mf">43.42</span><span class="p">],</span> <span class="p">[</span><span class="mf">-78.89</span><span class="p">,</span> <span class="mf">43.49</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.07</span><span class="p">,</span> <span class="mf">44.02</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.95</span><span class="p">,</span> <span class="mf">43.87</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.87</span><span class="p">,</span> <span class="mf">43.42</span><span class="p">]],</span>
-            <span class="p">[[</span><span class="mf">-79.75</span><span class="p">,</span> <span class="mf">43.81</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.56</span><span class="p">,</span> <span class="mf">43.85</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.7</span><span class="p">,</span> <span class="mf">43.88</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.75</span><span class="p">,</span> <span class="mf">43.81</span><span class="p">]]</span>
-        <span class="p">],</span>
-        <span class="p">[</span>
-            <span class="p">[[</span><span class="mf">-79.87</span><span class="p">,</span> <span class="mf">43.42</span><span class="p">],</span> <span class="p">[</span><span class="mf">-78.89</span><span class="p">,</span> <span class="mf">43.49</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.07</span><span class="p">,</span> <span class="mf">44.02</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.95</span><span class="p">,</span> <span class="mf">43.87</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.87</span><span class="p">,</span> <span class="mf">43.42</span><span class="p">]],</span>
-            <span class="p">[[</span><span class="mf">-79.75</span><span class="p">,</span> <span class="mf">43.81</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.56</span><span class="p">,</span> <span class="mf">43.85</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.7</span><span class="p">,</span> <span class="mf">43.88</span><span class="p">],</span> <span class="p">[</span><span class="mf">-79.75</span><span class="p">,</span> <span class="mf">43.81</span><span class="p">]]</span>
-        <span class="p">]</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="p">[[</span><span class="mf">-79.87</span><span class="p">,</span><span class="w"> </span><span class="mf">43.42</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-78.89</span><span class="p">,</span><span class="w"> </span><span class="mf">43.49</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.07</span><span class="p">,</span><span class="w"> </span><span class="mf">44.02</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.95</span><span class="p">,</span><span class="w"> </span><span class="mf">43.87</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.87</span><span class="p">,</span><span class="w"> </span><span class="mf">43.42</span><span class="p">]],</span><span class="w"></span>
+<span class="w">            </span><span class="p">[[</span><span class="mf">-79.75</span><span class="p">,</span><span class="w"> </span><span class="mf">43.81</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.56</span><span class="p">,</span><span class="w"> </span><span class="mf">43.85</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.7</span><span class="p">,</span><span class="w"> </span><span class="mf">43.88</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.75</span><span class="p">,</span><span class="w"> </span><span class="mf">43.81</span><span class="p">]]</span><span class="w"></span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="p">[[</span><span class="mf">-79.87</span><span class="p">,</span><span class="w"> </span><span class="mf">43.42</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-78.89</span><span class="p">,</span><span class="w"> </span><span class="mf">43.49</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.07</span><span class="p">,</span><span class="w"> </span><span class="mf">44.02</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.95</span><span class="p">,</span><span class="w"> </span><span class="mf">43.87</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.87</span><span class="p">,</span><span class="w"> </span><span class="mf">43.42</span><span class="p">]],</span><span class="w"></span>
+<span class="w">            </span><span class="p">[[</span><span class="mf">-79.75</span><span class="p">,</span><span class="w"> </span><span class="mf">43.81</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.56</span><span class="p">,</span><span class="w"> </span><span class="mf">43.85</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.7</span><span class="p">,</span><span class="w"> </span><span class="mf">43.88</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-79.75</span><span class="p">,</span><span class="w"> </span><span class="mf">43.81</span><span class="p">]]</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1120,19 +1106,19 @@ The first ring defines the outer shape of the polygon, while all the following r
 </code></pre></div>
 </div>
 <input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><label for="__tabbed_10_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;GeometryCollection&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LineString&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span> <span class="p">[</span><span class="mi">-79</span><span class="p">,</span> <span class="mi">44</span><span class="p">]]</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GeometryCollection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LineString&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">-79</span><span class="p">,</span><span class="w"> </span><span class="mi">44</span><span class="p">]]</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1149,18 +1135,18 @@ A set of helper methods to get and set properties with the appropriate types dir
 </code></pre></div>
 </div>
 <input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><label for="__tabbed_11_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> 
-    <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> 
-    <span class="p">{</span>
-        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">9999</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;geometry&quot;</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9999</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1175,23 +1161,23 @@ A set of helper methods to get and set properties with the appropriate types dir
 </code></pre></div>
 </div>
 <input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><label for="__tabbed_12_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> 
-            <span class="p">{</span>
-                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">-75</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;properties&quot;</span><span class="p">:</span> 
-            <span class="p">{</span>
-                <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">9999</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;geometry&quot;</span><span class="p">:</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">-75</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">]</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9999</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1205,50 +1191,52 @@ Bounding boxes also support destructuring.</p>
 </code></pre></div>
 </div>
 <input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><label for="__tabbed_13_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mf">11.6</span><span class="p">,</span> <span class="mf">45.1</span><span class="p">,</span> <span class="mf">12.7</span><span class="p">,</span> <span class="mf">45.7</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mf">11.6</span><span class="p">,</span><span class="w"> </span><span class="mf">45.1</span><span class="p">,</span><span class="w"> </span><span class="mf">12.7</span><span class="p">,</span><span class="w"> </span><span class="mf">45.7</span><span class="p">]</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
 <h2 id="serialization">Serialization</h2>
-<p>Serialization is done using <code>kotlinx.serialization</code> and the serializer for any object listed above can be obtained using the static <code>.serializer()</code> method.
-The <code>Geometry</code> sealed class hierarchy uses a polymorphic serializer, so the serializer for all types of geometry are simply obtained from <code>Geometry.serializer()</code>.</p>
 <h3 id="to-json">To Json</h3>
-<p>Any <code>GeoJson</code> object can be serialized to Json using the <code>json</code> property.</p>
+<p>Any <code>GeoJson</code> object can be serialized to a JSON string using the <code>json()</code> function.
+This function converts the object to JSON using string concatenation and is therefore very fast. </p>
 <div class="tabbed-set" data-tabs="14:1"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><label for="__tabbed_14_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">featureCollection</span><span class="p">:</span> <span class="n">FeatureCollection</span> <span class="o">=</span> <span class="n">getFeatureCollection</span><span class="p">()</span>
 
-<span class="kd">val</span> <span class="nv">json</span> <span class="o">=</span> <span class="n">featureCollection</span><span class="p">.</span><span class="na">json</span>
+<span class="kd">val</span> <span class="nv">json</span> <span class="o">=</span> <span class="n">featureCollection</span><span class="p">.</span><span class="na">json</span><span class="p">()</span>
 <span class="n">println</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
+<p>Spatial-K is also fully compatible with <code>kotlinx.serialization</code> to allow for integration into more complex models, however
+this is much slower. For encoding directly to JSON strings, prefer to use the <code>json()</code> function.</p>
 <h3 id="from-json">From Json</h3>
-<p>Json strings can be converted to GeoJson objects using various methods.</p>
-<h4 id="geometry_1">Geometry</h4>
-<p>Geometry can be converted from Json using generic functions that will automatically deserialize the given Json into the 
-appropriate <code>Geometry</code> subclass.</p>
-<p>In Kotlin, these functions are available as extension functions on a <code>String</code>. 
-In Java, these functions are available as static methods on <code>GeometryFactory</code>. </p>
-<div class="tabbed-set" data-tabs="15:1"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><label for="__tabbed_15_1">Kotlin</label><div class="tabbed-content">
+<p>The <code>fromJson</code> and <code>fromJsonOrNull</code> companion (or static) functions are available on each <code>GeoJson</code> class to decode each 
+type of object from a JSON string.</p>
+<div class="tabbed-set" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><label for="__tabbed_15_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="c1">// Throws exception if the JSON cannot be deserialized to a Point</span>
-<span class="kd">val</span> <span class="nv">myPoint</span> <span class="o">=</span> <span class="s">&quot;{...geojson...}&quot;</span><span class="p">.</span><span class="na">toGeometry</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">myPoint</span> <span class="o">=</span> <span class="n">Point</span><span class="p">.</span><span class="na">fromJson</span><span class="p">(</span><span class="s">&quot;{...geojson...}&quot;</span><span class="p">)</span>
 
 <span class="c1">// Returns null if an error occurs</span>
-<span class="kd">val</span> <span class="nv">nullable</span> <span class="o">=</span> <span class="s">&quot;{...not a point...}&quot;</span><span class="p">.</span><span class="na">toGeometryOrNull</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">nullable</span> <span class="o">=</span> <span class="n">Point</span><span class="p">.</span><span class="na">fromJsonOrNull</span><span class="p">(</span><span class="s">&quot;{...not a point...}&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><label for="__tabbed_15_2">Java</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1">// Throws exception if the JSON cannot be deserialized to a Point</span>
+<span class="kd">var</span> <span class="n">myPoint</span> <span class="o">=</span> <span class="n">Point</span><span class="p">.</span><span class="na">fromJson</span><span class="p">(</span><span class="s">&quot;{...geojson...}&quot;</span><span class="p">)</span>
+
+<span class="c1">// Returns null if an error occurs</span>
+<span class="kd">var</span> <span class="n">nullable</span> <span class="o">=</span> <span class="n">Point</span><span class="p">.</span><span class="na">fromJsonOrNull</span><span class="p">(</span><span class="s">&quot;{...not a point...}&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
-<h4 id="feature-and-featurecollection">Feature and FeatureCollection</h4>
-<p><code>Feature</code> and <code>FeatureCollection</code> objects can be converted from Json similarly.</p>
+<p>Like with encoding, Spatial-K objects can also be decoded using <code>kotlinx.serialization</code>. </p>
 <div class="tabbed-set" data-tabs="16:1"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><label for="__tabbed_16_1">Kotlin</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">feature</span> <span class="o">=</span> <span class="s">&quot;{...feature...}&quot;</span><span class="p">.</span><span class="na">toFeature</span><span class="p">()</span>
-
-<span class="kd">val</span> <span class="nv">featureCollection</span> <span class="o">=</span> <span class="s">&quot;{...feature collection...}&quot;</span><span class="p">.</span><span class="na">toFeatureCollection</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">feature</span><span class="p">:</span> <span class="n">Feature</span> <span class="o">=</span> <span class="n">Json</span><span class="p">.</span><span class="na">decodeFromString</span><span class="p">(</span><span class="n">Feature</span><span class="p">.</span><span class="na">serializer</span><span class="p">(),</span> <span class="s">&quot;{...feature...}&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
 <h2 id="geojson-dsl">GeoJson DSL</h2>
-<p>It's recommended to construct GeoJson objects in-code using the included DSL.</p>
+<p>It's recommended to construct GeoJson objects in-code using the GeoJson DSL.</p>
 <h3 id="positions">Positions</h3>
 <p>Convenience functions to construct latitude/longitude Position instances is included.
 These functions will check for valid latitude and longitude values and will throw an <code>IllegalArgumentException</code> otherwise.</p>
@@ -1260,11 +1248,11 @@ These functions will check for valid latitude and longitude values and will thro
 </code></pre></div>
 </div>
 <input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><label for="__tabbed_17_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">]</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
-<h3 id="geometry_2">Geometry</h3>
+<h3 id="geometry_1">Geometry</h3>
 <p>Each geometry type has a corresponding DSL.</p>
 <p>A GeoJson object's <code>bbox</code> value can be assigned in any of the DSLs.</p>
 <h4 id="point_1">Point</h4>
@@ -1277,49 +1265,53 @@ These functions will check for valid latitude and longitude values and will thro
 </code></pre></div>
 </div>
 <input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><label for="__tabbed_18_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
 <h4 id="multipoint_1">MultiPoint</h4>
-<p>The <code>MultiPoint</code> DSL uses the unary plus operator to add <code>Position</code> instances as positions in the geometry.
+<p>The <code>MultiPoint</code> DSL creates a <code>MultiPoint</code> from many <code>Point</code>s, or by using the unary plus operator to add <code>Position</code> instances as positions in the geometry.
 <code>Point</code> geometries can also be added to the multi point using the unary plus operator.</p>
 <div class="tabbed-set" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><label for="__tabbed_19_1">Kotlin</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="n">multiPoint</span> <span class="p">{</span>
-    <span class="o">+</span><span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">myPoint</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="m">88.0</span><span class="p">,</span> <span class="m">34.0</span><span class="p">)</span>
+<span class="n">multiPoint</span> <span class="p">{</span>
+    <span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+
     <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="o">-</span><span class="m">78.0</span><span class="p">,</span> <span class="m">44.0</span><span class="p">)</span>
+    <span class="o">+</span><span class="n">myPoint</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><label for="__tabbed_19_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiPoint&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">-78.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">]</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MultiPoint&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="mf">-78.0</span><span class="p">,</span><span class="w"> </span><span class="mf">44.0</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="mf">88.0</span><span class="p">,</span><span class="w"> </span><span class="mf">34.0</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
 <h4 id="linestring_1">LineString</h4>
-<p>Like with <code>MultiPoint</code>, the <code>LineString</code> DSL uses the unary plus operator to add positions as part of the line.
+<p>A <code>LineString</code> contains main points. Like with <code>MultiPoint</code>, a <code>LineString</code> can also be built using the unary plus operator to add positions as part of the line.
 The order in which positions are added to the <code>LineString</code> is the order that the <code>LineString</code> will follow.</p>
 <div class="tabbed-set" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><label for="__tabbed_20_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">lineString</span> <span class="p">{</span>
-<span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
-<span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><label for="__tabbed_20_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LineString&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LineString&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">]]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1328,29 +1320,29 @@ The order in which positions are added to the <code>LineString</code> is the ord
 create <code>LineString</code> objects to add.</p>
 <div class="tabbed-set" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><label for="__tabbed_21_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">simpleLine</span> <span class="o">=</span> <span class="n">lineString</span> <span class="p">{</span>
-    <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
-    <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="n">multiLineString</span> <span class="p">{</span>
     <span class="o">+</span><span class="n">simpleLine</span>
 
     <span class="c1">// Inline LineString creation</span>
-    <span class="o">+</span><span class="n">lineString</span> <span class="p">{</span>
-        <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">44.4</span><span class="p">,</span> <span class="m">55.5</span><span class="p">)</span>
-        <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">55.5</span><span class="p">,</span> <span class="m">66.6</span><span class="p">)</span>
+    <span class="n">lineString</span> <span class="p">{</span>
+        <span class="n">point</span><span class="p">(</span><span class="m">44.4</span><span class="p">,</span> <span class="m">55.5</span><span class="p">)</span>
+        <span class="n">point</span><span class="p">(</span><span class="m">55.5</span><span class="p">,</span> <span class="m">66.6</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><label for="__tabbed_21_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiLineString&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]],</span>
-    <span class="p">[[</span><span class="mf">44.4</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">55.5</span><span class="p">,</span> <span class="mf">66.6</span><span class="p">]]</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MultiLineString&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">]],</span><span class="w"></span>
+<span class="w">    </span><span class="p">[[</span><span class="mf">44.4</span><span class="p">,</span><span class="w"> </span><span class="mf">55.5</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">55.5</span><span class="p">,</span><span class="w"> </span><span class="mf">66.6</span><span class="p">]]</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1362,34 +1354,34 @@ All <code>ring</code>s that follow will represent interior rings (i.e. holes) in
 It adds the last position in the ring by copying the first position that was added.</p>
 <div class="tabbed-set" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><label for="__tabbed_22_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">simpleLine</span> <span class="o">=</span> <span class="n">lineString</span> <span class="p">{</span>
-    <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
-    <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">(</span><span class="m">45.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="n">polygon</span> <span class="p">{</span>
      <span class="n">ring</span> <span class="p">{</span>
          <span class="c1">// LineStrings can be used as part of a ring</span>
          <span class="o">+</span><span class="n">simpleLine</span>
-         <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">12.0</span><span class="p">,</span> <span class="m">12.0</span><span class="p">)</span>
+         <span class="n">point</span><span class="p">(</span><span class="m">12.0</span><span class="p">,</span> <span class="m">12.0</span><span class="p">)</span>
          <span class="n">complete</span><span class="p">()</span>
      <span class="p">}</span>
      <span class="n">ring</span> <span class="p">{</span>
-         <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">4.0</span><span class="p">,</span> <span class="m">4.0</span><span class="p">)</span>
-         <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">2.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">)</span>
-         <span class="o">+</span><span class="n">lngLat</span><span class="p">(</span><span class="m">3.0</span><span class="p">,</span> <span class="m">3.0</span><span class="p">)</span>
+         <span class="n">point</span><span class="p">(</span><span class="m">4.0</span><span class="p">,</span> <span class="m">4.0</span><span class="p">)</span>
+         <span class="n">point</span><span class="p">(</span><span class="m">2.0</span><span class="p">,</span> <span class="m">2.0</span><span class="p">)</span>
+         <span class="n">point</span><span class="p">(</span><span class="m">3.0</span><span class="p">,</span> <span class="m">3.0</span><span class="p">)</span>
          <span class="n">complete</span><span class="p">()</span>
      <span class="p">}</span>
  <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><label for="__tabbed_22_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]],</span>
-    <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Polygon&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">12.0</span><span class="p">,</span><span class="w"> </span><span class="mf">12.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">]],</span><span class="w"></span>
+<span class="w">    </span><span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">]]</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1401,12 +1393,12 @@ The <code>Polygon</code> DSL can also be used here.</p>
 
 <span class="n">multiPolygon</span> <span class="p">{</span>
     <span class="o">+</span><span class="n">simplePolygon</span>
-    <span class="o">+</span><span class="n">polygon</span> <span class="p">{</span>
+    <span class="n">polygon</span> <span class="p">{</span>
         <span class="n">ring</span> <span class="p">{</span>
-            <span class="o">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">12.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
-            <span class="o">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">12.0</span><span class="p">)</span>
-            <span class="o">+</span><span class="n">LngLat</span><span class="p">(</span><span class="o">-</span><span class="m">12.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
-            <span class="o">+</span><span class="n">LngLat</span><span class="p">(</span><span class="m">5.0</span><span class="p">,</span> <span class="m">5.0</span><span class="p">)</span>
+            <span class="n">point</span><span class="p">(</span><span class="m">12.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+            <span class="n">point</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">12.0</span><span class="p">)</span>
+            <span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">12.0</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)</span>
+            <span class="n">point</span><span class="p">(</span><span class="m">5.0</span><span class="p">,</span> <span class="m">5.0</span><span class="p">)</span>
             <span class="n">complete</span><span class="p">()</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -1414,17 +1406,17 @@ The <code>Polygon</code> DSL can also be used here.</p>
 </code></pre></div>
 </div>
 <input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><label for="__tabbed_23_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">[</span>
-      <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]],</span>
-      <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]</span>
-    <span class="p">],</span> <span class="p">[</span>
-      <span class="p">[[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">-12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>
-    <span class="p">]</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MultiPolygon&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">12.0</span><span class="p">,</span><span class="w"> </span><span class="mf">12.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">]],</span><span class="w"></span>
+<span class="w">      </span><span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">[[</span><span class="mf">12.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">12.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">-12.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">5.0</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">12.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1443,59 +1435,55 @@ The <code>Polygon</code> DSL can also be used here.</p>
 </code></pre></div>
 </div>
 <input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><label for="__tabbed_24_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;GeometryCollection&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;geometries&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LineString&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]],</span>
-      <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GeometryCollection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;geometries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LineString&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">]]</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Polygon&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">[[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">12.0</span><span class="p">,</span><span class="w"> </span><span class="mf">12.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">45.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">]],</span><span class="w"></span>
+<span class="w">      </span><span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">]]</span><span class="w"></span>
+<span class="w">      </span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
 <h3 id="feature_1">Feature</h3>
-<p>The <code>Feature</code> DSL can construct a <code>Feature</code> object with a geometry, a set of properties, a bounding box, and an id.</p>
+<p>The <code>Feature</code> DSL can construct a <code>Feature</code> object with a geometry, a bounding box, and an id. Properties can be specified
+in the <code>PropertiesBuilder</code> block by calling <code>put(key, value)</code> to add properties.</p>
 <div class="tabbed-set" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><label for="__tabbed_25_1">Kotlin</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="n">feature</span> <span class="p">{</span>
-    <span class="n">geometry</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
-    <span class="n">id</span> <span class="o">=</span> <span class="s">&quot;point1&quot;</span>
-    <span class="n">bbox</span> <span class="o">=</span> <span class="n">BoundingBox</span><span class="p">(</span><span class="o">-</span><span class="m">76.9</span><span class="p">,</span> <span class="m">44.1</span><span class="p">,</span> <span class="o">-</span><span class="m">74.2</span><span class="p">,</span> <span class="m">45.7</span><span class="p">)</span>
-    <span class="n">properties</span> <span class="p">{</span>
-        <span class="s">&quot;name&quot;</span> <span class="n">to</span> <span class="s">&quot;Hello World&quot;</span>
-        <span class="s">&quot;value&quot;</span> <span class="n">to</span> <span class="m">13</span>
-        <span class="s">&quot;cool&quot;</span> <span class="n">to</span> <span class="kc">true</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="n">feature</span><span class="p">(</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">),</span> <span class="n">id</span> <span class="o">=</span> <span class="s">&quot;point1&quot;</span><span class="p">,</span> <span class="n">bbox</span> <span class="o">=</span> <span class="n">BoundingBox</span><span class="p">(</span><span class="o">-</span><span class="m">76.9</span><span class="p">,</span> <span class="m">44.1</span><span class="p">,</span> <span class="o">-</span><span class="m">74.2</span><span class="p">,</span> <span class="m">45.7</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">put</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+    <span class="n">put</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span> <span class="m">13</span><span class="p">)</span>
+    <span class="n">put</span><span class="p">(</span><span class="s">&quot;cool&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><label for="__tabbed_25_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;point1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;bbox&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-76.9</span><span class="p">,</span> <span class="mf">44.1</span><span class="p">,</span> <span class="mf">-74.2</span><span class="p">,</span> <span class="mf">45.7</span><span class="p">],</span>
-  <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
-    <span class="nt">&quot;cool&quot;</span><span class="p">:</span> <span class="kc">true</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;bbox&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">-76.9</span><span class="p">,</span><span class="w"> </span><span class="mf">44.1</span><span class="p">,</span><span class="w"> </span><span class="mf">-74.2</span><span class="p">,</span><span class="w"> </span><span class="mf">45.7</span><span class="p">],</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;cool&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;geometry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1503,34 +1491,27 @@ The <code>Polygon</code> DSL can also be used here.</p>
 <p>A <code>FeatureCollection</code> is constructed by adding multiple <code>Feature</code> objects using the unary plus operator.</p>
 <div class="tabbed-set" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><label for="__tabbed_26_1">Kotlin</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">featureCollection</span> <span class="p">{</span>
-    <span class="o">+</span><span class="n">feature</span> <span class="p">{</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">)</span>
-    <span class="p">}</span>
+    <span class="n">feature</span><span class="p">(</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="o">-</span><span class="m">75.0</span><span class="p">,</span> <span class="m">45.0</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><label for="__tabbed_26_2">JSON</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">]</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;geometry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">-75.0</span><span class="p">,</span><span class="w"> </span><span class="mf">45.0</span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
-                
-              
-              
-                
-
 
               
             </article>
@@ -1539,14 +1520,14 @@ The <code>Polygon</code> DSL can also be used here.</p>
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href=".." class="md-footer__link md-footer__link--prev" rel="prev">
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
@@ -1559,7 +1540,8 @@ The <code>Polygon</code> DSL can also be used here.</p>
         </a>
       
       
-        <a href="../turf/" class="md-footer__link md-footer__link--next" rel="next">
+        
+        <a href="../turf/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
@@ -1569,7 +1551,7 @@ The <code>Polygon</code> DSL can also be used here.</p>
             </div>
           </div>
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
           </div>
         </a>
       
@@ -1577,18 +1559,19 @@ The <code>Polygon</code> DSL can also be used here.</p>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2021 Derek Ellis
-          </div>
-        
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
-        
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 Derek Ellis
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
     </div>
   </div>
@@ -1598,10 +1581,10 @@ The <code>Polygon</code> DSL can also be used here.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.34eae1b6.min.js"></script>
+      <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
       
     
   </body>
