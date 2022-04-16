@@ -1,6 +1,6 @@
 package io.github.dellisd.spatialk.geojson.dsl
 
-import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
+import io.github.dellisd.spatialk.geojson.FeatureCollection
 import io.github.dellisd.spatialk.geojson.Position
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -107,6 +107,6 @@ class GeoJsonDslTests {
 
     @Test
     fun testDslConstruction() {
-        assertEquals(collectionJson.toFeatureCollection(), collectionDsl)
+        assertEquals(FeatureCollection.fromJson(collectionJson), collectionDsl)
     }
 }

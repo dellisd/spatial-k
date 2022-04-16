@@ -16,7 +16,7 @@ import kotlin.jvm.JvmName
  */
 @Suppress("UNCHECKED_CAST")
 @JvmName("fromJson")
-@ExperimentalGeoJsonApi
+@Deprecated("Replace with T.fromJson()", replaceWith = ReplaceWith("T.fromJson(this)"))
 fun <T : Geometry> String.toGeometry(): T = Json.decodeFromString(Geometry.serializer(), this) as T
 
 /**
@@ -27,7 +27,7 @@ fun <T : Geometry> String.toGeometry(): T = Json.decodeFromString(Geometry.seria
  */
 @Suppress("UNCHECKED_CAST")
 @JvmName("fromJsonOrNull")
-@ExperimentalGeoJsonApi
+@Deprecated("Replace with T.fromJsonOrNull()", replaceWith = ReplaceWith("T.fromJsonOrNull(this)"))
 fun <T : Geometry> String.toGeometryOrNull(): T? = try {
     Json.decodeFromString(Geometry.serializer(), this) as? T
 } catch (_: SerializationException) {

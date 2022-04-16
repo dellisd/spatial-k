@@ -8,6 +8,7 @@ import kotlinx.serialization.descriptors.StructureKind
 import kotlinx.serialization.descriptors.buildSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.add
@@ -52,10 +53,12 @@ object BoundingBoxSerializer : KSerializer<BoundingBox> {
     }
 
     override fun serialize(encoder: Encoder, value: BoundingBox) {
-        val output = encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
+        encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
 
-        output.encodeJsonElement(buildJsonArray {
-            value.coordinates.forEach(this::add)
-        })
+        encoder.encodeJsonElement(value.toJsonArray())
+    }
+
+    internal fun BoundingBox.toJsonArray(): JsonArray = buildJsonArray {
+        coordinates.forEach(this::add)
     }
 }

@@ -12,13 +12,13 @@ See below for constructing GeoJson objects using the DSL.
 === "Kotlin"
     ```kotlin
     dependencies {
-    implementation("io.github.dellisd.spatialk:geojson:<version>")
+        implementation("io.github.dellisd.spatialk:geojson:<version>")
     }
     ```
 === "Groovy"
     ```groovy
     dependencies {
-    implementation "io.github.dellisd.spatialk:geojson:<version>"
+        implementation "io.github.dellisd.spatialk:geojson:<version>"
     }
     ```
 
@@ -34,7 +34,7 @@ type checks in Kotlin using a `when` block.
 
 === "Kotlin"
     ``` kotlin
-    val geometry: Geometry = getGeometry()
+    val geometry: Geometry = getSomeGeometry()
     
     val type = when (geometry) {
         is Point -> "Point"
@@ -341,55 +341,54 @@ Bounding boxes also support destructuring.
 
 ## Serialization
 
-Serialization is done using `kotlinx.serialization` and the serializer for any object listed above can be obtained using the static `.serializer()` method.
-The `Geometry` sealed class hierarchy uses a polymorphic serializer, so the serializer for all types of geometry are simply obtained from `Geometry.serializer()`.
-
 ### To Json
 
-Any `GeoJson` object can be serialized to Json using the `json` property.
+Any `GeoJson` object can be serialized to a JSON string using the `json()` function.
+This function converts the object to JSON using string concatenation and is therefore very fast. 
 
 === "Kotlin"
     ``` kotlin
     val featureCollection: FeatureCollection = getFeatureCollection()
     
-    val json = featureCollection.json
+    val json = featureCollection.json()
     println(json)
     ```
 
+Spatial-K is also fully compatible with `kotlinx.serialization` to allow for integration into more complex models, however
+this is much slower. For encoding directly to JSON strings, prefer to use the `json()` function.
+
 ### From Json
-Json strings can be converted to GeoJson objects using various methods.
 
-#### Geometry
-
-Geometry can be converted from Json using generic functions that will automatically deserialize the given Json into the 
-appropriate `Geometry` subclass.
-
-In Kotlin, these functions are available as extension functions on a `String`. 
-In Java, these functions are available as static methods on `GeometryFactory`. 
+The `fromJson` and `fromJsonOrNull` companion (or static) functions are available on each `GeoJson` class to decode each 
+type of object from a JSON string.
 
 === "Kotlin"
     ```kotlin
     // Throws exception if the JSON cannot be deserialized to a Point
-    val myPoint = "{...geojson...}".toGeometry<Point>()
+    val myPoint = Point.fromJson("{...geojson...}")
     
     // Returns null if an error occurs
-    val nullable = "{...not a point...}".toGeometryOrNull<Point>()
+    val nullable = Point.fromJsonOrNull("{...not a point...}")
     ```
-    
-#### Feature and FeatureCollection
+=== "Java"
+    ```java
+    // Throws exception if the JSON cannot be deserialized to a Point
+    var myPoint = Point.fromJson("{...geojson...}")
 
-`Feature` and `FeatureCollection` objects can be converted from Json similarly.
+    // Returns null if an error occurs
+    var nullable = Point.fromJsonOrNull("{...not a point...}")
+    ```
+
+Like with encoding, Spatial-K objects can also be decoded using `kotlinx.serialization`. 
 
 === "Kotlin"
     ```kotlin
-    val feature = "{...feature...}".toFeature()
-    
-    val featureCollection = "{...feature collection...}".toFeatureCollection()
+    val feature: Feature = Json.decodeFromString(Feature.serializer(), "{...feature...}")
     ```
 
 ## GeoJson DSL
 
-It's recommended to construct GeoJson objects in-code using the included DSL.
+It's recommended to construct GeoJson objects in-code using the GeoJson DSL.
 
 ### Positions
 

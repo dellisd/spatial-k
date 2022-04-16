@@ -2,13 +2,13 @@ package io.github.dellisd.spatialk.geojson
 
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
-@ExperimentalGeoJsonApi
 @Suppress("MagicNumber", "TooManyFunctions")
 class SerializationTests {
 
@@ -17,10 +17,12 @@ class SerializationTests {
         val position = Position(-75.1, 45.1)
         val result = Json.encodeToString(Position.serializer(), position)
         assertEquals("[-75.1,45.1]", result)
+        assertEquals("[-75.1,45.1]", position.json())
 
         val altitude = Position(60.2, 23.2354, 100.5)
         val altitudeResult = Json.encodeToString(Position.serializer(), altitude)
         assertEquals("[60.2,23.2354,100.5]", altitudeResult)
+        assertEquals("[60.2,23.2354,100.5]", altitude.json())
 
         val list = listOf(Position(12.3, 45.6), Position(78.9, 12.3))
         val listResult = Json.encodeToString(ListSerializer(Position.serializer()), list)
@@ -45,6 +47,7 @@ class SerializationTests {
             BoundingBox(Position(-10.5, -10.5), Position(10.5, 10.5))
         val result = Json.encodeToString(BoundingBox.serializer(), bbox)
         assertEquals("[-10.5,-10.5,10.5,10.5]", result)
+        assertEquals("[-10.5,-10.5,10.5,10.5]", bbox.json())
 
         val bbox3D = BoundingBox(
             Position(-10.5, -10.5, -100.8),
@@ -52,6 +55,7 @@ class SerializationTests {
         )
         val result3D = Json.encodeToString(BoundingBox.serializer(), bbox3D)
         assertEquals("[-10.5,-10.5,-100.8,10.5,10.5,5.5]", result3D)
+        assertEquals("[-10.5,-10.5,-100.8,10.5,10.5,5.5]", bbox3D.json())
 
         // One altitude unspecified
         val bboxFake3D = BoundingBox(
@@ -60,6 +64,7 @@ class SerializationTests {
         )
         val fakeResult = Json.encodeToString(BoundingBox.serializer(), bboxFake3D)
         assertEquals("[-10.5,-10.5,10.5,10.5]", fakeResult)
+        assertEquals("[-10.5,-10.5,10.5,10.5]", bboxFake3D.json())
     }
 
     @Test
@@ -69,14 +74,16 @@ class SerializationTests {
             BoundingBox(
                 Position(-10.5, -10.5),
                 Position(10.5, 10.5)
-            ), bbox)
+            ), bbox
+        )
 
         val bbox3D = Json.decodeFromString(BoundingBox.serializer(), "[-10.5,-10.5,-100.8,10.5,10.5,5.5]")
         assertEquals(
             BoundingBox(
                 Position(-10.5, -10.5, -100.8),
                 Position(10.5, 10.5, 5.5)
-            ), bbox3D)
+            ), bbox3D
+        )
 
         assertFailsWith<SerializationException> {
             Json.decodeFromString(BoundingBox.serializer(), "[12.3]")
@@ -88,47 +95,46 @@ class SerializationTests {
     @Test
     fun testSerializePoint() {
         val point = Point(Position(12.3, 45.6))
-        assertEquals("""{"type":"Point","coordinates":[12.3,45.6]}""", point.json, "Point")
+        val json = """{"type":"Point","coordinates":[12.3,45.6]}"""
+        assertEquals(json, point.json(), "Point (fast)")
+        assertEquals(json, Json.encodeToString(point), "Point (kotlinx)")
     }
 
     @Test
     fun testDeserializePoint() {
-        val point = """{"type":"Point","coordinates":[12.3,45.6]}""".toGeometry<Point>()
-        assertEquals(Point(Position(12.3, 45.6)), point)
-        assertNull("""{"type":"MultiPoint","coordinates":[12.3,45.6]}""".toGeometryOrNull<Point>())
+        val json = """{"type":"Point","coordinates":[12.3,45.6]}"""
+        assertEquals(Point(Position(12.3, 45.6)), Point.fromJson(json))
+
+        assertNull(Point.fromJsonOrNull("""{"type":"MultiPoint","coordinates":[12.3,45.6]}"""))
     }
 
     // MultiPoint
     @Test
     fun testSerializeMultiPoint() {
         val multiPoint = MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3))
-        assertEquals(
-            """{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}""",
-            multiPoint.json,
-            "MultiPoint"
-        )
+        val json = """{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}"""
+        assertEquals(json, multiPoint.json(), "MultiPoint (fast)")
+        assertEquals(json, Json.encodeToString(multiPoint), "MultiPoint (kotlinx)")
     }
 
     @Test
     fun testDeserializeMultiPoint() {
-        val point = """{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}""".toGeometry<MultiPoint>()
-        assertEquals(MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3)), point)
+        val json = """{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}"""
+        assertEquals(MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3)), MultiPoint.fromJson(json))
     }
 
     // LineString
     @Test
     fun testSerializeLineString() {
         val lineString = LineString(Position(12.3, 45.6), Position(78.9, 12.3))
-        assertEquals(
-            """{"type":"LineString","coordinates":[[12.3,45.6],[78.9,12.3]]}""",
-            lineString.json,
-            "LineString"
-        )
+        val json = """{"type":"LineString","coordinates":[[12.3,45.6],[78.9,12.3]]}"""
+        assertEquals(json, lineString.json(), "LineString (fast)")
+        assertEquals(json, Json.encodeToString(lineString), "LineString (kotlinx)")
     }
 
     @Test
     fun testDeserializeLineString() {
-        val lineString = """{"type":"LineString","coordinates":[[12.3,45.6],[78.9,12.3]]}""".toGeometry<LineString>()
+        val lineString = LineString.fromJson("""{"type":"LineString","coordinates":[[12.3,45.6],[78.9,12.3]]}""")
         assertEquals(
             LineString(Position(12.3, 45.6), Position(78.9, 12.3)),
             lineString,
@@ -143,18 +149,16 @@ class SerializationTests {
             listOf(Position(12.3, 45.6), Position(78.9, 12.3)),
             listOf(Position(87.6, 54.3), Position(21.9, 56.4))
         )
-        assertEquals(
-            """{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}""",
-            multiLineString.json,
-            "MultiLineString"
-        )
+        val json = """{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}"""
+        assertEquals(json, multiLineString.json(), "MultiLineString (fast)")
+        assertEquals(json, Json.encodeToString(multiLineString), "MultiLineString (kotlinx)")
     }
 
     @Test
+    @Suppress("MaxLineLength")
     fun testDeserializeMultiLineString() {
         val multiLineString =
-            """{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}"""
-                .toGeometry<MultiLineString>()
+            MultiLineString.fromJson("""{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}""")
         assertEquals(
             MultiLineString(
                 listOf(Position(12.3, 45.6), Position(78.9, 12.3)),
@@ -183,23 +187,23 @@ class SerializationTests {
                 Position(-79.75, 43.81)
             )
         )
-        assertEquals(
-            """{"type":"Polygon","coordinates":[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
+        val json = """{"type":"Polygon","coordinates":[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
             |[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],[-79.75,43.81]]]}"""
-                .trimMargin()
-                .replace("\n", ""),
-            polygon.json,
-            "Polygon"
-        )
+            .trimMargin()
+            .replace("\n", "")
+
+        assertEquals(json, polygon.json(), "Polygon (fast)")
+        assertEquals(json, Json.encodeToString(polygon), "Polygon (kotlinx)")
     }
 
     @Test
     fun testDeserializePolygon() {
-        val polygon = """{"type":"Polygon","coordinates":[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
-            |[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],[-79.75,43.81]]]}"""
-            .trimMargin()
-            .replace("\n", "")
-            .toGeometry<Polygon>()
+        val polygon = Polygon.fromJson(
+            """{"type":"Polygon","coordinates":[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
+                |[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],[-79.75,43.81]]]}"""
+                .trimMargin()
+                .replace("\n", "")
+        )
 
         assertEquals(
             Polygon(
@@ -257,28 +261,30 @@ class SerializationTests {
                 )
             )
         )
-        assertEquals(
-            """{"type":"MultiPolygon","coordinates":[[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
-            |[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],[-79.75,43.81]]],[[[-79.87,43.42],
-            |[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],
-            |[-79.75,43.81]]]]}"""
-                .trimMargin()
-                .replace("\n", ""),
-            multiPolygon.json,
-            "MultiPolygon"
-        )
-    }
-
-    @Test
-    fun testDeserializeMultiPolygon() {
-        val multiPolygon =
+        val json =
             """{"type":"MultiPolygon","coordinates":[[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
             |[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],[-79.75,43.81]]],[[[-79.87,43.42],
             |[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],
             |[-79.75,43.81]]]]}"""
                 .trimMargin()
                 .replace("\n", "")
-                .toGeometry<MultiPolygon>()
+
+        assertEquals(json, multiPolygon.json(), "MultiPolygon (fast)")
+        assertEquals(json, Json.encodeToString(multiPolygon), "MultiPolygon (kotlinx)")
+    }
+
+    @Test
+    @Suppress("MaxLineLength")
+    fun testDeserializeMultiPolygon() {
+        val multiPolygon =
+            MultiPolygon.fromJson(
+                """{"type":"MultiPolygon","coordinates":[[[[-79.87,43.42],[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],
+                |[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],[-79.75,43.81]]],[[[-79.87,43.42],
+                |[-78.89,43.49],[-79.07,44.02],[-79.95,43.87],[-79.87,43.42]],[[-79.75,43.81],[-79.56,43.85],[-79.7,43.88],
+                |[-79.75,43.81]]]]}"""
+                    .trimMargin()
+                    .replace("\n", "")
+            )
 
         assertEquals(
             MultiPolygon(
@@ -325,15 +331,14 @@ class SerializationTests {
         val multiPoint = MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3))
 
         val collection = GeometryCollection(point, multiPoint)
-
-        assertEquals(
-            """{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[12.3,45.6]},
+        val json = """{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[12.3,45.6]},
             |{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}]}"""
-                .trimMargin()
-                .replace("\n", ""),
-            collection.json,
-            "GeometryCollection"
-        )
+            .trimMargin()
+            .replace("\n", "")
+
+
+        assertEquals(json, collection.json(), "GeometryCollection")
+        assertEquals(json, Json.encodeToString(collection), "GeometryCollection")
     }
 
     @Test
@@ -341,11 +346,12 @@ class SerializationTests {
         val point = Point(Position(12.3, 45.6))
         val multiPoint = MultiPoint(Position(12.3, 45.6), Position(78.9, 12.3))
 
-        val collection = """{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[12.3,45.6]},
-            |{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}]}"""
-            .trimMargin()
-            .replace("\n", "")
-            .toGeometry<GeometryCollection>()
+        val collection = GeometryCollection.fromJson(
+            """{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[12.3,45.6]},
+                |{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}]}"""
+                .trimMargin()
+                .replace("\n", "")
+        )
 
         assertEquals(
             GeometryCollection(point, multiPoint),

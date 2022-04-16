@@ -1,10 +1,15 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.FeatureCollectionSerializer
-import kotlinx.serialization.KSerializer
+import io.github.dellisd.spatialk.geojson.serialization.jsonJoin
+import io.github.dellisd.spatialk.geojson.serialization.jsonProp
+import io.github.dellisd.spatialk.geojson.serialization.toBbox
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlin.jvm.JvmName
-import kotlin.jvm.JvmOverloads
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.jvm.JvmStatic
 
 /**
@@ -16,17 +21,13 @@ import kotlin.jvm.JvmStatic
  *
  * @property features The collection of [Feature] objects stored in this collection
  */
+@Serializable(with = FeatureCollectionSerializer::class)
 class FeatureCollection(
     val features: List<Feature> = emptyList(),
     override val bbox: BoundingBox? = null
 ) : Collection<Feature> by features, GeoJson {
 
     constructor(vararg features: Feature, bbox: BoundingBox? = null) : this(features.toMutableList(), bbox)
-
-    @Suppress("INAPPLICABLE_JVM_NAME")
-    @get:JvmName("toJson")
-    override val json: String
-        get() = Json.encodeToString(serializer(), this)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -46,17 +47,36 @@ class FeatureCollection(
         return result
     }
 
-    override fun toString(): String = json
+    override fun toString(): String = json()
+
+    override fun json(): String =
+        """{"type":"FeatureCollection",${bbox.jsonProp()}"features":${features.jsonJoin { it.json() }}}"""
 
     operator fun component1(): List<Feature> = features
     operator fun component2(): BoundingBox? = bbox
 
     companion object {
         @JvmStatic
-        fun serializer(): KSerializer<FeatureCollection> = FeatureCollectionSerializer
+        public fun fromJson(json: String): FeatureCollection =
+            fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 
         @JvmStatic
-        @JvmName("fromJson")
-        fun String.toFeatureCollection() = Json.decodeFromString(serializer(), this)
+        public fun fromJsonOrNull(json: String): FeatureCollection? = try {
+            fromJson(json)
+        } catch (_: Exception) {
+            null
+        }
+
+        @JvmStatic
+        public fun fromJson(json: JsonObject): FeatureCollection {
+            if (json.getValue("type").jsonPrimitive.content != "FeatureCollection") {
+                throw IllegalArgumentException("Object \"type\" is not \"FeatureCollection\".")
+            }
+
+            val bbox = json["bbox"]?.jsonArray?.toBbox()
+            val features = json.getValue("features").jsonArray.map { Feature.fromJson(it.jsonObject) }
+
+            return FeatureCollection(features, bbox)
+        }
     }
 }

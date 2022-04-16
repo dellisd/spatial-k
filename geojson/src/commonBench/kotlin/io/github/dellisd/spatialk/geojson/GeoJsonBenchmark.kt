@@ -2,7 +2,6 @@
 
 package io.github.dellisd.spatialk.geojson
 
-import io.github.dellisd.spatialk.geojson.FeatureCollection.Companion.toFeatureCollection
 import io.github.dellisd.spatialk.geojson.dsl.feature
 import io.github.dellisd.spatialk.geojson.dsl.featureCollection
 import io.github.dellisd.spatialk.geojson.dsl.lineString
@@ -16,6 +15,10 @@ import kotlinx.benchmark.OutputTimeUnit
 import kotlinx.benchmark.Scope
 import kotlinx.benchmark.Setup
 import kotlinx.benchmark.State
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 
 @State(Scope.Benchmark)
@@ -24,6 +27,7 @@ import kotlin.random.Random
 open class GeoJsonBenchmark {
     private lateinit var dataset: FeatureCollection
     private lateinit var geojson: String
+    private lateinit var jsonObject: JsonObject
 
     private fun generateDataset(): FeatureCollection {
         val random = Random(0)
@@ -61,16 +65,37 @@ open class GeoJsonBenchmark {
     @Setup
     fun setup() {
         dataset = generateDataset()
-        geojson = dataset.json
+        geojson = dataset.json()
+        jsonObject = Json.decodeFromString(geojson)
     }
 
+    /**
+     * Benchmark serialization using the string concat implementation
+     */
     @Benchmark
-    fun serialization() {
-        dataset.json
+    fun fastSerialization() {
+        dataset.json()
     }
+
+    /**
+     * Benchmark serialization using plain kotlinx.serialization
+     */
+    @Benchmark
+    fun kotlinxSerialization() {
+        Json.encodeToString(dataset)
+    }
+
+    /**
+     * Benchmark how fast kotlinx.serialization can encode a GeoJSON structure directly
+     */
+    @Benchmark
+    fun baselineSerialization() {
+        Json.encodeToString(jsonObject)
+    }
+
 
     @Benchmark
     fun deserialization() {
-        geojson.toFeatureCollection()
+        FeatureCollection.fromJson(geojson)
     }
 }

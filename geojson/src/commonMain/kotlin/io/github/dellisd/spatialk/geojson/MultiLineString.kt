@@ -1,7 +1,20 @@
 package io.github.dellisd.spatialk.geojson
 
+import io.github.dellisd.spatialk.geojson.serialization.GeometrySerializer
+import io.github.dellisd.spatialk.geojson.serialization.jsonJoin
+import io.github.dellisd.spatialk.geojson.serialization.jsonProp
+import io.github.dellisd.spatialk.geojson.serialization.toBbox
+import io.github.dellisd.spatialk.geojson.serialization.toPosition
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
+@Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
+@Serializable(with = GeometrySerializer::class)
 class MultiLineString @JvmOverloads constructor(
     val coordinates: List<List<Position>>,
     override val bbox: BoundingBox? = null
@@ -39,5 +52,38 @@ class MultiLineString @JvmOverloads constructor(
         var result = coordinates.hashCode()
         result = 31 * result + (bbox?.hashCode() ?: 0)
         return result
+    }
+
+    override fun json(): String =
+        """{"type":"MultiLineString",${bbox.jsonProp()}"coordinates":${
+            coordinates.jsonJoin {
+                it.jsonJoin(transform = Position::json)
+            }
+        }}"""
+
+    companion object {
+        @JvmStatic
+        public fun fromJson(json: String): MultiLineString =
+            fromJson(Json.decodeFromString(JsonObject.serializer(), json))
+
+        @JvmStatic
+        public fun fromJsonOrNull(json: String): MultiLineString? = try {
+            fromJson(json)
+        } catch (_: Exception) {
+            null
+        }
+
+        @JvmStatic
+        public fun fromJson(json: JsonObject): MultiLineString {
+            if (json.getValue("type").jsonPrimitive.content != "MultiLineString") {
+                throw IllegalArgumentException("Object \"type\" is not \"MultiLineString\".")
+            }
+
+            val coords =
+                json.getValue("coordinates").jsonArray.map { line -> line.jsonArray.map { it.jsonArray.toPosition() } }
+            val bbox = json["bbox"]?.jsonArray?.toBbox()
+
+            return MultiLineString(coords, bbox)
+        }
     }
 }
