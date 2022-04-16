@@ -3,26 +3,23 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
-import io.github.dellisd.spatialk.geojson.ExperimentalGeoJsonApi
 import io.github.dellisd.spatialk.geojson.LineString
-import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
+import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.dsl.geometryCollection
 import io.github.dellisd.spatialk.geojson.dsl.polygon
-import io.github.dellisd.spatialk.geojson.toGeometry
 import io.github.dellisd.spatialk.turf.utils.assertDoubleEquals
 import io.github.dellisd.spatialk.turf.utils.readResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@ExperimentalGeoJsonApi
 @ExperimentalTurfApi
 class TurfMeasurementTest {
 
     @Test
     fun testAlong() {
-        val geometry = readResource("measurement/along/lineString.json").toGeometry<LineString>()
+        val geometry = LineString.fromJson(readResource("measurement/along/lineString.json"))
 
         assertEquals(Position(-79.4179672644524, 43.636029126566484), along(geometry, 1.0))
         assertEquals(Position(-79.39973865844715, 43.63797943080659), along(geometry, 2.5))
@@ -32,10 +29,10 @@ class TurfMeasurementTest {
 
     @Test
     fun testArea() {
-        val geometry = readResource("measurement/area/polygon.json").toGeometry<Polygon>()
+        val geometry = Polygon.fromJson(readResource("measurement/area/polygon.json"))
         assertDoubleEquals(236446.506, area(geometry), 0.001, "Single polygon")
 
-        val other = readResource("measurement/area/other.json").toGeometry<Polygon>()
+        val other = Polygon.fromJson(readResource("measurement/area/other.json"))
         val collection = geometryCollection {
             +geometry
             +other
@@ -45,19 +42,19 @@ class TurfMeasurementTest {
 
     @Test
     fun testBbox() {
-        val point = readResource("measurement/bbox/point.json").toGeometry<Point>()
+        val point = Point.fromJson(readResource("measurement/bbox/point.json"))
         assertEquals(
             BoundingBox(point.coordinates, point.coordinates),
             bbox(point)
         )
 
-        val lineString = readResource("measurement/bbox/lineString.json").toGeometry<LineString>()
+        val lineString = LineString.fromJson(readResource("measurement/bbox/lineString.json"))
         assertEquals(
             BoundingBox(-79.376220703125, 43.65197548731187, -73.58642578125, 45.4986468234261),
             bbox(lineString)
         )
 
-        val polygon = readResource("measurement/bbox/polygon.json").toGeometry<Polygon>()
+        val polygon = Polygon.fromJson(readResource("measurement/bbox/polygon.json"))
         assertEquals(
             BoundingBox(-64.44580078125, 45.9511496866914, -61.973876953125, 47.07012182383309),
             bbox(polygon)
@@ -109,7 +106,7 @@ class TurfMeasurementTest {
 
     @Test
     fun testLength() {
-        val geometry = readResource("measurement/length/lineString.json").toGeometry<LineString>()
+        val geometry = LineString.fromJson(readResource("measurement/length/lineString.json"))
 
         assertEquals(42.560767589197006, length(geometry, Units.Kilometers))
     }

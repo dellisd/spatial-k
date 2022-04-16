@@ -1,6 +1,7 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.PositionSerializer
+import io.github.dellisd.spatialk.geojson.serialization.jsonJoin
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmSynthetic
 
@@ -98,6 +99,8 @@ class Position(val coordinates: DoubleArray) {
     override fun toString(): String {
         return "LngLat(longitude=$longitude, latitude=$latitude, altitude=$altitude)"
     }
+
+    fun json(): String = coordinates.jsonJoin()
 }
 
 @Suppress("MagicNumber")

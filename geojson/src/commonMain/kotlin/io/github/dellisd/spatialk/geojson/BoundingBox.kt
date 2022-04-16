@@ -1,10 +1,8 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.BoundingBoxSerializer
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
+import io.github.dellisd.spatialk.geojson.serialization.jsonJoin
 import kotlinx.serialization.Serializable
-import kotlin.jvm.JvmSynthetic
 
 /**
  * Represents an area bounded by a [northeast] and [southwest] [Position].
@@ -24,7 +22,6 @@ import kotlin.jvm.JvmSynthetic
  * @property southwest The southwestern corner of the BoundingBox
  * @property coordinates The GeoJSON bounding box coordinate array
  */
-@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 @Serializable(with = BoundingBoxSerializer::class)
 @Suppress("MagicNumber")
 class BoundingBox constructor(val coordinates: DoubleArray) {
@@ -89,6 +86,8 @@ class BoundingBox constructor(val coordinates: DoubleArray) {
     override fun toString(): String {
         return "BoundingBox(southwest=$southwest, northeast=$northeast)"
     }
+
+    fun json(): String = coordinates.jsonJoin()
 }
 
 @Suppress("MagicNumber")

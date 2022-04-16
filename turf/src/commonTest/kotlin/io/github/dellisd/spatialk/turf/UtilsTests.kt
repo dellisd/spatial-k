@@ -2,12 +2,10 @@
 
 package io.github.dellisd.spatialk.turf
 
-import io.github.dellisd.spatialk.geojson.ExperimentalGeoJsonApi
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-@ExperimentalGeoJsonApi
 @ExperimentalTurfApi
 class UtilsTests {
 

@@ -1,11 +1,8 @@
 package io.github.dellisd.spatialk.geojson.serialization
 
 import io.github.dellisd.spatialk.geojson.Position
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.StructureKind
 import kotlinx.serialization.descriptors.buildSerialDescriptor
@@ -49,16 +46,16 @@ object PositionSerializer : KSerializer<Position> {
     }
 
     override fun serialize(encoder: Encoder, value: Position) {
-        val output = encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
+        encoder as? JsonEncoder ?: throw SerializationException("This class can only be saved as JSON")
 
         val array = buildJsonArray {
-            add((value.longitude as Double?))
-            add((value.latitude as Double?))
+            add(value.longitude)
+            add(value.latitude)
             if (value.altitude != null) {
                 add(value.altitude)
             }
         }
 
-        output.encodeJsonElement(array)
+        encoder.encodeJsonElement(array)
     }
 }

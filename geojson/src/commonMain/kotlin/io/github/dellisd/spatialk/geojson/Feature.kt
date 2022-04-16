@@ -1,18 +1,23 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.FeatureSerializer
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.KSerializer
+import io.github.dellisd.spatialk.geojson.serialization.idProp
+import io.github.dellisd.spatialk.geojson.serialization.jsonProp
+import io.github.dellisd.spatialk.geojson.serialization.toBbox
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.double
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.collections.set
 import kotlin.jvm.JvmName
-import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /**
@@ -26,6 +31,7 @@ import kotlin.jvm.JvmStatic
  * @property id An optionally included string that commonly identifies this feature.
  */
 @Suppress("TooManyFunctions")
+@Serializable(with = FeatureSerializer::class)
 class Feature(
     val geometry: Geometry?,
     properties: Map<String, JsonElement> = emptyMap(),
@@ -97,12 +103,17 @@ class Feature(
     operator fun component3() = id
     operator fun component4() = bbox
 
-    override fun toString(): String = json
+    override fun toString(): String = json()
 
-    @Suppress("INAPPLICABLE_JVM_NAME")
-    @get:JvmName("toJson")
-    override val json: String
-        get() = Json.encodeToString(serializer(), this)
+    override fun json(): String =
+        """{"type":"Feature",${bbox.jsonProp()}"geometry":${geometry?.json()},${idProp()}"properties":${
+            Json.encodeToString(
+                MapSerializer(
+                    String.serializer(),
+                    JsonElement.serializer()
+                ), properties
+            )
+        }}"""
 
     fun copy(
         geometry: Geometry? = this.geometry,
@@ -112,12 +123,29 @@ class Feature(
     ): Feature = Feature(geometry, properties, id, bbox)
 
     companion object {
-        @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
         @JvmStatic
-        fun serializer(): KSerializer<Feature> = FeatureSerializer
+        fun fromJson(json: String): Feature = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 
         @JvmStatic
-        @JvmName("fromJson")
-        fun String.toFeature(): Feature = Json.decodeFromString(serializer(), this)
+        public fun fromJsonOrNull(json: String): Feature? = try {
+            fromJson(json)
+        } catch (_: Exception) {
+            null
+        }
+
+        @JvmStatic
+        public fun fromJson(json: JsonObject): Feature {
+            if (json.getValue("type").jsonPrimitive.content != "Feature") {
+                throw IllegalArgumentException("Object \"type\" is not \"Feature\".")
+            }
+
+            val bbox = json["bbox"]?.jsonArray?.toBbox()
+            val id = json["id"]?.jsonPrimitive?.content
+
+            val geom = json["geometry"]?.jsonObject
+            val geometry: Geometry? = if (geom != null) Geometry.fromJson(geom) else null
+
+            return Feature(geometry, json["properties"]?.jsonObject ?: emptyMap(), id, bbox)
+        }
     }
 }
