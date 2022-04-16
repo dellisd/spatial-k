@@ -1,0 +1,9 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:geojson
+io.github.dellisd.spatialk.geojson
+io.github.dellisd.spatialk.geojson.dsl
+io.github.dellisd.spatialk.geojson.serialization
+module:turf
+io.github.dellisd.spatialk.turf
