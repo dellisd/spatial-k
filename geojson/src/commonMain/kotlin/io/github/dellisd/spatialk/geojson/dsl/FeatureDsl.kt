@@ -1,4 +1,5 @@
 @file:JvmName("-FeatureDslKt")
+@file:Suppress("MatchingDeclarationName")
 
 package io.github.dellisd.spatialk.geojson.dsl
 
@@ -10,36 +11,32 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlin.jvm.JvmName
 
 @GeoJsonDsl
-class FeatureDsl(
-    var geometry: Geometry? = null,
-    var bbox: BoundingBox? = null,
-    var id: String? = null,
-    private val properties: MutableMap<String, JsonElement> = mutableMapOf()
-) {
-    fun create() = Feature(geometry, id = id, bbox = bbox, properties = properties)
+class PropertiesBuilder {
+    private val properties = mutableMapOf<String, JsonElement>()
 
-    inner class PropertiesDsl {
-        infix fun String.to(string: String?) {
-            properties[this] = JsonPrimitive(string)
-        }
-
-        infix fun String.to(number: Number) {
-            properties[this] = JsonPrimitive(number)
-        }
-
-        infix fun String.to(boolean: Boolean) {
-            properties[this] = JsonPrimitive(boolean)
-        }
-
-        infix fun String.to(json: JsonElement) {
-            properties[this] = json
-        }
+    fun put(key: String, value: String?) {
+        properties[key] = JsonPrimitive(value)
     }
 
-    fun properties(block: PropertiesDsl.() -> Unit) {
-        PropertiesDsl().apply(block)
+    fun put(key: String, value: Number?) {
+        properties[key] = JsonPrimitive(value)
     }
+
+    fun put(key: String, value: Boolean?) {
+        properties[key] = JsonPrimitive(value)
+    }
+
+    fun put(key: String, value: JsonElement) {
+        properties[key] = value
+    }
+
+    fun build(): Map<String, JsonElement> = properties
 }
 
-inline fun feature(block: FeatureDsl.() -> Unit) = FeatureDsl()
-    .apply(block).create()
+@GeoJsonDsl
+inline fun feature(
+    geometry: Geometry? = null,
+    id: String? = null,
+    bbox: BoundingBox? = null,
+    properties: PropertiesBuilder.() -> Unit = {}
+) = Feature(geometry, PropertiesBuilder().apply(properties).build(), id, bbox)

@@ -3,7 +3,6 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
-import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.dsl.feature
 import io.github.dellisd.spatialk.geojson.dsl.featureCollection
 import io.github.dellisd.spatialk.geojson.dsl.lineString
@@ -16,74 +15,64 @@ import kotlin.test.assertEquals
 
 private val point = point(102.0, 0.5)
 private val line = lineString {
-    +Position(102.0, -10.0)
-    +Position(103.0, 1.0)
-    +Position(104.0, 0.0)
-    +Position(130.0, 4.0)
+    point(102.0, -10.0)
+    point(103.0, 1.0)
+    point(104.0, 0.0)
+    point(130.0, 4.0)
 }
 private val polygon = polygon {
     ring {
-        +Position(101.0, 0.0)
-        +Position(101.0, 1.0)
-        +Position(100.0, 1.0)
-        +Position(100.0, 0.0)
+        point(101.0, 0.0)
+        point(101.0, 1.0)
+        point(100.0, 1.0)
+        point(100.0, 0.0)
         complete()
     }
 }
 private val multiLine = multiLineString {
-    +lineString {
-        +Position(100.0, 0.0)
-        +Position(101.0, 1.0)
+    lineString {
+        point(100.0, 0.0)
+        point(101.0, 1.0)
     }
-    +lineString {
-        +Position(102.0, 2.0)
-        +Position(103.0, 3.0)
+    lineString {
+        point(102.0, 2.0)
+        point(103.0, 3.0)
     }
 }
 private val multiPolygon = multiPolygon {
-    +polygon {
+    polygon {
         ring {
-            +Position(102.0, 2.0)
-            +Position(103.0, 2.0)
-            +Position(103.0, 3.0)
-            +Position(102.0, 3.0)
+            point(102.0, 2.0)
+            point(103.0, 2.0)
+            point(103.0, 3.0)
+            point(102.0, 3.0)
             complete()
         }
     }
-    +polygon {
+    polygon {
         ring {
-            +Position(100.0, 0.0)
-            +Position(101.0, 0.0)
-            +Position(101.0, 1.0)
-            +Position(100.0, 1.0)
+            point(100.0, 0.0)
+            point(101.0, 0.0)
+            point(101.0, 1.0)
+            point(100.0, 1.0)
             complete()
         }
         ring {
-            +Position(100.2, 0.2)
-            +Position(101.8, 0.2)
-            +Position(101.8, 0.8)
-            +Position(100.2, 0.8)
+            point(100.2, 0.2)
+            point(101.8, 0.2)
+            point(101.8, 0.8)
+            point(100.2, 0.8)
             complete()
         }
     }
 }
 
 private val featureCollection = featureCollection {
-    +feature {
-        geometry = point
-    }
-    +feature {
-        geometry = line
-    }
-    +feature {
-        geometry = polygon
-    }
-    +feature {
-        geometry = multiLine
-    }
-    +feature {
-        geometry = multiPolygon
-    }
+    feature(geometry = point)
+    feature(geometry = line)
+    feature(geometry = polygon)
+    feature(geometry = multiLine)
+    feature(geometry = multiPolygon)
 }
 
 @ExperimentalTurfApi
@@ -128,7 +117,7 @@ class BboxTests {
             Double.NEGATIVE_INFINITY
         )
 
-        assertEquals(emptyBbox, bbox(feature { }))
+        assertEquals(emptyBbox, bbox(feature()))
 
         assertEquals(emptyBbox, bbox(featureCollection { }))
     }

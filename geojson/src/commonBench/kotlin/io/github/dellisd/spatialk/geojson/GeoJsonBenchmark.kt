@@ -2,7 +2,6 @@
 
 package io.github.dellisd.spatialk.geojson
 
-import io.github.dellisd.spatialk.geojson.dsl.feature
 import io.github.dellisd.spatialk.geojson.dsl.featureCollection
 import io.github.dellisd.spatialk.geojson.dsl.lineString
 import io.github.dellisd.spatialk.geojson.dsl.point
@@ -33,31 +32,25 @@ open class GeoJsonBenchmark {
         val random = Random(0)
         return featureCollection {
             repeat(5000) {
-                +feature {
-                    geometry = point(random.nextDouble(360.0) - 180, random.nextDouble(360.0) - 180)
-                }
+                feature(geometry = point(random.nextDouble(360.0) - 180, random.nextDouble(360.0) - 180))
             }
 
             repeat(5000) {
-                +feature {
-                    geometry = lineString {
+                feature(geometry = lineString {
+                    repeat(10) {
+                        +Position(random.nextDouble(360.0) - 180, random.nextDouble(360.0) - 180)
+                    }
+                })
+            }
+
+            repeat(5000) {
+                feature(geometry = polygon {
+                    ring {
                         repeat(10) {
                             +Position(random.nextDouble(360.0) - 180, random.nextDouble(360.0) - 180)
                         }
                     }
-                }
-            }
-
-            repeat(5000) {
-                +feature {
-                    geometry = polygon {
-                        ring {
-                            repeat(10) {
-                                +Position(random.nextDouble(360.0) - 180, random.nextDouble(360.0) - 180)
-                            }
-                        }
-                    }
-                }
+                })
             }
         }
     }
