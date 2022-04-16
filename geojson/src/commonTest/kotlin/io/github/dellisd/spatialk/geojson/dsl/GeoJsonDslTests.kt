@@ -11,21 +11,16 @@ class GeoJsonDslTests {
     private val collectionDsl = featureCollection {
         val simplePoint = point(-75.0, 45.0, 100.0)
         // Point
-        +feature {
-            geometry = simplePoint
-            id = "point1"
-            properties {
-                "name" to "Hello World"
-            }
+        feature(geometry = simplePoint, id = "point1") {
+            put("name", "Hello World")
         }
         // MultiPoint
-        +feature {
-            geometry = multiPoint {
-                +simplePoint
-                +Position(45.0, 45.0)
-                +Position(0.0, 0.0)
-            }
-        }
+        feature(geometry = multiPoint {
+            +simplePoint
+            +Position(45.0, 45.0)
+            +Position(0.0, 0.0)
+        })
+
 
         val simpleLine = lineString {
             +Position(45.0, 45.0)
@@ -33,62 +28,52 @@ class GeoJsonDslTests {
         }
 
         // LineString
-        +feature {
-            geometry = simpleLine
-        }
+        feature(geometry = simpleLine)
 
         // MultiLineString
-        +feature {
-            geometry = multiLineString {
-                +simpleLine
-                +lineString {
-                    +Position(44.4, 55.5)
-                    +Position(55.5, 66.6)
-                }
+        feature(geometry = multiLineString {
+            +simpleLine
+            lineString {
+                +Position(44.4, 55.5)
+                +Position(55.5, 66.6)
             }
-        }
+        })
 
         val simplePolygon = polygon {
             ring {
                 +simpleLine
-                +Position(12.0, 12.0)
+                point(12.0, 12.0)
                 complete()
             }
             ring {
-                +Position(4.0, 4.0)
-                +Position(2.0, 2.0)
-                +Position(3.0, 3.0)
+                point(4.0, 4.0)
+                point(2.0, 2.0)
+                point(3.0, 3.0)
                 complete()
             }
         }
 
         // Polygon
-        +feature {
-            geometry = simplePolygon
-        }
+        feature(geometry = simplePolygon)
 
-        +feature {
-            geometry = multiPolygon {
-                +simplePolygon
-                +polygon {
-                    ring {
-                        +Position(12.0, 0.0)
-                        +Position(0.0, 12.0)
-                        +Position(-12.0, 0.0)
-                        +Position(5.0, 5.0)
-                        complete()
-                    }
+        feature(geometry = multiPolygon {
+            +simplePolygon
+            polygon {
+                ring {
+                    point(12.0, 0.0)
+                    point(0.0, 12.0)
+                    point(-12.0, 0.0)
+                    point(5.0, 5.0)
+                    complete()
                 }
             }
-        }
+        })
 
-        +feature {
-            geometry = geometryCollection {
-                +simplePoint
-                +simpleLine
-                +simplePolygon
-            }
-        }
+        feature(geometry = geometryCollection {
+            +simplePoint
+            +simpleLine
+            +simplePolygon
+        })
     }
 
     private val collectionJson =

@@ -433,14 +433,17 @@ A GeoJson object's `bbox` value can be assigned in any of the DSLs.
     ```
 #### MultiPoint
 
-The `MultiPoint` DSL uses the unary plus operator to add `Position` instances as positions in the geometry.
+The `MultiPoint` DSL creates a `MultiPoint` from many `Point`s, or by using the unary plus operator to add `Position` instances as positions in the geometry.
 `Point` geometries can also be added to the multi point using the unary plus operator.
 
 === "Kotlin"
     ```kotlin
+    val myPoint = Point(88.0, 34.0)
     multiPoint {
-        +point(-75.0, 45.0)
+        point(-75.0, 45.0)
+
         +lngLat(-78.0, 44.0)
+        +myPoint
     }
     ```
 === "JSON"
@@ -449,21 +452,22 @@ The `MultiPoint` DSL uses the unary plus operator to add `Position` instances as
       "type": "MultiPoint",
       "coordinates": [
         [-75.0, 45.0],
-        [-78.0, 44.0]
+        [-78.0, 44.0],
+        [88.0, 34.0]
       ]
     }
     ```
 
 #### LineString
 
-Like with `MultiPoint`, the `LineString` DSL uses the unary plus operator to add positions as part of the line.
+A `LineString` contains main points. Like with `MultiPoint`, a `LineString` can also be built using the unary plus operator to add positions as part of the line.
 The order in which positions are added to the `LineString` is the order that the `LineString` will follow.
 
 === "Kotlin"
     ```kotlin
     lineString {
-    +lngLat(45.0, 45.0)
-    +lngLat(0.0, 0.0)
+        point(45.0, 45.0)
+        point(0.0, 0.0)
     }
     ```
 === "JSON"
@@ -483,17 +487,17 @@ create `LineString` objects to add.
 === "Kotlin"
     ```kotlin
     val simpleLine = lineString {
-        +lngLat(45.0, 45.0)
-        +lngLat(0.0, 0.0)
+        point(45.0, 45.0)
+        point(0.0, 0.0)
     }
 
     multiLineString {
         +simpleLine
         
         // Inline LineString creation
-        +lineString {
-            +lngLat(44.4, 55.5)
-            +lngLat(55.5, 66.6)
+        lineString {
+            point(44.4, 55.5)
+            point(55.5, 66.6)
         }
     }
     ```
@@ -520,21 +524,21 @@ It adds the last position in the ring by copying the first position that was add
 === "Kotlin"
     ```kotlin
     val simpleLine = lineString {
-        +lngLat(45.0, 45.0)
-        +lngLat(0.0, 0.0)
+        point(45.0, 45.0)
+        point(0.0, 0.0)
     }
 
     polygon {
          ring {
              // LineStrings can be used as part of a ring
              +simpleLine
-             +lngLat(12.0, 12.0)
+             point(12.0, 12.0)
              complete()
          }
          ring {
-             +lngLat(4.0, 4.0)
-             +lngLat(2.0, 2.0)
-             +lngLat(3.0, 3.0)
+             point(4.0, 4.0)
+             point(2.0, 2.0)
+             point(3.0, 3.0)
              complete()
          }
      }
@@ -561,12 +565,12 @@ The `Polygon` DSL can also be used here.
 
     multiPolygon {
         +simplePolygon
-        +polygon {
+        polygon {
             ring {
-                +LngLat(12.0, 0.0)
-                +LngLat(0.0, 12.0)
-                +LngLat(-12.0, 0.0)
-                +LngLat(5.0, 5.0)
+                point(12.0, 0.0)
+                point(0.0, 12.0)
+                point(-12.0, 0.0)
+                point(5.0, 5.0)
                 complete()
             }
         }
@@ -629,19 +633,15 @@ The unary plus operator can be used to add any geometry instance to a `GeometryC
     ```
 ### Feature
 
-The `Feature` DSL can construct a `Feature` object with a geometry, a set of properties, a bounding box, and an id.
+The `Feature` DSL can construct a `Feature` object with a geometry, a bounding box, and an id. Properties can be specified
+in the `PropertiesBuilder` block by calling `put(key, value)` to add properties.
 
 === "Kotlin"
     ```kotlin
-    feature {
-        geometry = point(-75.0, 45.0)
-        id = "point1"
-        bbox = BoundingBox(-76.9, 44.1, -74.2, 45.7)
-        properties {
-            "name" to "Hello World"
-            "value" to 13
-            "cool" to true
-        }
+    feature(geometry = point(-75.0, 45.0), id = "point1", bbox = BoundingBox(-76.9, 44.1, -74.2, 45.7)) {
+        put("name", "Hello World")
+        put("value", 13)
+        put("cool", true)
     }
     ```
 
@@ -670,9 +670,7 @@ A `FeatureCollection` is constructed by adding multiple `Feature` objects using 
 === "Kotlin"
     ```kotlin
     featureCollection {
-        +feature {
-            geometry = point(-75.0, 45.0)
-        }
+        feature(geometry = point(-75.0, 45.0))
     }
     ```
 
