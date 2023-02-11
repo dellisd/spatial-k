@@ -103,7 +103,6 @@ benchmark {
 
     targets {
         register("jvmBench")
-        // Broken on 1.6.20???
         register("jsBench")
         register("nativeBench")
     }
