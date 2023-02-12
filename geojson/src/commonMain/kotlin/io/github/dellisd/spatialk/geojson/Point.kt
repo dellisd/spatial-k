@@ -51,8 +51,8 @@ class Point @JvmOverloads constructor(val coordinates: Position, override val bb
 
         @JvmStatic
         public fun fromJson(json: JsonObject): Point {
-            if (json.getValue("type").jsonPrimitive.content != "Point") {
-                throw IllegalArgumentException("Object \"type\" is not \"Point\".")
+            require(json.getValue("type").jsonPrimitive.content == "Point") {
+                "Object \"type\" is not \"Point\"."
             }
 
             val coords = json.getValue("coordinates").jsonArray.toPosition()

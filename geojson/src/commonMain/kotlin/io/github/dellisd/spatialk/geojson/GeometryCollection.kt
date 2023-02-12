@@ -57,8 +57,8 @@ class GeometryCollection @JvmOverloads constructor(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): GeometryCollection {
-            if (json.getValue("type").jsonPrimitive.content != "GeometryCollection") {
-                throw IllegalArgumentException("Object \"type\" is not \"GeometryCollection\".")
+            require(json.getValue("type").jsonPrimitive.content == "GeometryCollection") {
+                "Object \"type\" is not \"GeometryCollection\"."
             }
 
             val geometries = json.getValue("geometries").jsonArray.map {

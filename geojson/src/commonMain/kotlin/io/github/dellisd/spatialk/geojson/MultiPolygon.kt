@@ -69,8 +69,8 @@ class MultiPolygon @JvmOverloads constructor(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): MultiPolygon {
-            if (json.getValue("type").jsonPrimitive.content != "MultiPolygon") {
-                throw IllegalArgumentException("Object \"type\" is not \"MultiPolygon\".")
+            require(json.getValue("type").jsonPrimitive.content == "MultiPolygon") {
+                "Object \"type\" is not \"MultiPolygon\"."
             }
 
             val coords =

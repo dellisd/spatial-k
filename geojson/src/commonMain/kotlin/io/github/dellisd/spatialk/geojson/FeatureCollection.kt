@@ -69,8 +69,8 @@ class FeatureCollection(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): FeatureCollection {
-            if (json.getValue("type").jsonPrimitive.content != "FeatureCollection") {
-                throw IllegalArgumentException("Object \"type\" is not \"FeatureCollection\".")
+            require(json.getValue("type").jsonPrimitive.content == "FeatureCollection") {
+                "Object \"type\" is not \"FeatureCollection\"."
             }
 
             val bbox = json["bbox"]?.jsonArray?.toBbox()

@@ -30,9 +30,7 @@ class MultiLineString @JvmOverloads constructor(
 
     init {
         coordinates.forEach { line ->
-            if (line.size < 2) {
-                throw IllegalArgumentException("LineString must have at least two positions")
-            }
+            require(line.size >= 2) { "LineString must have at least two positions" }
         }
     }
 
@@ -75,8 +73,8 @@ class MultiLineString @JvmOverloads constructor(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): MultiLineString {
-            if (json.getValue("type").jsonPrimitive.content != "MultiLineString") {
-                throw IllegalArgumentException("Object \"type\" is not \"MultiLineString\".")
+            require(json.getValue("type").jsonPrimitive.content == "MultiLineString") {
+                "Object \"type\" is not \"MultiLineString\"."
             }
 
             val coords =
