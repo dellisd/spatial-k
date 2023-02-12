@@ -36,8 +36,8 @@ fun lineIntersect(line1: LineString, line2: LineString): List<Position> {
 @Suppress("ReturnCount")
 @ExperimentalTurfApi
 internal fun intersects(line1: LineString, line2: LineString): Position? {
-    if (line1.coordinates.size != 2) throw IllegalStateException("line1 must contain exactly 2 coordinates")
-    if (line2.coordinates.size != 2) throw IllegalStateException("line2 must contain exactly 2 coordinates")
+    require(line1.coordinates.size == 2) { "line1 must contain exactly 2 coordinates" }
+    require(line2.coordinates.size == 2) { "line2 must contain exactly 2 coordinates" }
 
     val x1 = line1.coordinates[0].longitude
     val y1 = line1.coordinates[0].latitude

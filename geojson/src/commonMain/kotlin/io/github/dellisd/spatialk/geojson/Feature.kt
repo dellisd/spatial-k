@@ -135,8 +135,8 @@ class Feature(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): Feature {
-            if (json.getValue("type").jsonPrimitive.content != "Feature") {
-                throw IllegalArgumentException("Object \"type\" is not \"Feature\".")
+            require(json.getValue("type").jsonPrimitive.content == "Feature") {
+                "Object \"type\" is not \"Feature\"."
             }
 
             val bbox = json["bbox"]?.jsonArray?.toBbox()

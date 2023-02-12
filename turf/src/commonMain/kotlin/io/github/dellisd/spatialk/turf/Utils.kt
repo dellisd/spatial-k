@@ -15,9 +15,7 @@ import kotlin.native.concurrent.SharedImmutable
  */
 @ExperimentalTurfApi
 fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
-    if (units.factor.isNaN()) {
-        throw IllegalArgumentException("${units.name} units is invalid")
-    }
+    require(!units.factor.isNaN()) { "${units.name} units is invalid" }
     return radians * units.factor
 }
 
@@ -34,9 +32,7 @@ fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
  */
 @ExperimentalTurfApi
 fun lengthToRadians(distance: Double, units: Units = Units.Kilometers): Double {
-    if (units.factor.isNaN()) {
-        throw IllegalArgumentException("${units.name} units is invalid")
-    }
+    require(!units.factor.isNaN()) { "${units.name} units is invalid" }
     return distance / units.factor
 }
 
@@ -72,9 +68,7 @@ fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) =
  */
 @ExperimentalTurfApi
 fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
-    if (length < 0) {
-        throw IllegalArgumentException("length must be a positive number")
-    }
+    require(length >= 0) { "length must be a positive number" }
     return radiansToLength(
         lengthToRadians(
             length,
@@ -98,17 +92,9 @@ fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.
 @Suppress("ThrowsCount")
 @ExperimentalTurfApi
 fun convertArea(area: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
-    if (area < 0) {
-        throw IllegalArgumentException("area must be a positive number")
-    }
-
-    if (from.areaFactor.isNaN()) {
-        throw IllegalArgumentException("invalid original units")
-    }
-
-    if (to.areaFactor.isNaN()) {
-        throw IllegalArgumentException("invalid final units")
-    }
+    require(area >= 0) { "area must be a positive number" }
+    require(!from.areaFactor.isNaN()) { "invalid original units" }
+    require(!to.areaFactor.isNaN()) { "invalid final units" }
 
     return (area / from.areaFactor) * to.areaFactor
 }

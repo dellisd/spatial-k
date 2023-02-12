@@ -62,8 +62,8 @@ class MultiPoint @JvmOverloads constructor(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): MultiPoint {
-            if (json.getValue("type").jsonPrimitive.content != "MultiPoint") {
-                throw IllegalArgumentException("Object \"type\" is not \"MultiPoint\".")
+            require(json.getValue("type").jsonPrimitive.content == "MultiPoint") {
+                "Object \"type\" is not \"MultiPoint\"."
             }
 
             val coords = json.getValue("coordinates").jsonArray.map { it.jsonArray.toPosition() }

@@ -29,9 +29,7 @@ class LineString @JvmOverloads constructor(
     ) : this(coordinates.map(::Position), bbox)
 
     init {
-        if (coordinates.size < 2) {
-            throw IllegalArgumentException("LineString must have at least two positions")
-        }
+        require(coordinates.size >= 2) { "LineString must have at least two positions" }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -68,8 +66,8 @@ class LineString @JvmOverloads constructor(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): LineString {
-            if (json.getValue("type").jsonPrimitive.content != "LineString") {
-                throw IllegalArgumentException("Object \"type\" is not \"LineString\".")
+            require(json.getValue("type").jsonPrimitive.content == "LineString") {
+                "Object \"type\" is not \"LineString\"."
             }
 
             val coords = json.getValue("coordinates").jsonArray.map { it.jsonArray.toPosition() }

@@ -278,8 +278,8 @@ private fun computeBbox(coordinates: List<Position>): BoundingBox {
  */
 @ExperimentalTurfApi
 fun bboxPolygon(bbox: BoundingBox): Polygon {
-    if (bbox.northeast.altitude != null || bbox.southwest.altitude != null) {
-        throw IllegalArgumentException("Bounding Box cannot have altitudes")
+    require(bbox.northeast.altitude == null && bbox.southwest.altitude == null) {
+        "Bounding Box cannot have altitudes"
     }
 
     return Polygon(

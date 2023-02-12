@@ -64,8 +64,8 @@ class Polygon @JvmOverloads constructor(
 
         @JvmStatic
         public fun fromJson(json: JsonObject): Polygon {
-            if (json.getValue("type").jsonPrimitive.content != "Polygon") {
-                throw IllegalArgumentException("Object \"type\" is not \"Polygon\".")
+            require(json.getValue("type").jsonPrimitive.content == "Polygon") {
+                "Object \"type\" is not \"Polygon\"."
             }
 
             val coords =

@@ -3,6 +3,7 @@ package io.github.dellisd.spatialk.geojson
 import io.github.dellisd.spatialk.geojson.serialization.PositionSerializer
 import io.github.dellisd.spatialk.geojson.serialization.jsonJoin
 import kotlinx.serialization.Serializable
+import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmSynthetic
 
 /**
