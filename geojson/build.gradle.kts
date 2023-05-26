@@ -29,7 +29,9 @@ kotlin {
     }
     mingwX64("mingw")
     macosX64("macos")
-    ios("ios")
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
 
     sourceSets {
         all {
@@ -60,13 +62,11 @@ kotlin {
 
         val nativeMain by getting {
             getByName("macosMain").dependsOn(this)
-            getByName("iosMain").dependsOn(this)
             getByName("mingwMain").dependsOn(this)
         }
 
         val nativeTest by getting {
             getByName("macosTest").dependsOn(this)
-            getByName("iosTest").dependsOn(this)
             getByName("mingwTest").dependsOn(this)
         }
 
@@ -90,6 +90,26 @@ kotlin {
         val nativeBench by getting {
             dependsOn(commonBench)
             dependsOn(nativeMain)
+        }
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(nativeMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+        }
+
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(nativeTest)
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }
