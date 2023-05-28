@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.8.10"
 resources = "0.2.4"
-benchmark = "0.4.7"
+benchmark = "0.4.8"
 
 [libraries]
 resources = { module = "com.goncalossilva:resources", version.ref = "resources" }
