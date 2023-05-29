@@ -7,18 +7,6 @@ plugins {
     alias(libs.plugins.dokka)
 }
 
-repositories {
-    mavenCentral()
-    google()
-}
-
-allprojects {
-    repositories {
-        mavenCentral()
-        google()
-    }
-}
-
 detekt {
     buildUponDefaultConfig = true
 
@@ -31,7 +19,7 @@ detekt {
 
 tasks.withType<Detekt> {
     buildUponDefaultConfig = true
-    jvmTarget = "11"
+    jvmTarget = "1.8"
     reports {
         html.required.set(true)
     }

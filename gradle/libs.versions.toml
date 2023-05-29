@@ -1,7 +1,7 @@
 [versions]
-kotlin = "1.8.10"
-resources = "0.2.4"
-benchmark = "0.4.7"
+kotlin = "1.8.21"
+resources = "0.3.2"
+benchmark = "0.4.8"
 
 [libraries]
 resources = { module = "com.goncalossilva:resources", version.ref = "resources" }
@@ -13,7 +13,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 kotlinx-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "benchmark" }
-publish = { id = "com.vanniktech.maven.publish", version = "0.19.0" }
+publish = { id = "com.vanniktech.maven.publish", version = "0.25.2" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.22.0" }
-dokka = { id = "org.jetbrains.dokka", version = "1.7.20" }
+dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
 resources = { id = "com.goncalossilva.resources", version.ref = "resources" }
