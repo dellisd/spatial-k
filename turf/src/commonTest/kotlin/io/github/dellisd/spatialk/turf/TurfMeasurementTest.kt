@@ -1,9 +1,9 @@
 @file:Suppress("MagicNumber")
 
 package io.github.dellisd.spatialk.turf
-
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.LineString
+import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
@@ -120,5 +120,25 @@ class TurfMeasurementTest {
 
         assertDoubleEquals(-76.6311, midpoint.longitude, 0.0001)
         assertDoubleEquals(42.2101, midpoint.latitude, 0.0001)
+    }
+
+    @Test
+    fun testCenterFromFeature() {
+        val geometry = Polygon.fromJson(readResource("measurement/area/other.json"))
+
+        val centerPoint = center(Feature(geometry))
+
+        assertDoubleEquals(-75.71805238723755, centerPoint.coordinates.longitude, 0.0001)
+        assertDoubleEquals(45.3811030151199, centerPoint.coordinates.latitude, 0.0001)
+    }
+
+    @Test
+    fun testCenterFromGeometry() {
+        val geometry = Polygon.fromJson(readResource("measurement/area/other.json"))
+
+        val centerPoint = center(geometry)
+
+        assertDoubleEquals(-75.71805238723755, centerPoint.coordinates.longitude, 0.0001)
+        assertDoubleEquals(45.3811030151199, centerPoint.coordinates.latitude, 0.0001)
     }
 }
