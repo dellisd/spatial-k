@@ -18,7 +18,12 @@ import kotlin.math.floor
  * @returns [FeatureCollection] a grid of polygons
  */
 @ExperimentalTurfApi
-fun rectangleGrid(bbox: BoundingBox, cellWidth: Double, cellHeight: Double, units: Units = Units.Kilometers): FeatureCollection {
+fun rectangleGrid(
+    bbox: BoundingBox,
+    cellWidth: Double,
+    cellHeight: Double,
+    units: Units = Units.Kilometers
+): FeatureCollection {
     val featureList = mutableListOf<Feature>()
     val west = bbox.southwest.longitude
     val south = bbox.southwest.latitude
