@@ -243,7 +243,7 @@ fun bbox(feature: Feature): BoundingBox = computeBbox(feature.coordAll() ?: empt
 fun bbox(featureCollection: FeatureCollection): BoundingBox = computeBbox(featureCollection.coordAll())
 
 @Suppress("MagicNumber")
-private fun computeBbox(coordinates: List<Position>): BoundingBox {
+fun computeBbox(coordinates: List<Position>): BoundingBox {
     val result = doubleArrayOf(
         Double.POSITIVE_INFINITY,
         Double.POSITIVE_INFINITY,
