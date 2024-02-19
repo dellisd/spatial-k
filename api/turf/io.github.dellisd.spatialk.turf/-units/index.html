@@ -1,261 +1,334 @@
 <!doctype html>
-<html>
+<html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Units</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
-<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
 <link href="../../../styles/main.css" rel="Stylesheet">
 <link href="../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
-<div class="navigation-wrapper" id="navigation-wrapper">
-    <div id="leftToggler"><span class="icon-toggler"></span></div>
-    <div class="library-name">
-<a href="../../../index.html">
-<span>Spatial K</span>            </a>    </div>
-    <div>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Spatial K
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":turf:dokkaHtmlPartial/commonMain">common</button>
+        </div>
     </div>
-    <div class="pull-right d-flex">
-        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
     </div>
-</div>
-<div id="container">
-    <div id="leftColumn">
-        <div id="sideMenu"></div>
-    </div>
-    <div id="main">
-<div class="main-content" id="content" pageids="turf::io.github.dellisd.spatialk.turf/Units///PointingToDeclaration//1012045182">
-  <div class="breadcrumbs"><a href="../../index.html">turf</a><span class="delimiter">/</span><a href="../index.html">io.github.dellisd.spatialk.turf</a><span class="delimiter">/</span><a href="index.html">Units</a></div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="turf::io.github.dellisd.spatialk.turf/Units///PointingToDeclaration//1012045182">
+  <div class="breadcrumbs"><a href="../../index.html">turf</a><span class="delimiter">/</span><a href="../index.html">io.github.dellisd.spatialk.turf</a><span class="delimiter">/</span><span class="current">Units</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Units</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">Units</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Units</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Supported units of measurement in Turf.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">Units</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Units</a><span class="token operator">&gt; </span></div><p class="paragraph">Supported units of measurement in Turf.</p></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Entries">Entries</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
     <div class="tabs-section-body">
-      <h2 class="tabbedcontent">Entries</h2>
-      <div class="table" data-togglable="Entries"><a data-name="730062705%2FClasslikes%2F1012045182" anchor-label="Degrees" id="730062705%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-degrees/index.html">Degrees</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="730062705%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-degrees/index.html">Degrees</a><span class="token punctuation">(</span>1 / 111325.0<span class="token punctuation">, </span>EARTH_RADIUS / 111325<span class="token punctuation">, </span>Double.NaN<span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1887892860%2FClasslikes%2F1012045182" anchor-label="Radians" id="1887892860%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-radians/index.html">Radians</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1887892860%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-radians/index.html">Radians</a><span class="token punctuation">(</span>1 / EARTH_RADIUS<span class="token punctuation">, </span><span class="token constant">1.0</span><span class="token punctuation">, </span>Double.NaN<span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="727197068%2FClasslikes%2F1012045182" anchor-label="Feet" id="727197068%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-feet/index.html">Feet</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="727197068%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-feet/index.html">Feet</a><span class="token punctuation">(</span><span class="token constant">3.28084</span><span class="token punctuation">, </span>EARTH_RADIUS * 3.28084<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-350768445%2FClasslikes%2F1012045182" anchor-label="Yards" id="-350768445%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-yards/index.html">Yards</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-350768445%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-yards/index.html">Yards</a><span class="token punctuation">(</span>1 / 1.0936<span class="token punctuation">, </span>EARTH_RADIUS / 1.0936<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="2031666774%2FClasslikes%2F1012045182" anchor-label="Inches" id="2031666774%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-inches/index.html">Inches</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031666774%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-inches/index.html">Inches</a><span class="token punctuation">(</span><span class="token constant">39.37</span><span class="token punctuation">, </span>EARTH_RADIUS * 39.370<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="922133425%2FClasslikes%2F1012045182" anchor-label="NauticalMiles" id="922133425%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-nautical-miles/index.html">NauticalMiles</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922133425%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-nautical-miles/index.html">NauticalMiles</a><span class="token punctuation">(</span>1 / 1852.0<span class="token punctuation">, </span>EARTH_RADIUS / 1852.0<span class="token punctuation">, </span>Double.NaN<span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-419057016%2FClasslikes%2F1012045182" anchor-label="Miles" id="-419057016%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-miles/index.html">Miles</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-419057016%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-miles/index.html">Miles</a><span class="token punctuation">(</span>1 / 1609.344<span class="token punctuation">, </span>EARTH_RADIUS / 1609.344<span class="token punctuation">, </span><span class="token constant">3.86E-7</span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-2019457848%2FClasslikes%2F1012045182" anchor-label="Acres" id="-2019457848%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-acres/index.html">Acres</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2019457848%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-acres/index.html">Acres</a><span class="token punctuation">(</span>Double.NaN<span class="token punctuation">, </span>Double.NaN<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1295450185%2FClasslikes%2F1012045182" anchor-label="Kilometers" id="1295450185%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-kilometers/index.html">Kilometers</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295450185%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-kilometers/index.html">Kilometers</a><span class="token punctuation">(</span>1 / 1000.0<span class="token punctuation">, </span>EARTH_RADIUS / 1000<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="-1104556203%2FClasslikes%2F1012045182" anchor-label="Centimeters" id="-1104556203%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-centimeters/index.html">Centimeters</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1104556203%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-centimeters/index.html">Centimeters</a><span class="token punctuation">(</span><span class="token constant">100.0</span><span class="token punctuation">, </span>EARTH_RADIUS * 100<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="855301473%2FClasslikes%2F1012045182" anchor-label="Millimeters" id="855301473%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-millimeters/index.html">Millimeters</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855301473%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-millimeters/index.html">Millimeters</a><span class="token punctuation">(</span><span class="token constant">1000.0</span><span class="token punctuation">, </span>EARTH_RADIUS * 1000<span class="token punctuation">, </span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-<a data-name="1978704488%2FClasslikes%2F1012045182" anchor-label="Meters" id="1978704488%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-meters/index.html">Meters</a></div>
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="1978704488%2FClasslikes%2F1012045182" anchor-label="Meters" id="1978704488%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-meters/index.html">Meters</a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1978704488%2FClasslikes%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-meters/index.html">Meters</a><span class="token punctuation">(</span><span class="token constant">1.0</span><span class="token punctuation">, </span>EARTH_RADIUS<span class="token punctuation">, </span><span class="token constant">1.0</span><span class="token punctuation">)</span></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-meters/index.html">Meters</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="855301473%2FClasslikes%2F1012045182" anchor-label="Millimeters" id="855301473%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-millimeters/index.html">Millimeters</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855301473%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-millimeters/index.html">Millimeters</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1104556203%2FClasslikes%2F1012045182" anchor-label="Centimeters" id="-1104556203%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-centimeters/index.html">Centimeters</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1104556203%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-centimeters/index.html">Centimeters</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1295450185%2FClasslikes%2F1012045182" anchor-label="Kilometers" id="1295450185%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-kilometers/index.html">Kilometers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295450185%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-kilometers/index.html">Kilometers</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2019457848%2FClasslikes%2F1012045182" anchor-label="Acres" id="-2019457848%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-acres/index.html">Acres</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2019457848%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-acres/index.html">Acres</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-419057016%2FClasslikes%2F1012045182" anchor-label="Miles" id="-419057016%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-miles/index.html">Miles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-419057016%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-miles/index.html">Miles</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="922133425%2FClasslikes%2F1012045182" anchor-label="NauticalMiles" id="922133425%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-nautical-miles/index.html">NauticalMiles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922133425%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-nautical-miles/index.html">NauticalMiles</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2031666774%2FClasslikes%2F1012045182" anchor-label="Inches" id="2031666774%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-inches/index.html">Inches</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031666774%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-inches/index.html">Inches</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-350768445%2FClasslikes%2F1012045182" anchor-label="Yards" id="-350768445%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-yards/index.html">Yards</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-350768445%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-yards/index.html">Yards</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="727197068%2FClasslikes%2F1012045182" anchor-label="Feet" id="727197068%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-feet/index.html">Feet</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="727197068%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-feet/index.html">Feet</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1887892860%2FClasslikes%2F1012045182" anchor-label="Radians" id="1887892860%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-radians/index.html">Radians</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1887892860%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-radians/index.html">Radians</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="730062705%2FClasslikes%2F1012045182" anchor-label="Degrees" id="730062705%2FClasslikes%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-degrees/index.html">Degrees</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="730062705%2FClasslikes%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><div class="block"><a href="-degrees/index.html">Degrees</a></div></div></div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <h2 class="">Properties</h2>
-      <div class="table" data-togglable="Properties"><a data-name="-372974862%2FProperties%2F1012045182" anchor-label="name" id="-372974862%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-meters/index.html#-372974862%2FProperties%2F1012045182">name</a></div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-843904936%2FProperties%2F1012045182" anchor-label="entries" id="-843904936%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="entries.html"><span><span>entries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-843904936%2FProperties%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Units</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a representation of an immutable list of all enum entries, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-372974862%2FProperties%2F1012045182" anchor-label="name" id="-372974862%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-degrees/index.html#-372974862%2FProperties%2F1012045182"><span><span>name</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><a data-name="-372974862%2FProperties%2F1012045182" anchor-label="name" id="-372974862%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-meters/index.html#-372974862%2FProperties%2F1012045182">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-degrees/index.html#-372974862%2FProperties%2F1012045182">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F1012045182" anchor-label="ordinal" id="-739389684%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-degrees/index.html#-739389684%2FProperties%2F1012045182"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-degrees/index.html#-739389684%2FProperties%2F1012045182">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-<a data-name="-739389684%2FProperties%2F1012045182" anchor-label="ordinal" id="-739389684%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="-meters/index.html#-739389684%2FProperties%2F1012045182">ordinal</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F1012045182"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><a data-name="-739389684%2FProperties%2F1012045182" anchor-label="ordinal" id="-739389684%2FProperties%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-meters/index.html#-739389684%2FProperties%2F1012045182">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-578608060%2FFunctions%2F1012045182" anchor-label="valueOf" id="-578608060%2FFunctions%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-578608060%2FFunctions%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Units</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-795871152%2FFunctions%2F1012045182" anchor-label="values" id="-795871152%2FFunctions%2F1012045182" data-filterable-set=":turf:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":turf:dokkaHtmlPartial/commonMain" data-filterable-set=":turf:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-795871152%2FFunctions%2F1012045182"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":turf:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Units</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
               </div>
             </div>
           </div>
@@ -264,10 +337,12 @@ if(savedDarkMode === true){
     </div>
   </div>
 </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
         </div>
     </div>
-</div>
-
-</body></html>
+</body>
+</html>
 

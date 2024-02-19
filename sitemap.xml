@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://dellisd.github.io/spatial-k/</loc>
-         <lastmod>2022-04-16</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dellisd.github.io/spatial-k/geojson/</loc>
-         <lastmod>2022-04-16</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dellisd.github.io/spatial-k/ported-functions/</loc>
-         <lastmod>2022-04-16</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dellisd.github.io/spatial-k/turf/</loc>
-         <lastmod>2022-04-16</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
