@@ -12,8 +12,8 @@ See the [project site](https://dellisd.github.io/spatial-k) form more info.
 
 ```kotlin
 dependencies {
-    implementation("io.github.dellisd.spatialk:geojson:0.2.0")
-    implementation("io.github.dellisd.spatialk:turf:0.2.0")
+    implementation("io.github.dellisd.spatialk:geojson:0.3.0")
+    implementation("io.github.dellisd.spatialk:turf:0.3.0")
 }
 ```
 
@@ -21,8 +21,8 @@ dependencies {
 ```kotlin
 commonMain {
     dependencies {
-        implementation("io.github.dellisd.spatialk:geojson:0.2.0")
-        implementation("io.github.dellisd.spatialk:turf:0.2.0")
+        implementation("io.github.dellisd.spatialk:geojson:0.3.0")
+        implementation("io.github.dellisd.spatialk:turf:0.3.0")
     }
 }
 ```
