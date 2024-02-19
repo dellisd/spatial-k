@@ -9,16 +9,16 @@ import kotlin.math.abs
 import kotlin.math.floor
 
 /**
- * Creates a rectangle grid within a [BoundingBox].
+ * Creates a square grid within a [BoundingBox].
  *
- * @param [BoundingBox] bbox extent
- * @param double cellWidth of each cell, in units
- * @param double cellHeight of each cell, in units
+ * @param bbox [BoundingBox] bbox extent
+ * @param cellWidth of each cell, in units
+ * @param cellHeight of each cell, in units
  * @param units The unit of measurement of the cellSide length
- * @returns [FeatureCollection] a grid of polygons
+ * @return a [FeatureCollection] grid of polygons
  */
 @ExperimentalTurfApi
-fun rectangleGrid(
+fun squareGrid(
     bbox: BoundingBox,
     cellWidth: Double,
     cellHeight: Double,

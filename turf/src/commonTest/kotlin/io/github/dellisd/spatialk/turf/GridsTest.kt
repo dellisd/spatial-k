@@ -21,16 +21,16 @@ class GridsTest {
     }
     @OptIn(ExperimentalTurfApi::class)
     @Test
-    fun testRectangleGrid() {
-        rectangleGrid(bbox = box, cellWidth = 200.0, cellHeight = 200.0, units = Units.Meters).also {
+    fun testSquareGrid() {
+        squareGrid(bbox = box, cellWidth = 200.0, cellHeight = 200.0, units = Units.Meters).also {
             verifyValidGrid(it)
         }
     }
 
     @OptIn(ExperimentalTurfApi::class)
     @Test
-    fun testRectangleGridSameCellSizeButDifferentUnitWillHaveSameResult() {
-        rectangleGrid(bbox = box, cellWidth = 0.2, cellHeight = 0.2, units = Units.Kilometers).also {
+    fun testSquareGridSameCellSizeButDifferentUnitWillHaveSameResult() {
+        squareGrid(bbox = box, cellWidth = 0.2, cellHeight = 0.2, units = Units.Kilometers).also {
             verifyValidGrid(it)
         }
     }
@@ -38,7 +38,7 @@ class GridsTest {
     @OptIn(ExperimentalTurfApi::class)
     @Test
     fun defaultUnitsValueIsKilometers() {
-        rectangleGrid(bbox = box, cellWidth = 0.2, cellHeight = 0.2).also {
+        squareGrid(bbox = box, cellWidth = 0.2, cellHeight = 0.2).also {
             verifyValidGrid(it)
         }
     }
@@ -65,7 +65,7 @@ class GridsTest {
     @OptIn(ExperimentalTurfApi::class)
     @Test
     fun cellSizeBiggerThanBboxExtendLeadIntoEmptyGrid() {
-        rectangleGrid(bbox = box, cellWidth = 2000.0, cellHeight = 2000.0, units = Units.Meters).also {
+        squareGrid(bbox = box, cellWidth = 2000.0, cellHeight = 2000.0, units = Units.Meters).also {
             assertEquals(0, it.features.size)
         }
     }
@@ -73,7 +73,7 @@ class GridsTest {
     @OptIn(ExperimentalTurfApi::class)
     @Test
     fun smallerCellSizeWillOutputMoreCellsInGrid() {
-        rectangleGrid(bbox = box, cellWidth = 0.1, cellHeight = 0.1).also {
+        squareGrid(bbox = box, cellWidth = 0.1, cellHeight = 0.1).also {
             assertEquals(85, it.features.size)
         }
     }
@@ -81,7 +81,7 @@ class GridsTest {
     @OptIn(ExperimentalTurfApi::class)
     @Test
     fun increasedCellSizeWillOutputLessCellsInGrid() {
-        rectangleGrid(bbox = box, cellWidth = 0.3, cellHeight = 0.3).also {
+        squareGrid(bbox = box, cellWidth = 0.3, cellHeight = 0.3).also {
             assertEquals(5, it.features.size)
         }
     }

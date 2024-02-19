@@ -11,7 +11,7 @@ You can view porting progress for the next release [here](https://github.com/del
 - [x] [`bbox`](../api/turf/turf/io.github.dellisd.spatialk.turf/bbox/)
 - [x] [`bboxPolygon`](../api/turf/turf/io.github.dellisd.spatialk.turf/bbox-polygon/)
 - [x] [`bearing`](../api/turf/turf/io.github.dellisd.spatialk.turf/bearing/)
-- [ ] `center`
+- [x] [`center`](../api/turf/turf/io.github.dellisd.spatialk.turf/center/)
 - [ ] `centerOfMass`
 - [x] [`destination`](../api/turf/io.github.dellisd.spatialk.turf/destination/)
 - [x] [`distance`](../api/turf/io.github.dellisd.spatialk.turf/distance/)
@@ -116,7 +116,7 @@ Use the [GeoJson DSL](../geojson/#geojson-dsl) instead.
 
 - [ ] `hexGrid`
 - [ ] `pointGrid`
-- [ ] `squareGrid`
+- [x] [`squareGrid`](../api/turf/turf/io.github.dellisd.spatialk.turf/squareGrid/)
 - [ ] `triangleGrid`
 
 ## Classification
