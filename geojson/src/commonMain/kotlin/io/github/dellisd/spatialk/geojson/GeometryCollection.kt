@@ -1,11 +1,14 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.GeometrySerializer
+import io.github.dellisd.spatialk.geojson.serialization.foreignMembers
+import io.github.dellisd.spatialk.geojson.serialization.foreignMembersJsonProps
 import io.github.dellisd.spatialk.geojson.serialization.jsonJoin
 import io.github.dellisd.spatialk.geojson.serialization.jsonProp
 import io.github.dellisd.spatialk.geojson.serialization.toBbox
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -17,31 +20,20 @@ import kotlin.jvm.JvmStatic
 @Serializable(with = GeometrySerializer::class)
 class GeometryCollection @JvmOverloads constructor(
     val geometries: List<Geometry>,
-    override val bbox: BoundingBox? = null
-) : Geometry(), Collection<Geometry> by geometries {
+    bbox: BoundingBox? = null,
+    foreignMembers: Map<String, JsonElement> = emptyMap()
+) : Geometry(bbox, foreignMembers), Collection<Geometry> by geometries {
+    override val coordinatesOrGeometries get() = geometries
+
     @JvmOverloads
-    constructor(vararg geometries: Geometry, bbox: BoundingBox? = null) : this(geometries.toList(), bbox)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as GeometryCollection
-
-        if (geometries != other.geometries) return false
-        if (bbox != other.bbox) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = geometries.hashCode()
-        result = 31 * result + (bbox?.hashCode() ?: 0)
-        return result
-    }
+    constructor(
+        vararg geometries: Geometry,
+        bbox: BoundingBox? = null,
+        foreignMembers: Map<String, JsonElement> = emptyMap()
+    ) : this(geometries.toList(), bbox, foreignMembers)
 
     override fun json(): String =
-        """{"type":"GeometryCollection",${bbox.jsonProp()}"geometries":${geometries.jsonJoin { it.json() }}}"""
+        """{"type":"GeometryCollection",${bbox.jsonProp()}"geometries":${geometries.jsonJoin { it.json() }}${foreignMembersJsonProps()}}"""
 
     companion object {
         @JvmStatic
@@ -66,8 +58,9 @@ class GeometryCollection @JvmOverloads constructor(
             }
 
             val bbox = json["bbox"]?.jsonArray?.toBbox()
+            val foreignMembers = json.foreignMembers()
 
-            return GeometryCollection(geometries, bbox)
+            return GeometryCollection(geometries, bbox, foreignMembers)
         }
     }
 }

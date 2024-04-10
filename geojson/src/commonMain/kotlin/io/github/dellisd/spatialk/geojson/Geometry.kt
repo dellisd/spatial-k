@@ -3,13 +3,41 @@ package io.github.dellisd.spatialk.geojson
 import io.github.dellisd.spatialk.geojson.serialization.GeometrySerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.jvm.JvmStatic
 
 @Serializable(with = GeometrySerializer::class)
-sealed class Geometry protected constructor() : GeoJson {
-    abstract override val bbox: BoundingBox?
+sealed class Geometry protected constructor(
+    override val bbox: BoundingBox? = null,
+    foreignMembers: Map<String, JsonElement> = emptyMap()
+) : GeoJson {
+
+    protected abstract val coordinatesOrGeometries: Any
+
+    private val _foreignMembers: MutableMap<String, JsonElement> = foreignMembers.toMutableMap()
+    final override val foreignMembers: MutableMap<String, JsonElement> get() = _foreignMembers
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Geometry
+
+        if (coordinatesOrGeometries != other.coordinatesOrGeometries) return false
+        if (bbox != other.bbox) return false
+        if (_foreignMembers != other._foreignMembers) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = coordinatesOrGeometries.hashCode()
+        result = 31 * result + (bbox?.hashCode() ?: 0)
+        result = 31 * result + _foreignMembers.hashCode()
+        return result
+    }
 
     override fun toString(): String = json()
 

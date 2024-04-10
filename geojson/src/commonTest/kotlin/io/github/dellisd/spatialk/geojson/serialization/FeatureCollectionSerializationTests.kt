@@ -22,12 +22,15 @@ class FeatureCollectionSerializationTests {
                 "name" to JsonPrimitive("Nowhere")
             )
         )
-        val collection = FeatureCollection(feature, feature)
+        val collection = FeatureCollection(features = listOf(feature, feature), foreignMembers = mapOf(
+            "ext" to JsonPrimitive("extension value")
+        ))
 
         val json =
-            """{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":
-                |[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}},{"type":"Feature","geometry":{"type":"Point",
-                |"coordinates":[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}}]}"""
+            """{"type":"FeatureCollection","features":[
+                |{"type":"Feature","geometry":{"type":"Point","coordinates":[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}},
+                |{"type":"Feature","geometry":{"type":"Point","coordinates":[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}}],
+                |"ext":"extension value"}"""
                 .trimMargin()
                 .replace("\n", "")
 
@@ -44,14 +47,17 @@ class FeatureCollectionSerializationTests {
                 "name" to JsonPrimitive("Nowhere")
             )
         )
-        val collection = FeatureCollection(feature, feature)
+        val collection = FeatureCollection(features = listOf(feature, feature), foreignMembers = mapOf(
+            "ext" to JsonPrimitive("extension value")
+        ))
 
         assertEquals(
             collection,
             FeatureCollection.fromJson(
-                """{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":
-                |[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}},{"type":"Feature","geometry":{"type":"Point",
-                |"coordinates":[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}}]}"""
+                """{"type":"FeatureCollection","features":[
+                    |{"type":"Feature","geometry":{"type":"Point","coordinates":[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}},
+                    |{"type":"Feature","geometry":{"type":"Point","coordinates":[12.3,45.6]},"properties":{"size":45.1,"name":"Nowhere"}}],
+                    |"ext":"extension value"}"""
                     .trimMargin()
                     .replace("\n", "")
             )

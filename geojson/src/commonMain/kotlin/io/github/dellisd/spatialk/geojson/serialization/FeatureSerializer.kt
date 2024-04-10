@@ -28,5 +28,7 @@ object FeatureSerializer : JsonSerializer<Feature> {
         id?.let { put("id", it) }
 
         put("properties", JsonObject(properties))
+
+        foreignMembers.forEach { (key, value) -> put(key, value) }
     }
 }

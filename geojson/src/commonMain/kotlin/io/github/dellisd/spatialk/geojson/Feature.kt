@@ -1,6 +1,8 @@
 package io.github.dellisd.spatialk.geojson
 
 import io.github.dellisd.spatialk.geojson.serialization.FeatureSerializer
+import io.github.dellisd.spatialk.geojson.serialization.foreignMembers
+import io.github.dellisd.spatialk.geojson.serialization.foreignMembersJsonProps
 import io.github.dellisd.spatialk.geojson.serialization.idProp
 import io.github.dellisd.spatialk.geojson.serialization.jsonProp
 import io.github.dellisd.spatialk.geojson.serialization.toBbox
@@ -36,10 +38,14 @@ class Feature(
     val geometry: Geometry?,
     properties: Map<String, JsonElement> = emptyMap(),
     val id: String? = null,
-    override val bbox: BoundingBox? = null
+    override val bbox: BoundingBox? = null,
+    foreignMembers: Map<String, JsonElement> = emptyMap()
 ) : GeoJson {
     private val _properties: MutableMap<String, JsonElement> = properties.toMutableMap()
     val properties: Map<String, JsonElement> get() = _properties
+
+    private val _foreignMembers: MutableMap<String, JsonElement> = foreignMembers.toMutableMap()
+    override val foreignMembers: MutableMap<String, JsonElement> get() = _foreignMembers
 
     fun setStringProperty(key: String, value: String?) {
         _properties[key] = JsonPrimitive(value)
@@ -86,6 +92,7 @@ class Feature(
         if (id != other.id) return false
         if (bbox != other.bbox) return false
         if (_properties != other._properties) return false
+        if (_foreignMembers != other._foreignMembers) return false
 
         return true
     }
@@ -95,6 +102,7 @@ class Feature(
         result = 31 * result + (id?.hashCode() ?: 0)
         result = 31 * result + (bbox?.hashCode() ?: 0)
         result = 31 * result + _properties.hashCode()
+        result = 31 * result + _foreignMembers.hashCode()
         return result
     }
 
@@ -102,6 +110,7 @@ class Feature(
     operator fun component2() = properties
     operator fun component3() = id
     operator fun component4() = bbox
+    operator fun component5() = foreignMembers
 
     override fun toString(): String = json()
 
@@ -113,16 +122,18 @@ class Feature(
                     JsonElement.serializer()
                 ), properties
             )
-        }}"""
+        }${foreignMembersJsonProps()}}"""
 
     fun copy(
         geometry: Geometry? = this.geometry,
         properties: Map<String, JsonElement> = this.properties,
         id: String? = this.id,
-        bbox: BoundingBox? = this.bbox
-    ): Feature = Feature(geometry, properties, id, bbox)
+        bbox: BoundingBox? = this.bbox,
+        foreignMembers: Map<String, JsonElement> = this.foreignMembers
+    ): Feature = Feature(geometry, properties, id, bbox, foreignMembers)
 
     companion object {
+
         @JvmStatic
         fun fromJson(json: String): Feature = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 
@@ -145,7 +156,10 @@ class Feature(
             val geom = json["geometry"]?.jsonObject
             val geometry: Geometry? = if (geom != null) Geometry.fromJson(geom) else null
 
-            return Feature(geometry, json["properties"]?.jsonObject ?: emptyMap(), id, bbox)
+            val properties = json["properties"]?.jsonObject ?: emptyMap()
+            val foreignMembers = json.foreignMembers()
+
+            return Feature(geometry, properties, id, bbox, foreignMembers)
         }
     }
 }

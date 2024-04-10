@@ -29,6 +29,7 @@ object FeatureCollectionSerializer : JsonSerializer<FeatureCollection> {
                     value.features.forEach { add(it.toJsonObject()) }
                 }
             )
+            value.foreignMembers.forEach { (key, value) -> put(key, value) }
         }
         output.encodeJsonElement(data)
     }

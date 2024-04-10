@@ -38,5 +38,11 @@ inline fun feature(
     geometry: Geometry? = null,
     id: String? = null,
     bbox: BoundingBox? = null,
+    foreignMembers: ForeignMembersBuilder.() -> Unit = {},
     properties: PropertiesBuilder.() -> Unit = {}
-) = Feature(geometry, PropertiesBuilder().apply(properties).build(), id, bbox)
+) = Feature(
+    geometry = geometry,
+    properties = PropertiesBuilder().apply(properties).build(),
+    id = id,
+    bbox = bbox,
+    foreignMembers = ForeignMembersBuilder().apply(foreignMembers).build())

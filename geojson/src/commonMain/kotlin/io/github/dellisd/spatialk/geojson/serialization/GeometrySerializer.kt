@@ -125,6 +125,7 @@ object GeometrySerializer : KSerializer<Geometry> {
         }
 
         bbox?.let { put("bbox", it.toJsonArray()) }
+        foreignMembers.forEach { (key, value) -> put(key, value) }
     }
 
 
