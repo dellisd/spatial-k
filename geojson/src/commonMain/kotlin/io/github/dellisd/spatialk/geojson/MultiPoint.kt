@@ -39,6 +39,7 @@ class MultiPoint @JvmOverloads constructor(
         foreignMembers: Map<String, JsonElement> = emptyMap()
     ) : this(coordinates.map(::Position), bbox, foreignMembers)
 
+    @Suppress("MaxLineLength")
     override fun json(): String =
         """{"type":"MultiPoint",${bbox.jsonProp()}"coordinates":${coordinates.jsonJoin(transform = Position::json)}${foreignMembersJsonProps()}}"""
 

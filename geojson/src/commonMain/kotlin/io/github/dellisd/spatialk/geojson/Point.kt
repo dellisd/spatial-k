@@ -31,6 +31,7 @@ class Point @JvmOverloads constructor(
         foreignMembers: Map<String, JsonElement> = emptyMap()
     ) : this(Position(coordinates), bbox, foreignMembers)
 
+    @Suppress("MaxLineLength")
     override fun json(): String = """{"type":"Point",${bbox.jsonProp()}"coordinates":${coordinates.json()}${foreignMembersJsonProps()}}"""
 
     companion object {

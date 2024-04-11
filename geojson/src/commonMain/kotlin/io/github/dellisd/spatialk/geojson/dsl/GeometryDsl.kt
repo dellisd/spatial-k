@@ -16,7 +16,10 @@ import kotlinx.serialization.json.JsonElement
 import kotlin.jvm.JvmName
 
 @GeoJsonDsl
-abstract class GeometryDsl<T : Geometry> protected constructor(var bbox: BoundingBox? = null, val foreignMembers: MutableMap<String, JsonElement> = mutableMapOf()) {
+abstract class GeometryDsl<T : Geometry> protected constructor(
+    var bbox: BoundingBox? = null,
+    val foreignMembers: MutableMap<String, JsonElement> = mutableMapOf()
+) {
     abstract fun create(): T
 
     fun foreignMembers(foreignMembers: ForeignMembersBuilder.() -> Unit = {}) {

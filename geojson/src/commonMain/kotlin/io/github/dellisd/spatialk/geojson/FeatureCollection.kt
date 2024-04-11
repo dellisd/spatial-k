@@ -34,8 +34,11 @@ class FeatureCollection(
     private val _foreignMembers: MutableMap<String, JsonElement> = foreignMembers.toMutableMap()
     override val foreignMembers: MutableMap<String, JsonElement> get() = _foreignMembers
 
-    constructor(vararg features: Feature, bbox: BoundingBox? = null, foreignMembers: Map<String, JsonElement> = emptyMap())
-            : this(features.toMutableList(), bbox, foreignMembers)
+    constructor(
+        vararg features: Feature,
+        bbox: BoundingBox? = null,
+        foreignMembers: Map<String, JsonElement> = emptyMap()
+    ) : this(features.toMutableList(), bbox, foreignMembers)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -59,6 +62,7 @@ class FeatureCollection(
 
     override fun toString(): String = json()
 
+    @Suppress("MaxLineLength")
     override fun json(): String =
         """{"type":"FeatureCollection",${bbox.jsonProp()}"features":${features.jsonJoin { it.json() }}${foreignMembersJsonProps()}}"""
 

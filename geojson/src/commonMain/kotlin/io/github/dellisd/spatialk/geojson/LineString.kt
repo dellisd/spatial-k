@@ -43,6 +43,7 @@ class LineString @JvmOverloads constructor(
         require(coordinates.size >= 2) { "LineString must have at least two positions" }
     }
 
+    @Suppress("MaxLineLength")
     override fun json(): String =
         """{"type":"LineString",${bbox.jsonProp()}"coordinates":${coordinates.jsonJoin(transform = Position::json)}${foreignMembersJsonProps()}}"""
 

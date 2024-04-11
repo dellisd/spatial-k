@@ -32,6 +32,7 @@ class GeometryCollection @JvmOverloads constructor(
         foreignMembers: Map<String, JsonElement> = emptyMap()
     ) : this(geometries.toList(), bbox, foreignMembers)
 
+    @Suppress("MaxLineLength")
     override fun json(): String =
         """{"type":"GeometryCollection",${bbox.jsonProp()}"geometries":${geometries.jsonJoin { it.json() }}${foreignMembersJsonProps()}}"""
 
