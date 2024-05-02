@@ -499,6 +499,7 @@ fun center(geometry: Geometry): Point {
  * -170deg will be split)
  *
  */
+@Suppress("CyclomaticComplexMethod")
 @Throws(IllegalArgumentException::class)
 @ExperimentalTurfApi
 fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimeridianOffset: Double = 10.0): Geometry {
@@ -507,7 +508,8 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
     val deltaLatitude = start.latitude - end.latitude
 
     // check antipodal positions
-    require(abs(deltaLatitude) != 0.0 && abs(deltaLongitude % 360) - 180 != 0.0) {
+    @Suppress("MagicNumber")
+    require(abs(deltaLatitude) != 0.0 && abs(deltaLongitude % 360) - ANTIMERIDIAN_POS != 0.0) {
         "Input $start and $end are diametrically opposite, thus there is no single route but rather infinite"
     }
 
@@ -534,54 +536,54 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
         return Position(lon, lat)
     }
 
+    @Suppress("LongMethod")
     fun createCoordinatesAntimeridianAttended(
         plainArc: List<Position>,
         antimeridianOffset: Double
     ): List<List<Position>> {
+        val borderEast = ANTIMERIDIAN_POS - antimeridianOffset
+        val borderWest = ANTIMERIDIAN_NEG + antimeridianOffset
 
+        @Suppress("MagicNumber")
+        val diffSpace = 360.0 - antimeridianOffset
 
-        val borderEast = 180.0 - antimeridianOffset
-        val borderWest = -180.0 + antimeridianOffset
-        val dfDiffSpace = 360.0 - antimeridianOffset
-
-        // Check for arc passes the antimeridian
         val passesAntimeridian = plainArc.zipWithNext { a, b ->
             val diff = abs(a.longitude - b.longitude)
-            (diff > dfDiffSpace &&
+            (diff > diffSpace &&
                     ((a.longitude > borderEast && b.longitude < borderWest) ||
                             (b.longitude > borderEast && a.longitude < borderWest)))
-        }.any { it } // Check if any element is true
+        }.any()
 
-        // Find maximum small difference with filter and maxByOrNull
-        val dfMaxSmallDiffLong = plainArc.zipWithNext { a, b -> abs(a.longitude - b.longitude) }
-            .filter { it <= dfDiffSpace } // Filter differences less than or equal to dfDiffSpace
+        val maxSmallDiffLong = plainArc.zipWithNext { a, b -> abs(a.longitude - b.longitude) }
+            .filter { it <= diffSpace } // Filter differences less than or equal to diffSpace
             .maxByOrNull { it }?.toDouble() ?: 0.0
 
         val poMulti = mutableListOf<List<Position>>()
-        if (passesAntimeridian && dfMaxSmallDiffLong < antimeridianOffset) {
+        if (passesAntimeridian && maxSmallDiffLong < antimeridianOffset) {
             var poNewLS = mutableListOf<Position>()
             plainArc.forEachIndexed { k, currentPosition ->
-                if (k > 0 && abs(currentPosition.longitude - plainArc[k - 1].longitude) > dfDiffSpace) {
+                if (k > 0 && abs(currentPosition.longitude - plainArc[k - 1].longitude) > diffSpace) {
                     val previousPosition = plainArc[k - 1]
                     var lon1 = previousPosition.longitude
                     var lat1 = previousPosition.latitude
                     var lon2 = currentPosition.longitude
                     var lat2 = currentPosition.latitude
-                    if (lon1 > -180.0 &&
-                        lon1 < borderWest &&
-                        lon2 == 180.0 &&
+
+                    @Suppress("ComplexCondition")
+                    if (lon1 in (ANTIMERIDIAN_NEG + 1..<borderWest) &&
+                        lon2 == ANTIMERIDIAN_POS &&
                         k + 1 < plainArc.size
                     ) {
-                        poNewLS.add(Position(-180.0, currentPosition.latitude))
+                        poNewLS.add(Position(ANTIMERIDIAN_NEG, currentPosition.latitude))
                         poNewLS.add(Position(plainArc[k + 1].longitude, plainArc[k + 1].latitude))
                         return@forEachIndexed
                     } else if (
                         lon1 > borderEast &&
-                        lon1 < 180.0 &&
-                        lon2 == 180.0 &&
+                        lon1 < ANTIMERIDIAN_POS &&
+                        lon2 == ANTIMERIDIAN_POS &&
                         k + 1 < plainArc.size
                     ) {
-                        poNewLS.add(Position(180.0, currentPosition.latitude))
+                        poNewLS.add(Position(ANTIMERIDIAN_POS, currentPosition.latitude))
                         poNewLS.add(Position(plainArc[k + 1].longitude, plainArc[k + 1].latitude))
                         return@forEachIndexed
                     }
@@ -595,26 +597,28 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
                         lat2 = tmpY
                     }
                     if (lon1 > borderEast && lon2 < borderWest) {
+                        @Suppress("MagicNumber")
                         lon2 += 360.0
                     }
 
-                    if (lon1 <= 180.0 && lon2 >= 180.0 && lon1 < lon2) {
-                        val dfRatio = (180.0 - lon1) / (lon2 - lon1)
-                        val dfY = dfRatio * lat2 + (1 - dfRatio) * lat1
+                    if (ANTIMERIDIAN_POS in lon1..lon2 && lon1 < lon2) {
+                        val ratio = (ANTIMERIDIAN_POS - lon1) / (lon2 - lon1)
+                        val lat = ratio * lat2 + (1 - ratio) * lat1
                         poNewLS.add(
-                            if (previousPosition.longitude > borderEast) Position(180.0, dfY) else Position(-180.0, dfY)
+                            if (previousPosition.longitude > borderEast) Position(ANTIMERIDIAN_POS, lat)
+                            else Position(ANTIMERIDIAN_NEG, lat)
                         )
                         poMulti.add(poNewLS.toList())
                         poNewLS = mutableListOf() // Clear poNewLS instead of replacing it with an empty list
                         poNewLS.add(
-                            if (previousPosition.longitude > borderEast) Position(-180.0, dfY) else Position(180.0, dfY)
+                            if (previousPosition.longitude > borderEast) Position(ANTIMERIDIAN_NEG, lat)
+                            else Position(ANTIMERIDIAN_POS, lat)
                         )
                     } else {
                         poNewLS = mutableListOf() // Clear poNewLS instead of replacing it with an empty list
                         poMulti.add(poNewLS.toList())
                     }
                 }
-
                 poNewLS.add(currentPosition) // Adding current position to poNewLS
             }
             poMulti.add(poNewLS.toList()) // Adding the last remaining poNewLS to poMulti

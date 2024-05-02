@@ -8,6 +8,9 @@ import kotlin.native.concurrent.SharedImmutable
 @SharedImmutable
 const val EARTH_RADIUS = 6371008.8
 
+internal const val ANTIMERIDIAN_POS = 180.0
+internal const val ANTIMERIDIAN_NEG = -180.0
+
 /**
  * Supported units of measurement in Turf.
  *
