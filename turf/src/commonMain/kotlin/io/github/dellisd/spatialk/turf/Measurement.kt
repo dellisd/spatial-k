@@ -488,3 +488,163 @@ fun center(feature: Feature): Point {
 fun center(geometry: Geometry): Point {
     return center(Feature(geometry = geometry))
 }
+
+/**
+ * Calculate great circles routes as [LineString]. Raises error when [start] and [end] are antipodes.
+ *
+ * @param start source position
+ * @param end destination position
+ * @param pointCount number of positions on the arc (including [start] and [end])
+ * @param antimeridianOffset from antimeridian in degrees (default long. = +/- 10deg, geometries within 170deg to
+ * -170deg will be split)
+ *
+ */
+@Throws(IllegalArgumentException::class)
+@ExperimentalTurfApi
+fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimeridianOffset: Double = 10.0): Geometry {
+
+    val deltaLongitude = start.longitude - end.longitude
+    val deltaLatitude = start.latitude - end.latitude
+
+    // check antipodal positions
+    require(abs(deltaLatitude) != 0.0 && abs(deltaLongitude % 360) - 180 != 0.0) {
+        "Input $start and $end are diametrically opposite, thus there is no single route but rather infinite"
+    }
+
+    val distance = distance(start, end, Units.Radians)
+
+    /**
+     * Calculates the intermediate point on a great circle line
+     *         http://www.edwilliams.org/avform.htm#Intermediate
+     */
+    fun intermediateCoordinate(fraction: Double): Position {
+        val lon1 = radians(start.longitude)
+        val lon2 = radians(end.longitude)
+        val lat1 = radians(start.latitude)
+        val lat2 = radians(end.latitude)
+
+        val a = sin((1 - fraction) * distance) / sin(distance)
+        val b = sin(fraction * distance) / sin(distance)
+        val x = a * cos(lat1) * cos(lon1) + b * cos(lat2) * cos(lon2)
+        val y = a * cos(lat1) * sin(lon1) + b * cos(lat2) * sin(lon2)
+        val z = a * sin(lat1) + b * sin(lat2)
+
+        val lat = degrees(atan2(z, sqrt(x.pow(2) + y.pow(2))))
+        val lon = degrees(atan2(y, x))
+        return Position(lon, lat)
+    }
+
+    fun createCoordinatesAntimeridianAttended(
+        plainArc: List<Position>,
+        antimeridianOffset: Double
+    ): List<List<Position>> {
+
+
+        val borderEast = 180.0 - antimeridianOffset
+        val borderWest = -180.0 + antimeridianOffset
+        val dfDiffSpace = 360.0 - antimeridianOffset
+
+        // Check for arc passes the antimeridian
+        val passesAntimeridian = plainArc.zipWithNext { a, b ->
+            val diff = abs(a.longitude - b.longitude)
+            (diff > dfDiffSpace &&
+                    ((a.longitude > borderEast && b.longitude < borderWest) ||
+                            (b.longitude > borderEast && a.longitude < borderWest)))
+        }.any { it } // Check if any element is true
+
+        // Find maximum small difference with filter and maxByOrNull
+        val dfMaxSmallDiffLong = plainArc.zipWithNext { a, b -> abs(a.longitude - b.longitude) }
+            .filter { it <= dfDiffSpace } // Filter differences less than or equal to dfDiffSpace
+            .maxByOrNull { it }?.toDouble() ?: 0.0
+
+        val poMulti = mutableListOf<List<Position>>()
+        if (passesAntimeridian && dfMaxSmallDiffLong < antimeridianOffset) {
+            var poNewLS = mutableListOf<Position>()
+            plainArc.forEachIndexed { k, currentPosition ->
+                if (k > 0 && abs(currentPosition.longitude - plainArc[k - 1].longitude) > dfDiffSpace) {
+                    val previousPosition = plainArc[k - 1]
+                    var lon1 = previousPosition.longitude
+                    var lat1 = previousPosition.latitude
+                    var lon2 = currentPosition.longitude
+                    var lat2 = currentPosition.latitude
+                    if (lon1 > -180.0 &&
+                        lon1 < borderWest &&
+                        lon2 == 180.0 &&
+                        k + 1 < plainArc.size
+                    ) {
+                        poNewLS.add(Position(-180.0, currentPosition.latitude))
+                        poNewLS.add(Position(plainArc[k + 1].longitude, plainArc[k + 1].latitude))
+                        return@forEachIndexed
+                    } else if (
+                        lon1 > borderEast &&
+                        lon1 < 180.0 &&
+                        lon2 == 180.0 &&
+                        k + 1 < plainArc.size
+                    ) {
+                        poNewLS.add(Position(180.0, currentPosition.latitude))
+                        poNewLS.add(Position(plainArc[k + 1].longitude, plainArc[k + 1].latitude))
+                        return@forEachIndexed
+                    }
+
+                    if (lon1 < borderWest && lon2 > borderEast) {
+                        val tmpX = lon1
+                        lon1 = lon2
+                        lon2 = tmpX
+                        val tmpY = lat1
+                        lat1 = lat2
+                        lat2 = tmpY
+                    }
+                    if (lon1 > borderEast && lon2 < borderWest) {
+                        lon2 += 360.0
+                    }
+
+                    if (lon1 <= 180.0 && lon2 >= 180.0 && lon1 < lon2) {
+                        val dfRatio = (180.0 - lon1) / (lon2 - lon1)
+                        val dfY = dfRatio * lat2 + (1 - dfRatio) * lat1
+                        poNewLS.add(
+                            if (previousPosition.longitude > borderEast) Position(180.0, dfY) else Position(-180.0, dfY)
+                        )
+                        poMulti.add(poNewLS.toList())
+                        poNewLS = mutableListOf() // Clear poNewLS instead of replacing it with an empty list
+                        poNewLS.add(
+                            if (previousPosition.longitude > borderEast) Position(-180.0, dfY) else Position(180.0, dfY)
+                        )
+                    } else {
+                        poNewLS = mutableListOf() // Clear poNewLS instead of replacing it with an empty list
+                        poMulti.add(poNewLS.toList())
+                    }
+                }
+
+                poNewLS.add(currentPosition) // Adding current position to poNewLS
+            }
+            poMulti.add(poNewLS.toList()) // Adding the last remaining poNewLS to poMulti
+        } else {
+            poMulti.add(plainArc)
+        }
+        return poMulti
+    }
+
+    val arc = buildList {
+        add(start)
+        (1 until (pointCount - 1)).forEach { i ->
+            add(
+                intermediateCoordinate((i + 1).toDouble() / (pointCount - 2 + 1))
+            )
+        }
+        add(end)
+    }
+
+    val coordinates = createCoordinatesAntimeridianAttended(arc, antimeridianOffset)
+    return if (coordinates.size == 1) {
+        LineString(
+            coordinates = coordinates[0],
+            bbox = computeBbox(coordinates[0])
+        )
+    } else {
+        MultiLineString(
+            coordinates = coordinates,
+            bbox = computeBbox(coordinates.flatten())
+        )
+    }
+}
+
