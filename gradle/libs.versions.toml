@@ -17,3 +17,4 @@ publish = { id = "com.vanniktech.maven.publish", version = "0.25.2" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.0" }
 dokka = { id = "org.jetbrains.dokka", version = "1.9.10" }
 resources = { id = "com.goncalossilva.resources", version.ref = "resources" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.0" }
