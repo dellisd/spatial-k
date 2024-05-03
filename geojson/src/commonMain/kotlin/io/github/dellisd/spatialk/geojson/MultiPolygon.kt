@@ -46,19 +46,17 @@ class MultiPolygon @JvmOverloads constructor(
         return result
     }
 
-    override fun json(): String =
-        """{"type":"MultiPolygon",${bbox.jsonProp()}"coordinates":${
-            coordinates.jsonJoin { polygon ->
-                polygon.jsonJoin {
-                    it.jsonJoin(transform = Position::json)
-                }
+    override fun json(): String = """{"type":"MultiPolygon",${bbox.jsonProp()}"coordinates":${
+        coordinates.jsonJoin { polygon ->
+            polygon.jsonJoin {
+                it.jsonJoin(transform = Position::json)
             }
-        }}"""
+        }
+    }}"""
 
     companion object {
         @JvmStatic
-        public fun fromJson(json: String): MultiPolygon =
-            fromJson(Json.decodeFromString(JsonObject.serializer(), json))
+        public fun fromJson(json: String): MultiPolygon = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 
         @JvmStatic
         public fun fromJsonOrNull(json: String): MultiPolygon? = try {

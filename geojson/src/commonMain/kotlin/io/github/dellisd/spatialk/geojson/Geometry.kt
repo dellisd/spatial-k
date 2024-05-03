@@ -38,6 +38,3 @@ sealed class Geometry protected constructor() : GeoJson {
             }
     }
 }
-
-
-

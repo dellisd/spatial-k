@@ -1,7 +1,5 @@
 package io.github.dellisd.spatialk.turf
 
-import kotlin.native.concurrent.SharedImmutable
-
 /**
  * Convert a distance measurement (assuming a spherical Earth) from radians to a more friendly unit.
  *
@@ -48,13 +46,12 @@ fun lengthToRadians(distance: Double, units: Units = Units.Kilometers): Double {
  * @exception IllegalArgumentException if the given units are invalid
  */
 @ExperimentalTurfApi
-fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) =
-    degrees(
-        lengthToRadians(
-            distance,
-            units
-        )
+fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) = degrees(
+    lengthToRadians(
+        distance,
+        units
     )
+)
 
 /**
  * Converts a length to the requested unit
@@ -73,7 +70,8 @@ fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.
         lengthToRadians(
             length,
             from
-        ), to
+        ),
+        to
     )
 }
 

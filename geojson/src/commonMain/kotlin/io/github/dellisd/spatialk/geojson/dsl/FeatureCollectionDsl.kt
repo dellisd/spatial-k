@@ -17,8 +17,7 @@ class FeatureCollectionDsl(
         features.add(this)
     }
 
-    fun create(): FeatureCollection =
-        FeatureCollection(features, bbox)
+    fun create(): FeatureCollection = FeatureCollection(features, bbox)
 
     fun feature(
         geometry: Geometry? = null,

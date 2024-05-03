@@ -146,10 +146,11 @@ class BooleansTests {
             }
         }
 
+        @Suppress("ktlint:standard:discouraged-comment-location")
         fun runTest(ignoreBoundary: Boolean) {
             val isBoundaryIncluded = !ignoreBoundary
             val tests = arrayOf(
-                Triple(poly1, point(10.0, 10.0), isBoundaryIncluded), //0
+                Triple(poly1, point(10.0, 10.0), isBoundaryIncluded), // 0
                 Triple(poly1, point(30.0, 20.0), isBoundaryIncluded),
                 Triple(poly1, point(50.0, 10.0), isBoundaryIncluded),
                 Triple(poly1, point(30.0, 10.0), true),
@@ -159,7 +160,7 @@ class BooleansTests {
                 Triple(poly1, point(30.0, 30.0), false),
                 Triple(poly2, point(30.0, 0.0), false),
                 Triple(poly2, point(0.0, 0.0), false),
-                Triple(poly2, point(60.0, 0.0), false), //10
+                Triple(poly2, point(60.0, 0.0), false), // 10
                 Triple(poly3, point(30.0, 0.0), true),
                 Triple(poly3, point(0.0, 0.0), false),
                 Triple(poly3, point(60.0, 0.0), false),
@@ -169,7 +170,7 @@ class BooleansTests {
                 Triple(poly4, point(0.0, 10.0), isBoundaryIncluded),
                 Triple(poly4, point(5.0, 10.0), true),
                 Triple(poly4, point(25.0, 10.0), true),
-                Triple(poly4, point(35.0, 10.0), true), //20
+                Triple(poly4, point(35.0, 10.0), true), // 20
                 Triple(poly4, point(0.0, 0.0), isBoundaryIncluded),
                 Triple(poly4, point(20.0, 0.0), false),
                 Triple(poly4, point(35.0, 0.0), false),
@@ -179,13 +180,13 @@ class BooleansTests {
                 Triple(poly4, point(10.0, 0.0), isBoundaryIncluded),
                 Triple(poly5, point(20.0, 30.0), isBoundaryIncluded),
                 Triple(poly5, point(25.0, 25.0), isBoundaryIncluded),
-                Triple(poly5, point(30.0, 20.0), isBoundaryIncluded), //30
+                Triple(poly5, point(30.0, 20.0), isBoundaryIncluded), // 30
                 Triple(poly5, point(25.0, 15.0), isBoundaryIncluded),
                 Triple(poly5, point(20.0, 10.0), isBoundaryIncluded),
                 Triple(poly5, point(15.0, 15.0), isBoundaryIncluded),
                 Triple(poly5, point(10.0, 20.0), isBoundaryIncluded),
                 Triple(poly5, point(15.0, 25.0), isBoundaryIncluded),
-                Triple(poly5, point(20.0, 20.0), false),
+                Triple(poly5, point(20.0, 20.0), false)
             )
 
             val testTitle =

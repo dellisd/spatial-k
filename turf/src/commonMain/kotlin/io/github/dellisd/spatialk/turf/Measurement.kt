@@ -9,12 +9,12 @@ import io.github.dellisd.spatialk.geojson.FeatureCollection
 import io.github.dellisd.spatialk.geojson.Geometry
 import io.github.dellisd.spatialk.geojson.GeometryCollection
 import io.github.dellisd.spatialk.geojson.LineString
-import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.MultiLineString
 import io.github.dellisd.spatialk.geojson.MultiPoint
 import io.github.dellisd.spatialk.geojson.MultiPolygon
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
+import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
@@ -46,8 +46,9 @@ fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): 
             }
             travelled >= distance -> {
                 val overshot = distance - travelled
-                return if (overshot == 0.0) coordinate
-                else {
+                return if (overshot == 0.0) {
+                    coordinate
+                } else {
                     val direction = bearing(
                         coordinate,
                         line.coordinates[i - 1]
@@ -324,10 +325,12 @@ fun bearing(start: Position, end: Position, final: Boolean = false): Double {
 
 @Suppress("MagicNumber")
 @ExperimentalTurfApi
-internal fun finalBearing(start: Position, end: Position): Double = (bearing(
-    end,
-    start
-) + 180) % 360
+internal fun finalBearing(start: Position, end: Position): Double = (
+    bearing(
+        end,
+        start
+    ) + 180
+    ) % 360
 
 /**
  * Takes a [position][origin] and calculates the location of a destination position given a distance in
@@ -427,15 +430,14 @@ fun length(polygon: Polygon, units: Units): Double =
  * @return The length of the geometry in [units].
  */
 @ExperimentalTurfApi
-fun length(multiPolygon: MultiPolygon, units: Units): Double =
-    multiPolygon.coordinates.fold(0.0) { total, polygon ->
-        total + polygon.fold(0.0) { acc, ring ->
-            acc + length(
-                ring,
-                units
-            )
-        }
+fun length(multiPolygon: MultiPolygon, units: Units): Double = multiPolygon.coordinates.fold(0.0) { total, polygon ->
+    total + polygon.fold(0.0) { acc, ring ->
+        acc + length(
+            ring,
+            units
+        )
     }
+}
 
 @ExperimentalTurfApi
 private fun length(coords: List<Position>, units: Units): Double {
@@ -503,7 +505,6 @@ fun center(geometry: Geometry): Point {
 @Throws(IllegalArgumentException::class)
 @ExperimentalTurfApi
 fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimeridianOffset: Double = 10.0): Geometry {
-
     val deltaLongitude = start.longitude - end.longitude
     val deltaLatitude = start.latitude - end.latitude
 
@@ -549,9 +550,13 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
 
         val passesAntimeridian = plainArc.zipWithNext { a, b ->
             val diff = abs(a.longitude - b.longitude)
-            (diff > diffSpace &&
-                    ((a.longitude > borderEast && b.longitude < borderWest) ||
-                            (b.longitude > borderEast && a.longitude < borderWest)))
+            (
+                diff > diffSpace &&
+                    (
+                        (a.longitude > borderEast && b.longitude < borderWest) ||
+                            (b.longitude > borderEast && a.longitude < borderWest)
+                        )
+                )
         }.any()
 
         val maxSmallDiffLong = plainArc.zipWithNext { a, b -> abs(a.longitude - b.longitude) }
@@ -605,14 +610,20 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
                         val ratio = (ANTIMERIDIAN_POS - lon1) / (lon2 - lon1)
                         val lat = ratio * lat2 + (1 - ratio) * lat1
                         poNewLS.add(
-                            if (previousPosition.longitude > borderEast) Position(ANTIMERIDIAN_POS, lat)
-                            else Position(ANTIMERIDIAN_NEG, lat)
+                            if (previousPosition.longitude > borderEast) {
+                                Position(ANTIMERIDIAN_POS, lat)
+                            } else {
+                                Position(ANTIMERIDIAN_NEG, lat)
+                            }
                         )
                         poMulti.add(poNewLS.toList())
                         poNewLS = mutableListOf() // Clear poNewLS instead of replacing it with an empty list
                         poNewLS.add(
-                            if (previousPosition.longitude > borderEast) Position(ANTIMERIDIAN_NEG, lat)
-                            else Position(ANTIMERIDIAN_POS, lat)
+                            if (previousPosition.longitude > borderEast) {
+                                Position(ANTIMERIDIAN_NEG, lat)
+                            } else {
+                                Position(ANTIMERIDIAN_POS, lat)
+                            }
                         )
                     } else {
                         poNewLS = mutableListOf() // Clear poNewLS instead of replacing it with an empty list
@@ -651,4 +662,3 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
         )
     }
 }
-

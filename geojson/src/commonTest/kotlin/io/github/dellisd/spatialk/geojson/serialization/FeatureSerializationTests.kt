@@ -2,8 +2,8 @@ package io.github.dellisd.spatialk.geojson.serialization
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.Feature
-import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.Point
+import io.github.dellisd.spatialk.geojson.Position
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
@@ -61,7 +61,7 @@ class FeatureSerializationTests {
                     |"size":45.1,
                     |"name":"Nowhere"
                 |}}
-            """.trimMargin().replace("\n", "")
+                """.trimMargin().replace("\n", "")
             )
         )
     }

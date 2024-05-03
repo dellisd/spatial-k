@@ -52,12 +52,11 @@ class MultiLineString @JvmOverloads constructor(
         return result
     }
 
-    override fun json(): String =
-        """{"type":"MultiLineString",${bbox.jsonProp()}"coordinates":${
-            coordinates.jsonJoin {
-                it.jsonJoin(transform = Position::json)
-            }
-        }}"""
+    override fun json(): String = """{"type":"MultiLineString",${bbox.jsonProp()}"coordinates":${
+        coordinates.jsonJoin {
+            it.jsonJoin(transform = Position::json)
+        }
+    }}"""
 
     companion object {
         @JvmStatic

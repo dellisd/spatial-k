@@ -42,10 +42,9 @@ fun MultiLineString.coordAll() = coordinates.reduce { acc, list -> acc + list }
 fun Polygon.coordAll() = coordinates.reduce { acc, list -> acc + list }
 
 @ExperimentalTurfApi
-fun MultiPolygon.coordAll() =
-    coordinates.fold(emptyList<Position>()) { acc, list ->
-        list.reduce { innerAcc, innerList -> innerAcc + innerList } + acc
-    }
+fun MultiPolygon.coordAll() = coordinates.fold(emptyList<Position>()) { acc, list ->
+    list.reduce { innerAcc, innerList -> innerAcc + innerList } + acc
+}
 
 @ExperimentalTurfApi
 fun GeometryCollection.coordAll() =

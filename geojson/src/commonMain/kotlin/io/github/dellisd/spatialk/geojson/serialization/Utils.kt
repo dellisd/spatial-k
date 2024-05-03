@@ -4,9 +4,7 @@ import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.Position
 import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.double
-import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
 
 internal fun DoubleArray.jsonJoin(transform: ((Double) -> CharSequence)? = null) =
@@ -22,5 +20,4 @@ internal fun Feature.idProp(): String = if (this.id == null) "" else """"id":"${
 internal fun JsonArray.toPosition(): Position =
     Position(this[0].jsonPrimitive.double, this[1].jsonPrimitive.double, this.getOrNull(2)?.jsonPrimitive?.double)
 
-internal fun JsonArray.toBbox(): BoundingBox =
-    BoundingBox(this.map { it.jsonPrimitive.double }.toDoubleArray())
+internal fun JsonArray.toBbox(): BoundingBox = BoundingBox(this.map { it.jsonPrimitive.double }.toDoubleArray())
