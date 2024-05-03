@@ -3,13 +3,16 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.BoundingBox
+import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.LineString
 import io.github.dellisd.spatialk.geojson.MultiLineString
-import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
+import io.github.dellisd.spatialk.geojson.dsl.featureCollection
 import io.github.dellisd.spatialk.geojson.dsl.geometryCollection
+import io.github.dellisd.spatialk.geojson.dsl.lineString
+import io.github.dellisd.spatialk.geojson.dsl.point
 import io.github.dellisd.spatialk.geojson.dsl.polygon
 import io.github.dellisd.spatialk.turf.utils.assertDoubleEquals
 import io.github.dellisd.spatialk.turf.utils.readResource
@@ -186,4 +189,54 @@ class TurfMeasurementTest {
             greatCircle(start, antipodal)
         }
     }
+
+    @Test
+    fun envelopeProcessesFeatureCollection() {
+        val fc = featureCollection {
+            feature(
+                geometry = point(102.0, 0.5)
+            )
+            feature(
+                geometry = lineString {
+                    point(102.0, -10.0)
+                    point(103.0, 1.0)
+                    point(104.0, 0.0)
+                    point(130.0, 4.0)
+                }
+            )
+            feature(
+                geometry = polygon {
+                    ring {
+                        point(102.0, -10.0)
+                        point(103.0, 1.0)
+                        point(104.0, 0.0)
+                        point(130.0, 4.0)
+                        point(20.0, 0.0)
+                        point(101.0, 0.0)
+                        point(101.0, 1.0)
+                        point(100.0, 1.0)
+                        point(100.0, 0.0)
+                    }
+                }
+            )
+        }
+
+        val enveloped = envelope(fc)
+
+        assertIs<Polygon>(enveloped.geometry, "geometry type should be Polygon")
+        assertEquals(
+            listOf(
+                listOf(
+                    Position(20.0, -10.0),
+                    Position(130.0, -10.0),
+                    Position(130.0, 4.0),
+                    Position(20.0, 4.0),
+                    Position(20.0, -10.0),
+                )
+            ),
+            (enveloped.geometry as Polygon).coordinates,
+            "positions should be correct"
+        )
+    }
+
 }
