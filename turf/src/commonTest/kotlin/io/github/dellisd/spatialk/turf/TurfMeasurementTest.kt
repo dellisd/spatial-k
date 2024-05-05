@@ -1,8 +1,10 @@
 @file:Suppress("MagicNumber")
 
 package io.github.dellisd.spatialk.turf
+
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.LineString
+import io.github.dellisd.spatialk.geojson.MultiLineString
 import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.Point
 import io.github.dellisd.spatialk.geojson.Polygon
@@ -13,6 +15,8 @@ import io.github.dellisd.spatialk.turf.utils.assertDoubleEquals
 import io.github.dellisd.spatialk.turf.utils.readResource
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.test.assertIs
 
 @ExperimentalTurfApi
 class TurfMeasurementTest {
@@ -140,5 +144,46 @@ class TurfMeasurementTest {
 
         assertDoubleEquals(-75.71805238723755, centerPoint.coordinates.longitude, 0.0001)
         assertDoubleEquals(45.3811030151199, centerPoint.coordinates.latitude, 0.0001)
+    }
+
+    @Test
+    fun testGreatCircleBasic() {
+        val startLon = -122.0
+        val startLat = 48.0
+        val endLon = 28.125
+        val endLat = 43.32517767999296
+
+        val start = Position(startLon, startLat)
+        val end = Position(endLon, endLat)
+
+        val greatCircle = greatCircle(start, end, pointCount = 99)
+
+        assertEquals(99, greatCircle.coordAll().size)
+        assertIs<LineString>(greatCircle)
+    }
+
+    @Test
+    fun testGreatCirclePassesAntimeridian() {
+        val startLon = -122.349358
+        val startLat = 47.620422
+        val endLon = 77.036560
+        val endLat = 38.897957
+
+        val start = Position(startLon, startLat)
+        val end = Position(endLon, endLat)
+        val geometry = greatCircle(start, end, pointCount = 100)
+        assertIs<MultiLineString>(geometry)
+    }
+
+    @Test
+    fun testGreatCircleAntipodals() {
+        val startLat = 47.620422
+
+        val start = Position(-122.349358, startLat)
+        val antipodal = Position(106.33, startLat)
+
+        assertFails {
+            greatCircle(start, antipodal)
+        }
     }
 }
