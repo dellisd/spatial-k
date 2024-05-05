@@ -15,7 +15,9 @@ class FeatureSerializationTests {
 
     @Test
     fun testSerializeFeature() {
-        val geometry = Point(Position(12.3, 45.6))
+        val geometry = Point(Position(12.3, 45.6), foreignMembers = mapOf(
+            "geom ext" to JsonPrimitive("extension value")
+        ))
         val feature = Feature(
             geometry,
             mapOf(
@@ -23,12 +25,19 @@ class FeatureSerializationTests {
                 "name" to JsonPrimitive("Nowhere")
             ),
             "001",
-            BoundingBox(11.6, 45.1, 12.7, 45.7)
+            BoundingBox(11.6, 45.1, 12.7, 45.7),
+            foreignMembers = mapOf(
+                "ext" to JsonPrimitive("extension value")
+            )
         )
 
         val json =
-            """{"type":"Feature","bbox":[11.6,45.1,12.7,45.7],"geometry":{"type":"Point","coordinates":[12.3,45.6]},
-                |"id":"001","properties":{"size":45.1,"name":"Nowhere"}}
+            """{"type":"Feature",
+                |"bbox":[11.6,45.1,12.7,45.7],
+                |"geometry":{"type":"Point","coordinates":[12.3,45.6],"geom ext":"extension value"},
+                |"id":"001",
+                |"properties":{"size":45.1,"name":"Nowhere"},
+                |"ext":"extension value"}
             """.trimMargin().replace("\n", "")
 
         assertEquals(json, feature.json(), "Feature (fast)")
@@ -37,7 +46,9 @@ class FeatureSerializationTests {
 
     @Test
     fun testDeserializeFeature() {
-        val geometry = Point(Position(12.3, 45.6))
+        val geometry = Point(Position(12.3, 45.6), foreignMembers = mapOf(
+            "geom ext" to JsonPrimitive("extension value")
+        ))
         val feature = Feature(
             geometry,
             properties = mapOf(
@@ -45,7 +56,10 @@ class FeatureSerializationTests {
                 "name" to JsonPrimitive("Nowhere")
             ),
             id = "001",
-            bbox = BoundingBox(11.6, 45.1, 12.7, 45.7)
+            bbox = BoundingBox(11.6, 45.1, 12.7, 45.7),
+            foreignMembers = mapOf(
+                "ext" to JsonPrimitive("extension value")
+            )
         )
 
         assertEquals(
@@ -55,12 +69,14 @@ class FeatureSerializationTests {
                 |"bbox":[11.6,45.1,12.7,45.7],
                 |"geometry":{
                     |"type":"Point",
-                    |"coordinates":[12.3,45.6]},
+                    |"coordinates":[12.3,45.6],
+                    |"geom ext":"extension value"},
                 |"id":"001",
                 |"properties":{
                     |"size":45.1,
                     |"name":"Nowhere"
-                |}}
+                |},
+                |"ext":"extension value"}
             """.trimMargin().replace("\n", "")
             )
         )

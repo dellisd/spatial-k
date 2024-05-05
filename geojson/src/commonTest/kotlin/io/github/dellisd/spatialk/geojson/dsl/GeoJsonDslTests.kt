@@ -5,6 +5,9 @@ import io.github.dellisd.spatialk.geojson.LineString
 import io.github.dellisd.spatialk.geojson.MultiPoint
 import io.github.dellisd.spatialk.geojson.Polygon
 import io.github.dellisd.spatialk.geojson.Position
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -77,7 +80,22 @@ class GeoJsonDslTests {
             +simplePoint
             +simpleLine
             +simplePolygon
+            +point(-70.0, 40.0) {
+                foreignMembers {
+                    put("geometry extension", "value")
+                }
+            }
+        }, foreignMembers = {
+            put("fm string", "str")
+            put("fm number", 5)
+            put("fm array", JsonArray(listOf(JsonPrimitive("elem1"), JsonPrimitive("elem2"))))
+            put("fm bool", true)
+            put("fm object", JsonObject(mapOf("prop1" to JsonPrimitive("value1"), "prop2" to JsonPrimitive("value2"))))
         })
+
+        foreignMembers {
+            put("feature collection extension", "value")
+        }
     }
 
     private val collectionJson =
@@ -92,7 +110,10 @@ class GeoJsonDslTests {
 |[3.0,3.0],[4.0,4.0]]],[[[12.0,0.0],[0.0,12.0],[-12.0,0.0],[5.0,5.0],[12.0,0.0]]]]},"properties":{}},{"type":"Feature",
 |"geometry":{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[-75.0,45.0,100.0]},
 |{"type":"LineString","coordinates":[[45.0,45.0],[0.0,0.0]]},{"type":"Polygon","coordinates":[[[45.0,45.0],[0.0,0.0],
-|[12.0,12.0],[45.0,45.0]],[[4.0,4.0],[2.0,2.0],[3.0,3.0],[4.0,4.0]]]}]},"properties":{}}]}""".trimMargin()
+|[12.0,12.0],[45.0,45.0]],[[4.0,4.0],[2.0,2.0],[3.0,3.0],[4.0,4.0]]]},{"type":"Point","coordinates":[-70.0,40.0],"geometry extension":"value"}]},
+|"properties":{},"fm string":"str","fm number":5,"fm array":["elem1","elem2"],"fm bool":true,"fm object":{"prop1":"value1","prop2":"value2"}}],
+|"feature collection extension":"value"}
+|""".trimMargin()
 
     @Test
     fun testDslConstruction() {

@@ -1,5 +1,7 @@
 package io.github.dellisd.spatialk.geojson
 
+import kotlinx.serialization.json.JsonElement
+
 /**
  * A GeoJSON object represents a [Geometry], [Feature], or [collection of Features][FeatureCollection].
  *
@@ -7,6 +9,7 @@ package io.github.dellisd.spatialk.geojson
  */
 interface GeoJson {
     val bbox: BoundingBox?
+    val foreignMembers: MutableMap<String, JsonElement>
 
     /**
      * Gets a JSON representation of this object.
