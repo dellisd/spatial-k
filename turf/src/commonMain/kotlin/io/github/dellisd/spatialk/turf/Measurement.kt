@@ -654,6 +654,11 @@ fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimerid
 }
 
 
+/**
+ * Takes any [GeoJson] and returns a [Feature] containing a rectangular [Polygon] that encompasses all vertices.
+ * @param geoJson input containing any coordinates
+ * @return a rectangular [Polygon] feature that encompasses all vertices
+ */
 @ExperimentalTurfApi
 fun envelope(geoJson: GeoJson): Feature {
     val coordinates = when (geoJson) {
