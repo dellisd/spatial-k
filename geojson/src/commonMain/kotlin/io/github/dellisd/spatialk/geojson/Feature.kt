@@ -111,7 +111,8 @@ class Feature(
                 MapSerializer(
                     String.serializer(),
                     JsonElement.serializer()
-                ), properties
+                ),
+                properties
             )
         }}"""
 

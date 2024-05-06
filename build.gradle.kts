@@ -1,10 +1,32 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.publish) apply false
     alias(libs.plugins.detekt)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.ktlint)
+}
+
+subprojects {
+    apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        reporters {
+            reporter(ReporterType.PLAIN)
+            reporter(ReporterType.CHECKSTYLE)
+        }
+        filter {
+            exclude("*.kts")
+        }
+
+    }
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    filter {
+        exclude("*.kts")
+    }
 }
 
 detekt {

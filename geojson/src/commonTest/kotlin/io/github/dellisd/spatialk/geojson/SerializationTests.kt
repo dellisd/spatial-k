@@ -74,7 +74,8 @@ class SerializationTests {
             BoundingBox(
                 Position(-10.5, -10.5),
                 Position(10.5, 10.5)
-            ), bbox
+            ),
+            bbox
         )
 
         val bbox3D = Json.decodeFromString(BoundingBox.serializer(), "[-10.5,-10.5,-100.8,10.5,10.5,5.5]")
@@ -82,7 +83,8 @@ class SerializationTests {
             BoundingBox(
                 Position(-10.5, -10.5, -100.8),
                 Position(10.5, 10.5, 5.5)
-            ), bbox3D
+            ),
+            bbox3D
         )
 
         assertFailsWith<SerializationException> {
@@ -158,7 +160,9 @@ class SerializationTests {
     @Suppress("MaxLineLength")
     fun testDeserializeMultiLineString() {
         val multiLineString =
-            MultiLineString.fromJson("""{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}""")
+            MultiLineString.fromJson(
+                """{"type":"MultiLineString","coordinates":[[[12.3,45.6],[78.9,12.3]],[[87.6,54.3],[21.9,56.4]]]}"""
+            )
         assertEquals(
             MultiLineString(
                 listOf(Position(12.3, 45.6), Position(78.9, 12.3)),
@@ -335,7 +339,6 @@ class SerializationTests {
             |{"type":"MultiPoint","coordinates":[[12.3,45.6],[78.9,12.3]]}]}"""
             .trimMargin()
             .replace("\n", "")
-
 
         assertEquals(json, collection.json(), "GeometryCollection")
         assertEquals(json, Json.encodeToString(collection), "GeometryCollection")

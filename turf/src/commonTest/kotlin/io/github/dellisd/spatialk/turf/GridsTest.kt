@@ -19,6 +19,7 @@ class GridsTest {
             box = computeBbox(it.coordinates[0])
         }
     }
+
     @OptIn(ExperimentalTurfApi::class)
     @Test
     fun testSquareGrid() {
@@ -51,14 +52,16 @@ class GridsTest {
             Position(13.170147683370761, 52.517765865),
             Position(13.17194422502807, 52.517765865),
             Position(13.17194422502807, 52.515969323342695),
-            Position(13.170147683370761, 52.515969323342695))
+            Position(13.170147683370761, 52.515969323342695)
+        )
         assertEquals(expectedFistItem, grid.features.first().geometry!!.coordAll())
         val expectedLastItem = mutableListOf(
             Position(13.18272347497193, 52.517765865),
             Position(13.18272347497193, 52.51956240665731),
             Position(13.18452001662924, 52.51956240665731),
             Position(13.18452001662924, 52.517765865),
-            Position(13.18272347497193, 52.517765865))
+            Position(13.18272347497193, 52.517765865)
+        )
         assertEquals(expectedLastItem, grid.features.last().geometry!!.coordAll())
     }
 

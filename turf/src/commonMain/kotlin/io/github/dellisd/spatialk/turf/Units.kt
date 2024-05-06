@@ -32,5 +32,5 @@ enum class Units(internal val unitFactor: Double, internal val factor: Double, i
     Yards(1 / 1.0936, EARTH_RADIUS / 1.0936, 1.195_990_046),
     Feet(3.28084, EARTH_RADIUS * 3.28084, 10.763_910_417),
     Radians(1 / EARTH_RADIUS, 1.0, Double.NaN),
-    Degrees(1 / 111325.0, EARTH_RADIUS / 111325, Double.NaN);
+    Degrees(1 / 111325.0, EARTH_RADIUS / 111325, Double.NaN)
 }

@@ -41,7 +41,7 @@ fun bezierSpline(coords: List<Position>, duration: Int = 10_000, sharpness: Doub
             Position(
                 longitude = (p1.longitude + p2.longitude) / 2,
                 latitude = (p1.latitude + p2.latitude) / 2,
-                altitude = (p1.altitude() + p2.altitude()) / 2,
+                altitude = (p1.altitude() + p2.altitude()) / 2
             )
         }
 
@@ -58,29 +58,28 @@ fun bezierSpline(coords: List<Position>, duration: Int = 10_000, sharpness: Doub
             add(
                 Pair(
                     Position(
-                        longitude = (1.0 - sharpness) * coords[i + 1].longitude
-                                + sharpness * (centers[i].longitude + dx),
-                        latitude = (1.0 - sharpness) * coords[i + 1].latitude
-                                + sharpness * (centers[i].latitude + dy),
-                        altitude = (1.0 - sharpness) * coords[i + 1].altitude()
-                                + sharpness * (centers[i].altitude() + dz),
+                        longitude = (1.0 - sharpness) * coords[i + 1].longitude +
+                            sharpness * (centers[i].longitude + dx),
+                        latitude = (1.0 - sharpness) * coords[i + 1].latitude +
+                            sharpness * (centers[i].latitude + dy),
+                        altitude = (1.0 - sharpness) * coords[i + 1].altitude() +
+                            sharpness * (centers[i].altitude() + dz)
                     ),
                     Position(
-                        longitude = (1.0 - sharpness) * coords[i + 1].longitude
-                                + sharpness * (centers[i + 1].longitude + dx),
-                        latitude = (1.0 - sharpness) * coords[i + 1].latitude
-                                + sharpness * (centers[i + 1].latitude + dy),
-                        altitude = (1.0 - sharpness) * coords[i + 1].altitude()
-                                + sharpness * (centers[i + 1].altitude() + dz),
+                        longitude = (1.0 - sharpness) * coords[i + 1].longitude +
+                            sharpness * (centers[i + 1].longitude + dx),
+                        latitude = (1.0 - sharpness) * coords[i + 1].latitude +
+                            sharpness * (centers[i + 1].latitude + dy),
+                        altitude = (1.0 - sharpness) * coords[i + 1].altitude() +
+                            sharpness * (centers[i + 1].altitude() + dz)
                     )
                 )
             )
-
         }
         add(
             Pair(
                 coords[coords.lastIndex],
-                coords[coords.lastIndex],
+                coords[coords.lastIndex]
             )
         )
     }
@@ -92,12 +91,12 @@ fun bezierSpline(coords: List<Position>, duration: Int = 10_000, sharpness: Doub
             t3,
             3 * t2 * (1 - t),
             3 * t * (1 - t) * (1 - t),
-            (1 - t) * (1 - t) * (1 - t),
+            (1 - t) * (1 - t) * (1 - t)
         )
         return Position(
             longitude = p2.longitude * b[0] + c2.longitude * b[1] + c1.longitude * b[2] + p1.longitude * b[3],
             latitude = p2.latitude * b[0] + c2.latitude * b[1] + c1.latitude * b[2] + p1.latitude * b[3],
-            altitude = p2.altitude() * b[0] + c2.altitude() * b[1] + c1.altitude() * b[2] + p1.altitude() * b[3],
+            altitude = p2.altitude() * b[0] + c2.altitude() * b[1] + c1.altitude() * b[2] + p1.altitude() * b[3]
         )
     }
 

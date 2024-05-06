@@ -33,8 +33,8 @@ fun squareGrid(
     val bboxWidth = east - west
     val cellWidthDeg = convertLength(cellWidth, units, Units.Degrees)
 
-    val bboxHeight = north - south;
-    val cellHeightDeg = convertLength(cellHeight, units, Units.Degrees);
+    val bboxHeight = north - south
+    val cellHeightDeg = convertLength(cellHeight, units, Units.Degrees)
 
     val columns = floor(abs(bboxWidth) / cellWidthDeg)
     val rows = floor(abs(bboxHeight) / cellHeightDeg)
@@ -43,9 +43,9 @@ fun squareGrid(
     val deltaY = (bboxHeight - rows * cellHeightDeg) / 2
 
     var currentX = west + deltaX
-    repeat (columns.toInt()) {
+    repeat(columns.toInt()) {
         var currentY = south + deltaY
-        repeat (rows.toInt()) {
+        repeat(rows.toInt()) {
             val positions = mutableListOf<Position>().apply {
                 add(Position(currentX, currentY))
                 add(Position(currentX, currentY + cellHeightDeg))
@@ -58,9 +58,9 @@ fun squareGrid(
             }.also {
                 featureList.add(Feature(Polygon(it)))
             }
-            currentY += cellHeightDeg;
+            currentY += cellHeightDeg
         }
-        currentX += cellWidthDeg;
+        currentX += cellWidthDeg
     }
     return FeatureCollection(featureList)
 }

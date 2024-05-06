@@ -3,8 +3,8 @@
 package io.github.dellisd.spatialk.turf
 
 import io.github.dellisd.spatialk.geojson.LineString
-import io.github.dellisd.spatialk.geojson.Position
 import io.github.dellisd.spatialk.geojson.MultiLineString
+import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmName
 import kotlin.math.max
 
