@@ -32,40 +32,40 @@ import kotlin.jvm.JvmStatic
  */
 @Suppress("TooManyFunctions")
 @Serializable(with = FeatureSerializer::class)
-class Feature(
-    val geometry: Geometry?,
+public class Feature(
+    public val geometry: Geometry?,
     properties: Map<String, JsonElement> = emptyMap(),
-    val id: String? = null,
+    public val id: String? = null,
     override val bbox: BoundingBox? = null
 ) : GeoJson {
     private val _properties: MutableMap<String, JsonElement> = properties.toMutableMap()
-    val properties: Map<String, JsonElement> get() = _properties
+    public val properties: Map<String, JsonElement> get() = _properties
 
-    fun setStringProperty(key: String, value: String?) {
+    public fun setStringProperty(key: String, value: String?) {
         _properties[key] = JsonPrimitive(value)
     }
 
-    fun setNumberProperty(key: String, value: Number?) {
+    public fun setNumberProperty(key: String, value: Number?) {
         _properties[key] = JsonPrimitive(value)
     }
 
-    fun setBooleanProperty(key: String, value: Boolean?) {
+    public fun setBooleanProperty(key: String, value: Boolean?) {
         _properties[key] = JsonPrimitive(value)
     }
 
-    fun setJsonProperty(key: String, value: JsonElement) {
+    public fun setJsonProperty(key: String, value: JsonElement) {
         _properties[key] = value
     }
 
-    fun getStringProperty(key: String): String? = properties[key]?.jsonPrimitive?.content
+    public fun getStringProperty(key: String): String? = properties[key]?.jsonPrimitive?.content
 
-    fun getNumberProperty(key: String): Number? = properties[key]?.jsonPrimitive?.double
+    public fun getNumberProperty(key: String): Number? = properties[key]?.jsonPrimitive?.double
 
-    fun getBooleanProperty(key: String): Boolean? = properties[key]?.jsonPrimitive?.boolean
+    public fun getBooleanProperty(key: String): Boolean? = properties[key]?.jsonPrimitive?.boolean
 
-    fun getJsonProperty(key: String): JsonElement? = properties[key]
+    public fun getJsonProperty(key: String): JsonElement? = properties[key]
 
-    fun removeProperty(key: String): Any? = _properties.remove(key)
+    public fun removeProperty(key: String): Any? = _properties.remove(key)
 
     /**
      * Gets the value of the property with the given [key].
@@ -74,7 +74,7 @@ class Feature(
      * @return The value of the property cast to [T]?, or null if the key had no value.
      */
     @JvmName("getPropertyCast")
-    inline fun <reified T : Any?> getProperty(key: String) = properties[key] as T?
+    public inline fun <reified T : Any?> getProperty(key: String): T? = properties[key] as T?
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -98,10 +98,10 @@ class Feature(
         return result
     }
 
-    operator fun component1() = geometry
-    operator fun component2() = properties
-    operator fun component3() = id
-    operator fun component4() = bbox
+    public operator fun component1(): Geometry? = geometry
+    public operator fun component2(): Map<String, JsonElement> = properties
+    public operator fun component3(): String? = id
+    public operator fun component4(): BoundingBox? = bbox
 
     override fun toString(): String = json()
 
@@ -115,16 +115,16 @@ class Feature(
             )
         }}"""
 
-    fun copy(
+    public fun copy(
         geometry: Geometry? = this.geometry,
         properties: Map<String, JsonElement> = this.properties,
         id: String? = this.id,
         bbox: BoundingBox? = this.bbox
     ): Feature = Feature(geometry, properties, id, bbox)
 
-    companion object {
+    public companion object {
         @JvmStatic
-        fun fromJson(json: String): Feature = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
+        public fun fromJson(json: String): Feature = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 
         @JvmStatic
         public fun fromJsonOrNull(json: String): Feature? = try {

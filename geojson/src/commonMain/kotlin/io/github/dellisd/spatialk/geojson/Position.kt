@@ -33,13 +33,13 @@ import kotlin.jvm.JvmSynthetic
  * @property altitude Optionally, an altitude or elevation for this position
  */
 @Serializable(with = PositionSerializer::class)
-class Position(val coordinates: DoubleArray) {
+public class Position(public val coordinates: DoubleArray) {
     init {
         require(coordinates.size >= 2) { "At least two coordinates must be provided" }
     }
 
-    constructor(longitude: Double, latitude: Double) : this(doubleArrayOf(longitude, latitude))
-    constructor(longitude: Double, latitude: Double, altitude: Double) : this(
+    public constructor(longitude: Double, latitude: Double) : this(doubleArrayOf(longitude, latitude))
+    public constructor(longitude: Double, latitude: Double, altitude: Double) : this(
         doubleArrayOf(
             longitude,
             latitude,
@@ -47,18 +47,18 @@ class Position(val coordinates: DoubleArray) {
         )
     )
 
-    constructor(longitude: Double, latitude: Double, altitude: Double?) : this(
+    public constructor(longitude: Double, latitude: Double, altitude: Double?) : this(
         when (altitude) {
             null -> doubleArrayOf(longitude, latitude)
             else -> doubleArrayOf(longitude, latitude, altitude)
         }
     )
 
-    val longitude: Double
+    public val longitude: Double
         get() = coordinates[0]
-    val latitude: Double
+    public val latitude: Double
         get() = coordinates[1]
-    val altitude: Double?
+    public val altitude: Double?
         get() = coordinates.getOrNull(2)
 
     /**
@@ -66,21 +66,21 @@ class Position(val coordinates: DoubleArray) {
      * @return [longitude]
      */
     @JvmSynthetic
-    operator fun component1(): Double = longitude
+    public operator fun component1(): Double = longitude
 
     /**
      * Component function for getting the [latitude]
      * @return [latitude]
      */
     @JvmSynthetic
-    operator fun component2(): Double = latitude
+    public operator fun component2(): Double = latitude
 
     /**
      * Component function for getting the [altitude]
      * @return [altitude]
      */
     @JvmSynthetic
-    operator fun component3(): Double? = altitude
+    public operator fun component3(): Double? = altitude
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -101,8 +101,8 @@ class Position(val coordinates: DoubleArray) {
         return "LngLat(longitude=$longitude, latitude=$latitude, altitude=$altitude)"
     }
 
-    fun json(): String = coordinates.jsonJoin()
+    public fun json(): String = coordinates.jsonJoin()
 }
 
 @Suppress("MagicNumber")
-val Position.hasAltitude: Boolean get() = coordinates.size == 3
+public val Position.hasAltitude: Boolean get() = coordinates.size == 3

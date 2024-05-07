@@ -15,15 +15,15 @@ import kotlin.jvm.JvmStatic
 
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 @Serializable(with = GeometrySerializer::class)
-class LineString @JvmOverloads constructor(
-    val coordinates: List<Position>,
+public class LineString @JvmOverloads constructor(
+    public val coordinates: List<Position>,
     override val bbox: BoundingBox? = null
 ) : Geometry() {
     @JvmOverloads
-    constructor(vararg coordinates: Position, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
+    public constructor(vararg coordinates: Position, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
     @JvmOverloads
-    constructor(
+    public constructor(
         coordinates: Array<DoubleArray>,
         bbox: BoundingBox? = null
     ) : this(coordinates.map(::Position), bbox)
@@ -53,7 +53,7 @@ class LineString @JvmOverloads constructor(
     override fun json(): String =
         """{"type":"LineString",${bbox.jsonProp()}"coordinates":${coordinates.jsonJoin(transform = Position::json)}}"""
 
-    companion object {
+    public companion object {
         @JvmStatic
         public fun fromJson(json: String): LineString = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 

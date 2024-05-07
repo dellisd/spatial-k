@@ -27,7 +27,7 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 
 @Suppress("LongMethod")
-object GeometrySerializer : KSerializer<Geometry> {
+public object GeometrySerializer : KSerializer<Geometry> {
     override val descriptor: SerialDescriptor
         get() = buildSerialDescriptor("Geometry", PolymorphicKind.SEALED)
 

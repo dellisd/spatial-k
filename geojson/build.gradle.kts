@@ -10,6 +10,8 @@ plugins {
 }
 
 kotlin {
+    explicitApi()
+
     jvm {
         compilations.create("bench")
     }

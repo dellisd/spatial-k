@@ -16,7 +16,7 @@ import io.github.dellisd.spatialk.geojson.Position
 import kotlin.jvm.JvmName
 
 @ExperimentalTurfApi
-fun Geometry.coordAll(): List<Position> = when (this) {
+public fun Geometry.coordAll(): List<Position> = when (this) {
     is Point -> this.coordAll()
     is MultiPoint -> this.coordAll()
     is LineString -> this.coordAll()
@@ -27,33 +27,33 @@ fun Geometry.coordAll(): List<Position> = when (this) {
 }
 
 @ExperimentalTurfApi
-fun Point.coordAll() = listOf(coordinates)
+public fun Point.coordAll(): List<Position> = listOf(coordinates)
 
 @ExperimentalTurfApi
-fun MultiPoint.coordAll() = coordinates
+public fun MultiPoint.coordAll(): List<Position> = coordinates
 
 @ExperimentalTurfApi
-fun LineString.coordAll() = coordinates
+public fun LineString.coordAll(): List<Position> = coordinates
 
 @ExperimentalTurfApi
-fun MultiLineString.coordAll() = coordinates.reduce { acc, list -> acc + list }
+public fun MultiLineString.coordAll(): List<Position> = coordinates.reduce { acc, list -> acc + list }
 
 @ExperimentalTurfApi
-fun Polygon.coordAll() = coordinates.reduce { acc, list -> acc + list }
+public fun Polygon.coordAll(): List<Position> = coordinates.reduce { acc, list -> acc + list }
 
 @ExperimentalTurfApi
-fun MultiPolygon.coordAll() =
+public fun MultiPolygon.coordAll(): List<Position> =
     coordinates.fold(emptyList<Position>()) { acc, list ->
         list.reduce { innerAcc, innerList -> innerAcc + innerList } + acc
     }
 
 @ExperimentalTurfApi
-fun GeometryCollection.coordAll() =
+public fun GeometryCollection.coordAll(): List<Position> =
     geometries.fold(emptyList<Position>()) { acc, geometry -> acc + geometry.coordAll() }
 
 @ExperimentalTurfApi
-fun Feature.coordAll() = geometry?.coordAll()
+public fun Feature.coordAll(): List<Position>? = geometry?.coordAll()
 
 @ExperimentalTurfApi
-fun FeatureCollection.coordAll() =
+public fun FeatureCollection.coordAll(): List<Position> =
     features.fold(emptyList<Position>()) { acc, feature -> acc + (feature.coordAll() ?: emptyList()) }
