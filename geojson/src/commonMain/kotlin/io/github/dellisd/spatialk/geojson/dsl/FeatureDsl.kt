@@ -11,32 +11,32 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlin.jvm.JvmName
 
 @GeoJsonDsl
-class PropertiesBuilder {
+public class PropertiesBuilder {
     private val properties = mutableMapOf<String, JsonElement>()
 
-    fun put(key: String, value: String?) {
+    public fun put(key: String, value: String?) {
         properties[key] = JsonPrimitive(value)
     }
 
-    fun put(key: String, value: Number?) {
+    public fun put(key: String, value: Number?) {
         properties[key] = JsonPrimitive(value)
     }
 
-    fun put(key: String, value: Boolean?) {
+    public fun put(key: String, value: Boolean?) {
         properties[key] = JsonPrimitive(value)
     }
 
-    fun put(key: String, value: JsonElement) {
+    public fun put(key: String, value: JsonElement) {
         properties[key] = value
     }
 
-    fun build(): Map<String, JsonElement> = properties
+    public fun build(): Map<String, JsonElement> = properties
 }
 
 @GeoJsonDsl
-inline fun feature(
+public inline fun feature(
     geometry: Geometry? = null,
     id: String? = null,
     bbox: BoundingBox? = null,
     properties: PropertiesBuilder.() -> Unit = {}
-) = Feature(geometry, PropertiesBuilder().apply(properties).build(), id, bbox)
+): Feature = Feature(geometry, PropertiesBuilder().apply(properties).build(), id, bbox)

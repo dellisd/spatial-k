@@ -18,7 +18,7 @@ import kotlin.math.floor
  * @return a [FeatureCollection] grid of polygons
  */
 @ExperimentalTurfApi
-fun squareGrid(
+public fun squareGrid(
     bbox: BoundingBox,
     cellWidth: Double,
     cellHeight: Double,
@@ -33,8 +33,8 @@ fun squareGrid(
     val bboxWidth = east - west
     val cellWidthDeg = convertLength(cellWidth, units, Units.Degrees)
 
-    val bboxHeight = north - south;
-    val cellHeightDeg = convertLength(cellHeight, units, Units.Degrees);
+    val bboxHeight = north - south
+    val cellHeightDeg = convertLength(cellHeight, units, Units.Degrees)
 
     val columns = floor(abs(bboxWidth) / cellWidthDeg)
     val rows = floor(abs(bboxHeight) / cellHeightDeg)
@@ -58,9 +58,9 @@ fun squareGrid(
             }.also {
                 featureList.add(Feature(Polygon(it)))
             }
-            currentY += cellHeightDeg;
+            currentY += cellHeightDeg
         }
-        currentX += cellWidthDeg;
+        currentX += cellWidthDeg
     }
     return FeatureCollection(featureList)
 }

@@ -29,7 +29,7 @@ import kotlinx.serialization.json.jsonPrimitive
  *
  * @see Position.Companion.serializer
  */
-object PositionSerializer : KSerializer<Position> {
+public object PositionSerializer : KSerializer<Position> {
     override val descriptor: SerialDescriptor
         get() = buildSerialDescriptor("Position", StructureKind.LIST)
 

@@ -14,9 +14,9 @@ import kotlin.jvm.JvmStatic
 
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 @Serializable(with = GeometrySerializer::class)
-class Point @JvmOverloads constructor(val coordinates: Position, override val bbox: BoundingBox? = null) : Geometry() {
+public class Point @JvmOverloads constructor(public val coordinates: Position, override val bbox: BoundingBox? = null) : Geometry() {
     @JvmOverloads
-    constructor(coordinates: DoubleArray, bbox: BoundingBox? = null) : this(Position(coordinates), bbox)
+    public constructor(coordinates: DoubleArray, bbox: BoundingBox? = null) : this(Position(coordinates), bbox)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -38,7 +38,7 @@ class Point @JvmOverloads constructor(val coordinates: Position, override val bb
 
     override fun json(): String = """{"type":"Point",${bbox.jsonProp()}"coordinates":${coordinates.json()}}"""
 
-    companion object {
+    public companion object {
         @JvmStatic
         public fun fromJson(json: String): Point = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 

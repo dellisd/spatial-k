@@ -22,12 +22,12 @@ import kotlin.jvm.JvmStatic
  * @property features The collection of [Feature] objects stored in this collection
  */
 @Serializable(with = FeatureCollectionSerializer::class)
-class FeatureCollection(
-    val features: List<Feature> = emptyList(),
+public class FeatureCollection(
+    public val features: List<Feature> = emptyList(),
     override val bbox: BoundingBox? = null
 ) : Collection<Feature> by features, GeoJson {
 
-    constructor(vararg features: Feature, bbox: BoundingBox? = null) : this(features.toMutableList(), bbox)
+    public constructor(vararg features: Feature, bbox: BoundingBox? = null) : this(features.toMutableList(), bbox)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -52,10 +52,10 @@ class FeatureCollection(
     override fun json(): String =
         """{"type":"FeatureCollection",${bbox.jsonProp()}"features":${features.jsonJoin { it.json() }}}"""
 
-    operator fun component1(): List<Feature> = features
-    operator fun component2(): BoundingBox? = bbox
+    public operator fun component1(): List<Feature> = features
+    public operator fun component2(): BoundingBox? = bbox
 
-    companion object {
+    public companion object {
         @JvmStatic
         public fun fromJson(json: String): FeatureCollection =
             fromJson(Json.decodeFromString(JsonObject.serializer(), json))

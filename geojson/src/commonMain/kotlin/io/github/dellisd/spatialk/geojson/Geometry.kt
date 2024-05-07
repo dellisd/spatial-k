@@ -8,12 +8,12 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlin.jvm.JvmStatic
 
 @Serializable(with = GeometrySerializer::class)
-sealed class Geometry protected constructor() : GeoJson {
+public sealed class Geometry protected constructor() : GeoJson {
     abstract override val bbox: BoundingBox?
 
     override fun toString(): String = json()
 
-    companion object {
+    public companion object {
         @JvmStatic
         public fun fromJson(json: String): Geometry = fromJson(Json.decodeFromString(JsonObject.serializer(), json))
 

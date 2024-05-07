@@ -17,7 +17,7 @@ import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
 
-object BoundingBoxSerializer : KSerializer<BoundingBox> {
+public object BoundingBoxSerializer : KSerializer<BoundingBox> {
     private const val ARRAY_SIZE_2D = 4
     private const val ARRAY_SIZE_3D = 6
 
