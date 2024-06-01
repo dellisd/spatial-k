@@ -21,7 +21,7 @@ import kotlin.jvm.JvmOverloads
  * @return `true` if the Position is inside the Polygon; `false` if the Position is not inside the Polygon
  */
 @JvmOverloads
-fun booleanPointInPolygon(point: Point, polygon: Polygon, ignoreBoundary: Boolean = false): Boolean {
+public fun booleanPointInPolygon(point: Point, polygon: Polygon, ignoreBoundary: Boolean = false): Boolean {
     val bbox = bbox(polygon)
     // normalize to multipolygon
     val polys = listOf(polygon.coordinates)
@@ -39,7 +39,7 @@ fun booleanPointInPolygon(point: Point, polygon: Polygon, ignoreBoundary: Boolea
  * @return `true` if the Position is inside the Polygon; `false` if the Position is not inside the Polygon
  */
 @JvmOverloads
-fun booleanPointInPolygon(point: Point, polygon: MultiPolygon, ignoreBoundary: Boolean = false): Boolean {
+public fun booleanPointInPolygon(point: Point, polygon: MultiPolygon, ignoreBoundary: Boolean = false): Boolean {
     val bbox = bbox(polygon)
     val polys = polygon.coordinates
     return booleanPointInPolygon(point.coordinates, bbox, polys, ignoreBoundary)

@@ -1,7 +1,5 @@
 package io.github.dellisd.spatialk.turf
 
-import kotlin.native.concurrent.SharedImmutable
-
 /**
  * Convert a distance measurement (assuming a spherical Earth) from radians to a more friendly unit.
  *
@@ -14,7 +12,7 @@ import kotlin.native.concurrent.SharedImmutable
  * @exception IllegalArgumentException if the given units are invalid
  */
 @ExperimentalTurfApi
-fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
+public fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
     require(!units.factor.isNaN()) { "${units.name} units is invalid" }
     return radians * units.factor
 }
@@ -31,7 +29,7 @@ fun radiansToLength(radians: Double, units: Units = Units.Kilometers): Double {
  * @exception IllegalArgumentException if the given units are invalid
  */
 @ExperimentalTurfApi
-fun lengthToRadians(distance: Double, units: Units = Units.Kilometers): Double {
+public fun lengthToRadians(distance: Double, units: Units = Units.Kilometers): Double {
     require(!units.factor.isNaN()) { "${units.name} units is invalid" }
     return distance / units.factor
 }
@@ -48,7 +46,7 @@ fun lengthToRadians(distance: Double, units: Units = Units.Kilometers): Double {
  * @exception IllegalArgumentException if the given units are invalid
  */
 @ExperimentalTurfApi
-fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) =
+public fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers): Double =
     degrees(
         lengthToRadians(
             distance,
@@ -67,7 +65,7 @@ fun lengthToDegrees(distance: Double, units: Units = Units.Kilometers) =
  * @exception IllegalArgumentException if the given length is negative
  */
 @ExperimentalTurfApi
-fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
+public fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
     require(length >= 0) { "length must be a positive number" }
     return radiansToLength(
         lengthToRadians(
@@ -91,7 +89,7 @@ fun convertLength(length: Double, from: Units = Units.Meters, to: Units = Units.
  */
 @Suppress("ThrowsCount")
 @ExperimentalTurfApi
-fun convertArea(area: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
+public fun convertArea(area: Double, from: Units = Units.Meters, to: Units = Units.Kilometers): Double {
     require(area >= 0) { "area must be a positive number" }
     require(!from.areaFactor.isNaN()) { "invalid original units" }
     require(!to.areaFactor.isNaN()) { "invalid final units" }
@@ -108,7 +106,7 @@ fun convertArea(area: Double, from: Units = Units.Meters, to: Units = Units.Kilo
  */
 @Suppress("MagicNumber")
 @ExperimentalTurfApi
-fun bearingToAzimuth(bearing: Double): Double {
+public fun bearingToAzimuth(bearing: Double): Double {
     var angle = bearing % 360
     if (angle < 0) {
         angle += 360

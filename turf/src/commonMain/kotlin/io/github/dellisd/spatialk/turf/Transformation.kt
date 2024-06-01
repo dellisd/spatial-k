@@ -15,7 +15,7 @@ import io.github.dellisd.spatialk.geojson.Position
  * @return A [LineString] containing a curved line around the positions of the input line
  */
 @OptIn(ExperimentalTurfApi::class)
-fun bezierSpline(line: LineString, duration: Int = 10_000, sharpness: Double = 0.85): LineString =
+public fun bezierSpline(line: LineString, duration: Int = 10_000, sharpness: Double = 0.85): LineString =
     LineString(bezierSpline(line.coordAll(), duration, sharpness))
 
 /**
@@ -30,7 +30,7 @@ fun bezierSpline(line: LineString, duration: Int = 10_000, sharpness: Double = 0
  * @return A [List] containing [Position] of a curved line around the positions of the input line
  */
 @Suppress("MagicNumber")
-fun bezierSpline(coords: List<Position>, duration: Int = 10_000, sharpness: Double = 0.85): List<Position> {
+public fun bezierSpline(coords: List<Position>, duration: Int = 10_000, sharpness: Double = 0.85): List<Position> {
     // utility function to ensure a given altitude
     fun Position.altitude() = altitude ?: 0.0
 

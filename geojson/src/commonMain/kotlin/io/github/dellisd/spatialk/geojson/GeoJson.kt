@@ -5,12 +5,12 @@ package io.github.dellisd.spatialk.geojson
  *
  * @property bbox An optional bounding box used to represent the limits of the object's geometry.
  */
-sealed interface GeoJson {
-    val bbox: BoundingBox?
+public sealed interface GeoJson {
+    public val bbox: BoundingBox?
 
     /**
      * Gets a JSON representation of this object.
      * @return JSON representation
      */
-    fun json(): String
+    public fun json(): String
 }

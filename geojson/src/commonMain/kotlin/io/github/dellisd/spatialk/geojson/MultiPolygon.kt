@@ -15,15 +15,15 @@ import kotlin.jvm.JvmStatic
 
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 @Serializable(with = GeometrySerializer::class)
-class MultiPolygon @JvmOverloads constructor(
-    val coordinates: List<List<List<Position>>>,
+public class MultiPolygon @JvmOverloads constructor(
+    public val coordinates: List<List<List<Position>>>,
     override val bbox: BoundingBox? = null
 ) : Geometry() {
     @JvmOverloads
-    constructor(vararg coordinates: List<List<Position>>, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
+    public constructor(vararg coordinates: List<List<Position>>, bbox: BoundingBox? = null) : this(coordinates.toList(), bbox)
 
     @JvmOverloads
-    constructor(
+    public constructor(
         coordinates: Array<Array<Array<DoubleArray>>>,
         bbox: BoundingBox? = null
     ) : this(coordinates.map { ring -> ring.map { it.map(::Position) } }, bbox)
@@ -55,7 +55,7 @@ class MultiPolygon @JvmOverloads constructor(
             }
         }}"""
 
-    companion object {
+    public companion object {
         @JvmStatic
         public fun fromJson(json: String): MultiPolygon =
             fromJson(Json.decodeFromString(JsonObject.serializer(), json))

@@ -38,7 +38,7 @@ import kotlin.math.sqrt
 @JvmOverloads
 @Suppress("MagicNumber")
 @ExperimentalTurfApi
-fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): Position {
+public fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): Position {
     var travelled = 0.0
 
     line.coordinates.forEachIndexed { i, coordinate ->
@@ -79,7 +79,7 @@ fun along(line: LineString, distance: Double, units: Units = Units.Kilometers): 
  * @return area in square meters
  */
 @ExperimentalTurfApi
-fun area(geometry: Geometry): Double {
+public fun area(geometry: Geometry): Double {
     return when (geometry) {
         is GeometryCollection -> geometry.geometries.fold(0.0) { acc, geom ->
             acc + area(
@@ -113,7 +113,7 @@ private fun polygonArea(coordinates: List<List<Position>>): Double {
     return total
 }
 
-const val AREA_EARTH_RADIUS = 6378137
+public const val AREA_EARTH_RADIUS: Int = 6378137
 
 /**
  * Calculates the approximate area of the [polygon][coordinates] were it projected onto the earth.
@@ -169,7 +169,7 @@ private fun ringArea(coordinates: List<Position>): Double {
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: Geometry): BoundingBox = computeBbox(geometry.coordAll())
+public fun bbox(geometry: Geometry): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
@@ -178,7 +178,7 @@ fun bbox(geometry: Geometry): BoundingBox = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: Point) = computeBbox(geometry.coordAll())
+public fun bbox(geometry: Point): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
@@ -187,7 +187,7 @@ fun bbox(geometry: Point) = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: MultiPoint) = computeBbox(geometry.coordAll())
+public fun bbox(geometry: MultiPoint): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
@@ -196,7 +196,7 @@ fun bbox(geometry: MultiPoint) = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: LineString) = computeBbox(geometry.coordAll())
+public fun bbox(geometry: LineString): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
@@ -205,7 +205,7 @@ fun bbox(geometry: LineString) = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: MultiLineString) = computeBbox(geometry.coordAll())
+public fun bbox(geometry: MultiLineString): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
@@ -214,7 +214,7 @@ fun bbox(geometry: MultiLineString) = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: Polygon) = computeBbox(geometry.coordAll())
+public fun bbox(geometry: Polygon): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a geometry and calculates the bbox of all input features, and returns a bounding box.
@@ -223,7 +223,7 @@ fun bbox(geometry: Polygon) = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(geometry: MultiPolygon) = computeBbox(geometry.coordAll())
+public fun bbox(geometry: MultiPolygon): BoundingBox = computeBbox(geometry.coordAll())
 
 /**
  * Takes a feature and calculates the bbox of the feature's geometry, and returns a bounding box.
@@ -232,7 +232,7 @@ fun bbox(geometry: MultiPolygon) = computeBbox(geometry.coordAll())
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(feature: Feature): BoundingBox = computeBbox(feature.coordAll() ?: emptyList())
+public fun bbox(feature: Feature): BoundingBox = computeBbox(feature.coordAll() ?: emptyList())
 
 /**
  * Takes a feature collection and calculates a bbox that covers all features in the collection.
@@ -241,10 +241,10 @@ fun bbox(feature: Feature): BoundingBox = computeBbox(feature.coordAll() ?: empt
  * @return A [BoundingBox] that covers the geometry.
  */
 @ExperimentalTurfApi
-fun bbox(featureCollection: FeatureCollection): BoundingBox = computeBbox(featureCollection.coordAll())
+public fun bbox(featureCollection: FeatureCollection): BoundingBox = computeBbox(featureCollection.coordAll())
 
 @Suppress("MagicNumber")
-fun computeBbox(coordinates: List<Position>): BoundingBox {
+public fun computeBbox(coordinates: List<Position>): BoundingBox {
     val result = doubleArrayOf(
         Double.POSITIVE_INFINITY,
         Double.POSITIVE_INFINITY,
@@ -278,7 +278,7 @@ fun computeBbox(coordinates: List<Position>): BoundingBox {
  * @return The bounding box as a polygon
  */
 @ExperimentalTurfApi
-fun bboxPolygon(bbox: BoundingBox): Polygon {
+public fun bboxPolygon(bbox: BoundingBox): Polygon {
     require(bbox.northeast.altitude == null && bbox.southwest.altitude == null) {
         "Bounding Box cannot have altitudes"
     }
@@ -296,7 +296,7 @@ fun bboxPolygon(bbox: BoundingBox): Polygon {
 
 @JvmSynthetic
 @ExperimentalTurfApi
-fun BoundingBox.toPolygon() = bboxPolygon(this)
+public fun BoundingBox.toPolygon(): Polygon = bboxPolygon(this)
 
 /**
  * Takes two positions ([start], [end]) and finds the geographic bearing between them,
@@ -309,7 +309,7 @@ fun BoundingBox.toPolygon() = bboxPolygon(this)
  */
 @JvmOverloads
 @ExperimentalTurfApi
-fun bearing(start: Position, end: Position, final: Boolean = false): Double {
+public fun bearing(start: Position, end: Position, final: Boolean = false): Double {
     if (final) return finalBearing(start, end)
 
     val lon1 = radians(start.longitude)
@@ -345,7 +345,7 @@ internal fun finalBearing(start: Position, end: Position): Double = (bearing(
  */
 @JvmOverloads
 @ExperimentalTurfApi
-fun destination(origin: Position, distance: Double, bearing: Double, units: Units = Units.Kilometers): Position {
+public fun destination(origin: Position, distance: Double, bearing: Double, units: Units = Units.Kilometers): Position {
     val longitude1 = radians(origin.longitude)
     val latitude1 = radians(origin.latitude)
     val bearingRad = radians(bearing)
@@ -376,7 +376,7 @@ fun destination(origin: Position, distance: Double, bearing: Double, units: Unit
  */
 @JvmOverloads
 @ExperimentalTurfApi
-fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Double {
+public fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Double {
     val dLat = radians(to.latitude - from.latitude)
     val dLon = radians(to.longitude - from.longitude)
     val lat1 = radians(from.latitude)
@@ -394,7 +394,7 @@ fun distance(from: Position, to: Position, units: Units = Units.Kilometers): Dou
  * @return The length of the geometry in [units].
  */
 @ExperimentalTurfApi
-fun length(lineString: LineString, units: Units): Double = length(lineString.coordinates, units)
+public fun length(lineString: LineString, units: Units): Double = length(lineString.coordinates, units)
 
 /**
  * Calculates the combined length of all [LineString]s from the given [MultiLineString] in the given [Units].
@@ -404,7 +404,7 @@ fun length(lineString: LineString, units: Units): Double = length(lineString.coo
  * @return The length of the geometry in [units].
  */
 @ExperimentalTurfApi
-fun length(multiLineString: MultiLineString, units: Units): Double =
+public fun length(multiLineString: MultiLineString, units: Units): Double =
     multiLineString.coordinates.fold(0.0) { acc, coords -> acc + length(coords, units) }
 
 /**
@@ -416,7 +416,7 @@ fun length(multiLineString: MultiLineString, units: Units): Double =
  * @return The length of the geometry in [units].
  */
 @ExperimentalTurfApi
-fun length(polygon: Polygon, units: Units): Double =
+public fun length(polygon: Polygon, units: Units): Double =
     polygon.coordinates.fold(0.0) { acc, ring -> acc + length(ring, units) }
 
 /**
@@ -428,7 +428,7 @@ fun length(polygon: Polygon, units: Units): Double =
  * @return The length of the geometry in [units].
  */
 @ExperimentalTurfApi
-fun length(multiPolygon: MultiPolygon, units: Units): Double =
+public fun length(multiPolygon: MultiPolygon, units: Units): Double =
     multiPolygon.coordinates.fold(0.0) { total, polygon ->
         total + polygon.fold(0.0) { acc, ring ->
             acc + length(
@@ -458,7 +458,7 @@ private fun length(coords: List<Position>, units: Units): Double {
  * @return A [Position] midway between [point1] and [point2]
  */
 @ExperimentalTurfApi
-fun midpoint(point1: Position, point2: Position): Position {
+public fun midpoint(point1: Position, point2: Position): Position {
     val dist = distance(point1, point2)
     val heading = bearing(point1, point2)
 
@@ -473,7 +473,7 @@ fun midpoint(point1: Position, point2: Position): Position {
  * @return A [Point] holding the center coordinates
  */
 @ExperimentalTurfApi
-fun center(feature: Feature): Point {
+public fun center(feature: Feature): Point {
     val ext = bbox(feature)
     val x = (ext.southwest.longitude + ext.northeast.longitude) / 2
     val y = (ext.southwest.latitude + ext.northeast.latitude) / 2
@@ -486,7 +486,7 @@ fun center(feature: Feature): Point {
  * @param geometry the [Geometry] to find the center for
  */
 @ExperimentalTurfApi
-fun center(geometry: Geometry): Point {
+public fun center(geometry: Geometry): Point {
     return center(Feature(geometry = geometry))
 }
 
@@ -503,7 +503,7 @@ fun center(geometry: Geometry): Point {
 @Suppress("CyclomaticComplexMethod")
 @Throws(IllegalArgumentException::class)
 @ExperimentalTurfApi
-fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimeridianOffset: Double = 10.0): Geometry {
+public fun greatCircle(start: Position, end: Position, pointCount: Int = 100, antimeridianOffset: Double = 10.0): Geometry {
 
     val deltaLongitude = start.longitude - end.longitude
     val deltaLatitude = start.latitude - end.latitude

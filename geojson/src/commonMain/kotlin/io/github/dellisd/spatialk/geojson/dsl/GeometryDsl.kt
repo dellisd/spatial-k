@@ -15,18 +15,18 @@ import io.github.dellisd.spatialk.geojson.Polygon
 import kotlin.jvm.JvmName
 
 @GeoJsonDsl
-abstract class GeometryDsl<T : Geometry> protected constructor(var bbox: BoundingBox? = null) {
-    abstract fun create(): T
+public abstract class GeometryDsl<T : Geometry> protected constructor(public var bbox: BoundingBox? = null) {
+    public abstract fun create(): T
 }
 
 @GeoJsonDsl
-class PointDsl(private var coordinates: Position) : GeometryDsl<Point>() {
+public class PointDsl(private var coordinates: Position) : GeometryDsl<Point>() {
     override fun create(): Point =
         Point(coordinates, bbox)
 }
 
 @GeoJsonDsl
-inline fun point(
+public inline fun point(
     longitude: Double,
     latitude: Double,
     altitude: Double? = null,
@@ -41,139 +41,139 @@ inline fun point(
     ).apply(block).create()
 
 @GeoJsonDsl
-class MultiPointDsl(private val points: MutableList<Position> = mutableListOf()) : GeometryDsl<MultiPoint>() {
+public class MultiPointDsl(private val points: MutableList<Position> = mutableListOf()) : GeometryDsl<MultiPoint>() {
     override fun create(): MultiPoint =
         MultiPoint(points, bbox)
 
-    operator fun Position.unaryPlus() {
+    public operator fun Position.unaryPlus() {
         points.add(this)
     }
 
-    operator fun Point.unaryPlus() {
+    public operator fun Point.unaryPlus() {
         points.add(this.coordinates)
     }
 
-    fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
+    public fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
         points.add(Position(longitude, latitude, altitude))
     }
 }
 
 @GeoJsonDsl
-inline fun multiPoint(block: MultiPointDsl.() -> Unit): MultiPoint = MultiPointDsl()
+public inline fun multiPoint(block: MultiPointDsl.() -> Unit): MultiPoint = MultiPointDsl()
     .apply(block).create()
 
 @GeoJsonDsl
-class LineStringDsl(internal val points: MutableList<Position> = mutableListOf()) : GeometryDsl<LineString>() {
+public class LineStringDsl(internal val points: MutableList<Position> = mutableListOf()) : GeometryDsl<LineString>() {
     override fun create(): LineString =
         LineString(points, bbox)
 
-    operator fun Position.unaryPlus() {
+    public operator fun Position.unaryPlus() {
         points.add(this)
     }
 
-    operator fun Point.unaryPlus() {
+    public operator fun Point.unaryPlus() {
         points.add(this.coordinates)
     }
 
-    fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
+    public fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
         points.add(Position(longitude, latitude, altitude))
     }
 }
 
 @GeoJsonDsl
-inline fun lineString(block: LineStringDsl.() -> Unit) = LineStringDsl()
+public inline fun lineString(block: LineStringDsl.() -> Unit): LineString = LineStringDsl()
     .apply(block).create()
 
 @GeoJsonDsl
-class MultiLineStringDsl(private val coordinates: MutableList<List<Position>> = mutableListOf()) :
+public class MultiLineStringDsl(private val coordinates: MutableList<List<Position>> = mutableListOf()) :
     GeometryDsl<MultiLineString>() {
     override fun create(): MultiLineString =
         MultiLineString(coordinates)
 
-    inline fun lineString(block: LineStringDsl.() -> Unit) {
+    public inline fun lineString(block: LineStringDsl.() -> Unit) {
         +LineStringDsl().apply(block).create()
     }
 
-    operator fun LineString.unaryPlus() {
+    public operator fun LineString.unaryPlus() {
         this@MultiLineStringDsl.coordinates.add(this.coordinates)
     }
 }
 
 @GeoJsonDsl
-inline fun multiLineString(block: MultiLineStringDsl.() -> Unit) = MultiLineStringDsl()
+public inline fun multiLineString(block: MultiLineStringDsl.() -> Unit): MultiLineString = MultiLineStringDsl()
     .apply(block).create()
 
 @GeoJsonDsl
-class PolygonDsl(internal val coordinates: MutableList<List<Position>> = mutableListOf()) : GeometryDsl<Polygon>() {
+public class PolygonDsl(internal val coordinates: MutableList<List<Position>> = mutableListOf()) : GeometryDsl<Polygon>() {
     override fun create(): Polygon =
         Polygon(coordinates, bbox)
 
-    inner class RingDsl(internal val points: MutableList<Position> = mutableListOf()) {
-        operator fun Position.unaryPlus() {
+    public inner class RingDsl(internal val points: MutableList<Position> = mutableListOf()) {
+        public operator fun Position.unaryPlus() {
             points.add(this)
         }
 
-        operator fun Point.unaryPlus() {
+        public operator fun Point.unaryPlus() {
             points.add(this.coordinates)
         }
 
-        inline fun lineString(block: LineStringDsl.() -> Unit) {
+        public inline fun lineString(block: LineStringDsl.() -> Unit) {
             +LineStringDsl().apply(block).create()
         }
 
-        fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
+        public fun point(longitude: Double, latitude: Double, altitude: Double? = null) {
             points.add(Position(longitude, latitude, altitude))
         }
 
-        operator fun LineString.unaryPlus() {
+        public operator fun LineString.unaryPlus() {
             this@RingDsl.points.addAll(this.coordinates)
         }
 
-        fun complete() {
+        public fun complete() {
             points.add(points.first())
         }
     }
 
-    fun ring(block: RingDsl.() -> Unit) {
+    public fun ring(block: RingDsl.() -> Unit) {
         coordinates.add(RingDsl().apply(block).points)
     }
 }
 
 @GeoJsonDsl
-inline fun polygon(block: PolygonDsl.() -> Unit) = PolygonDsl()
+public inline fun polygon(block: PolygonDsl.() -> Unit): Polygon = PolygonDsl()
     .apply(block).create()
 
 @GeoJsonDsl
-class MultiPolygonDsl(private val coordinates: MutableList<List<List<Position>>> = mutableListOf()) :
+public class MultiPolygonDsl(private val coordinates: MutableList<List<List<Position>>> = mutableListOf()) :
     GeometryDsl<MultiPolygon>() {
     override fun create(): MultiPolygon =
         MultiPolygon(coordinates, bbox)
 
-    inline fun polygon(block: PolygonDsl.() -> Unit) {
+    public inline fun polygon(block: PolygonDsl.() -> Unit) {
         +PolygonDsl().apply(block).create()
     }
 
-    operator fun Polygon.unaryPlus() {
+    public operator fun Polygon.unaryPlus() {
         this@MultiPolygonDsl.coordinates.add(this.coordinates)
     }
 
 }
 
 @GeoJsonDsl
-inline fun multiPolygon(block: MultiPolygonDsl.() -> Unit) = MultiPolygonDsl()
+public inline fun multiPolygon(block: MultiPolygonDsl.() -> Unit): MultiPolygon = MultiPolygonDsl()
     .apply(block).create()
 
 @GeoJsonDsl
-class GeometryCollectionDsl(private val geometries: MutableList<Geometry> = mutableListOf()) :
+public class GeometryCollectionDsl(private val geometries: MutableList<Geometry> = mutableListOf()) :
     GeometryDsl<GeometryCollection>() {
     override fun create(): GeometryCollection =
         GeometryCollection(geometries)
 
-    operator fun Geometry.unaryPlus() {
+    public operator fun Geometry.unaryPlus() {
         geometries.add(this)
     }
 }
 
 @GeoJsonDsl
-inline fun geometryCollection(block: GeometryCollectionDsl.() -> Unit) = GeometryCollectionDsl()
+public inline fun geometryCollection(block: GeometryCollectionDsl.() -> Unit): GeometryCollection = GeometryCollectionDsl()
     .apply(block).create()

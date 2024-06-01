@@ -15,12 +15,12 @@ import kotlin.jvm.JvmStatic
 
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 @Serializable(with = GeometrySerializer::class)
-class GeometryCollection @JvmOverloads constructor(
-    val geometries: List<Geometry>,
+public class GeometryCollection @JvmOverloads constructor(
+    public val geometries: List<Geometry>,
     override val bbox: BoundingBox? = null
 ) : Geometry(), Collection<Geometry> by geometries {
     @JvmOverloads
-    constructor(vararg geometries: Geometry, bbox: BoundingBox? = null) : this(geometries.toList(), bbox)
+    public constructor(vararg geometries: Geometry, bbox: BoundingBox? = null) : this(geometries.toList(), bbox)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -43,7 +43,7 @@ class GeometryCollection @JvmOverloads constructor(
     override fun json(): String =
         """{"type":"GeometryCollection",${bbox.jsonProp()}"geometries":${geometries.jsonJoin { it.json() }}}"""
 
-    companion object {
+    public companion object {
         @JvmStatic
         public fun fromJson(json: String): GeometryCollection =
             fromJson(Json.decodeFromString(JsonObject.serializer(), json))

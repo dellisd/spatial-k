@@ -9,18 +9,18 @@ import io.github.dellisd.spatialk.geojson.Geometry
 import kotlin.jvm.JvmName
 
 @GeoJsonDsl
-class FeatureCollectionDsl(
+public class FeatureCollectionDsl(
     private val features: MutableList<Feature> = mutableListOf(),
-    var bbox: BoundingBox? = null
+    public var bbox: BoundingBox? = null
 ) {
-    operator fun Feature.unaryPlus() {
+    public operator fun Feature.unaryPlus() {
         features.add(this)
     }
 
-    fun create(): FeatureCollection =
+    public fun create(): FeatureCollection =
         FeatureCollection(features, bbox)
 
-    fun feature(
+    public fun feature(
         geometry: Geometry? = null,
         id: String? = null,
         bbox: BoundingBox? = null,
@@ -31,5 +31,5 @@ class FeatureCollectionDsl(
 }
 
 @GeoJsonDsl
-inline fun featureCollection(block: FeatureCollectionDsl.() -> Unit) = FeatureCollectionDsl()
+public inline fun featureCollection(block: FeatureCollectionDsl.() -> Unit): FeatureCollection = FeatureCollectionDsl()
     .apply(block).create()

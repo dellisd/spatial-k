@@ -12,7 +12,7 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 
-object FeatureSerializer : JsonSerializer<Feature> {
+public object FeatureSerializer : JsonSerializer<Feature> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Feature")
 
     override fun deserialize(input: JsonDecoder): Feature = Feature.fromJson(input.decodeJsonElement().jsonObject)

@@ -24,20 +24,20 @@ import kotlinx.serialization.Serializable
  */
 @Serializable(with = BoundingBoxSerializer::class)
 @Suppress("MagicNumber")
-class BoundingBox constructor(val coordinates: DoubleArray) {
+public class BoundingBox constructor(public val coordinates: DoubleArray) {
     init {
         require(coordinates.size == 4 || coordinates.size == 6) {
             "Bounding Box coordinates must either have 4 or 6 values"
         }
     }
 
-    constructor(west: Double, south: Double, east: Double, north: Double) : this(
+    public constructor(west: Double, south: Double, east: Double, north: Double) : this(
         doubleArrayOf(west, south, east, north)
     )
 
-    constructor(coordinates: List<Double>) : this(coordinates.toDoubleArray())
+    public constructor(coordinates: List<Double>) : this(coordinates.toDoubleArray())
 
-    constructor(
+    public constructor(
         west: Double,
         south: Double,
         minAltitude: Double,
@@ -46,27 +46,27 @@ class BoundingBox constructor(val coordinates: DoubleArray) {
         maxAltitude: Double
     ) : this(doubleArrayOf(west, south, minAltitude, east, north, maxAltitude))
 
-    constructor(southwest: Position, northeast: Position) : this(
+    public constructor(southwest: Position, northeast: Position) : this(
         when (southwest.hasAltitude && northeast.hasAltitude) {
             true -> southwest.coordinates + northeast.coordinates
             false -> doubleArrayOf(southwest.longitude, southwest.latitude, northeast.longitude, northeast.latitude)
         }
     )
 
-    val southwest: Position
+    public val southwest: Position
         get() = when (hasAltitude) {
             true -> Position(coordinates[0], coordinates[1], coordinates[2])
             false -> Position(coordinates[0], coordinates[1])
         }
 
-    val northeast: Position
+    public val northeast: Position
         get() = when (hasAltitude) {
             true -> Position(coordinates[3], coordinates[4], coordinates[5])
             false -> Position(coordinates[2], coordinates[3])
         }
 
-    operator fun component1(): Position = southwest
-    operator fun component2(): Position = northeast
+    public operator fun component1(): Position = southwest
+    public operator fun component2(): Position = northeast
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -87,9 +87,9 @@ class BoundingBox constructor(val coordinates: DoubleArray) {
         return "BoundingBox(southwest=$southwest, northeast=$northeast)"
     }
 
-    fun json(): String = coordinates.jsonJoin()
+    public fun json(): String = coordinates.jsonJoin()
 }
 
 @Suppress("MagicNumber")
-val BoundingBox.hasAltitude: Boolean
+public val BoundingBox.hasAltitude: Boolean
     get() = coordinates.size == 6
