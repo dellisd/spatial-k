@@ -6,6 +6,7 @@ package io.github.dellisd.spatialk.turf
 import io.github.dellisd.spatialk.geojson.BoundingBox
 import io.github.dellisd.spatialk.geojson.Feature
 import io.github.dellisd.spatialk.geojson.FeatureCollection
+import io.github.dellisd.spatialk.geojson.GeoJson
 import io.github.dellisd.spatialk.geojson.Geometry
 import io.github.dellisd.spatialk.geojson.GeometryCollection
 import io.github.dellisd.spatialk.geojson.LineString
@@ -652,3 +653,25 @@ public fun greatCircle(start: Position, end: Position, pointCount: Int = 100, an
     }
 }
 
+
+/**
+ * Takes any [GeoJson] and returns a [Feature] containing a rectangular [Polygon] that encompasses all vertices.
+ * @param geoJson input containing any coordinates
+ * @return a rectangular [Polygon] feature that encompasses all vertices
+ */
+@ExperimentalTurfApi
+fun envelope(geoJson: GeoJson): Feature {
+    val coordinates = when (geoJson) {
+        is Feature -> geoJson.coordAll()
+        is FeatureCollection -> geoJson.coordAll()
+        is GeometryCollection -> geoJson.coordAll()
+        is Geometry -> geoJson.coordAll()
+    }.orEmpty()
+
+    val bbox = geoJson.bbox ?: computeBbox(coordinates)
+
+    return Feature(
+        geometry = bboxPolygon(bbox),
+        bbox = bbox
+    )
+}
