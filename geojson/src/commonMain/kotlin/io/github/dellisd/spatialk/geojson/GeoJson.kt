@@ -9,7 +9,7 @@ import kotlinx.serialization.json.JsonElement
  */
 interface GeoJson {
     val bbox: BoundingBox?
-    val foreignMembers: MutableMap<String, JsonElement>
+    val foreignMembers: Map<String, JsonElement>
 
     /**
      * Gets a JSON representation of this object.

@@ -28,11 +28,8 @@ import kotlin.jvm.JvmStatic
 class FeatureCollection(
     val features: List<Feature> = emptyList(),
     override val bbox: BoundingBox? = null,
-    foreignMembers: Map<String, JsonElement> = emptyMap()
+    override val foreignMembers: Map<String, JsonElement> = emptyMap()
 ) : Collection<Feature> by features, GeoJson {
-
-    private val _foreignMembers: MutableMap<String, JsonElement> = foreignMembers.toMutableMap()
-    override val foreignMembers: MutableMap<String, JsonElement> get() = _foreignMembers
 
     constructor(
         vararg features: Feature,
@@ -48,7 +45,7 @@ class FeatureCollection(
 
         if (features != other.features) return false
         if (bbox != other.bbox) return false
-        if (_foreignMembers != other._foreignMembers) return false
+        if (foreignMembers != other.foreignMembers) return false
 
         return true
     }
@@ -56,7 +53,7 @@ class FeatureCollection(
     override fun hashCode(): Int {
         var result = features.hashCode()
         result = 31 * result + (bbox?.hashCode() ?: 0)
-        result = 31 * result + _foreignMembers.hashCode()
+        result = 31 * result + foreignMembers.hashCode()
         return result
     }
 

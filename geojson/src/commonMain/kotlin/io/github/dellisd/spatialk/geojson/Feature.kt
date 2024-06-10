@@ -39,13 +39,10 @@ class Feature(
     properties: Map<String, JsonElement> = emptyMap(),
     val id: String? = null,
     override val bbox: BoundingBox? = null,
-    foreignMembers: Map<String, JsonElement> = emptyMap()
+    override val foreignMembers: Map<String, JsonElement> = emptyMap()
 ) : GeoJson {
     private val _properties: MutableMap<String, JsonElement> = properties.toMutableMap()
     val properties: Map<String, JsonElement> get() = _properties
-
-    private val _foreignMembers: MutableMap<String, JsonElement> = foreignMembers.toMutableMap()
-    override val foreignMembers: MutableMap<String, JsonElement> get() = _foreignMembers
 
     fun setStringProperty(key: String, value: String?) {
         _properties[key] = JsonPrimitive(value)
@@ -92,7 +89,7 @@ class Feature(
         if (id != other.id) return false
         if (bbox != other.bbox) return false
         if (_properties != other._properties) return false
-        if (_foreignMembers != other._foreignMembers) return false
+        if (foreignMembers != other.foreignMembers) return false
 
         return true
     }
@@ -102,7 +99,7 @@ class Feature(
         result = 31 * result + (id?.hashCode() ?: 0)
         result = 31 * result + (bbox?.hashCode() ?: 0)
         result = 31 * result + _properties.hashCode()
-        result = 31 * result + _foreignMembers.hashCode()
+        result = 31 * result + foreignMembers.hashCode()
         return result
     }
 

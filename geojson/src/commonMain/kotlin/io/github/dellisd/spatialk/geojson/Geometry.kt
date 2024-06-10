@@ -11,13 +11,10 @@ import kotlin.jvm.JvmStatic
 @Serializable(with = GeometrySerializer::class)
 sealed class Geometry protected constructor(
     override val bbox: BoundingBox? = null,
-    foreignMembers: Map<String, JsonElement> = emptyMap()
+    override val foreignMembers: Map<String, JsonElement> = emptyMap()
 ) : GeoJson {
 
     protected abstract val coordinatesOrGeometries: Any
-
-    private val _foreignMembers: MutableMap<String, JsonElement> = foreignMembers.toMutableMap()
-    final override val foreignMembers: MutableMap<String, JsonElement> get() = _foreignMembers
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -27,7 +24,7 @@ sealed class Geometry protected constructor(
 
         if (coordinatesOrGeometries != other.coordinatesOrGeometries) return false
         if (bbox != other.bbox) return false
-        if (_foreignMembers != other._foreignMembers) return false
+        if (foreignMembers != other.foreignMembers) return false
 
         return true
     }
@@ -35,7 +32,7 @@ sealed class Geometry protected constructor(
     override fun hashCode(): Int {
         var result = coordinatesOrGeometries.hashCode()
         result = 31 * result + (bbox?.hashCode() ?: 0)
-        result = 31 * result + _foreignMembers.hashCode()
+        result = 31 * result + foreignMembers.hashCode()
         return result
     }
 
