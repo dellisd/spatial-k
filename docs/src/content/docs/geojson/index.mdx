@@ -357,7 +357,8 @@ Continuous, unwrapped bounds such as 170° to 190° are also accepted and serial
   </TabItem>
 </Tabs>
 
-`BoundingBox.wrapped()` normalizes both longitudes into `[-180, 180)` without reordering them.
+`BoundingBox.wrapped()` normalizes the west longitude into `[-180, 180)` and the east longitude
+into `(-180, 180]` without reordering them.
 `splitAtAntimeridian()` accepts either encoding and returns non-crossing boxes within
 `[-180, 180]`, preserving latitude and altitude bounds. An already non-crossing box in that range
 is returned unchanged; boxes in other world copies are normalized. A continuous span of at least

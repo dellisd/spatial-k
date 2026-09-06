@@ -58,10 +58,17 @@ class LongitudeTest {
         )
         assertCoordinates(wrapped, wrapped.wrapped())
         assertDoubleEquals(190.0, box.northeast.longitude)
-        assertCoordinates(
-            BoundingBox(-180.0, -10.0, -180.0, 10.0),
-            BoundingBox(-180.0, -10.0, 180.0, 10.0).wrapped(),
-        )
+    }
+
+    @Test
+    fun wrappedBoxPreservesEastMeridianEdge() {
+        for (west in listOf(-180.0, 90.0)) {
+            for (east in listOf(-540.0, -180.0, 180.0, 540.0)) {
+                val wrapped = BoundingBox(west, -10.0, east, 10.0).wrapped()
+                assertCoordinates(BoundingBox(west, -10.0, 180.0, 10.0), wrapped)
+                assertCoordinates(wrapped, wrapped.wrapped())
+            }
+        }
     }
 
     @Test
