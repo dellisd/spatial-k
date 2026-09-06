@@ -278,6 +278,12 @@ public final class org/maplibre/spatialk/geojson/LineStringGeometry$Companion {
 	public final fun toJson (Lorg/maplibre/spatialk/geojson/LineStringGeometry;)Ljava/lang/String;
 }
 
+public final class org/maplibre/spatialk/geojson/LongitudeKt {
+	public static final fun splitAtAntimeridian (Lorg/maplibre/spatialk/geojson/BoundingBox;)Ljava/util/List;
+	public static final fun wrapped (Lorg/maplibre/spatialk/geojson/BoundingBox;)Lorg/maplibre/spatialk/geojson/BoundingBox;
+	public static final fun wrapped (Lorg/maplibre/spatialk/geojson/Position;)Lorg/maplibre/spatialk/geojson/Position;
+}
+
 public abstract interface class org/maplibre/spatialk/geojson/MultiGeometry : org/maplibre/spatialk/geojson/Geometry {
 	public static final field Companion Lorg/maplibre/spatialk/geojson/MultiGeometry$Companion;
 	public static fun fromJson (Ljava/lang/String;)Lorg/maplibre/spatialk/geojson/MultiGeometry;
