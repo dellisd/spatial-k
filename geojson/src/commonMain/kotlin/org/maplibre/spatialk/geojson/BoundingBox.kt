@@ -22,12 +22,13 @@ import org.maplibre.spatialk.geojson.serialization.BoundingBoxSerializer
  * For the [BoundingBox] to be serialized in 3D form, both [Position] objects must have a defined
  * altitude.
  *
- * No coordinate range validation or southwest/northeast ordering is enforced. In the
- * [RFC 7946 Section 5.2](https://tools.ietf.org/html/rfc7946#section-5.2) antimeridian convention,
- * a crossing box has a northeast longitude less than its southwest longitude, for example west=170°
- * and east=-170°. Continuous, unwrapped longitudes such as west=170° and east=190° are also
- * accepted and round-trip through serialization unchanged. Use [wrapped] to normalize the
- * longitudes or [splitAtAntimeridian] to obtain non-crossing boxes.
+ * Coordinate ranges and southwest/northeast ordering are not validated. Coordinates round-trip
+ * through serialization unchanged.
+ *
+ * An antimeridian-crossing box has an east longitude less than its west longitude, such as 170° to
+ * -170°, in the [RFC 7946 Section 5.2](https://tools.ietf.org/html/rfc7946#section-5.2) convention.
+ * Continuous bounds such as 170° to 190° are also accepted. [wrapped] normalizes the longitudes;
+ * [splitAtAntimeridian] returns non-crossing boxes.
  *
  * See [RFC 7946 Section 5](https://tools.ietf.org/html/rfc7946#section-5) for the full
  * specification.

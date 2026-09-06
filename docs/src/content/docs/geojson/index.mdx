@@ -60,11 +60,8 @@ accessible as properties. Coordinates follow the order specified in RFC 7946:
 `[longitude, latitude, altitude?]`. The class supports destructuring in Kotlin.
 
 No latitude or longitude range validation is performed. Latitudes outside ±90° and longitudes
-outside ±180° are accepted and round-trip through serialization unchanged;
-[RFC 7946 Section 3.1.1](https://tools.ietf.org/html/rfc7946#section-3.1.1) does not require range
-validation. Map renderers such as MapLibre repeat the world horizontally, using unwrapped
-longitudes beyond ±180° to distinguish world copies. `Position.wrapped()` normalizes longitude
-into `[-180, 180)` while leaving latitude and altitude unchanged.
+outside ±180° are accepted and round-trip through serialization unchanged. `Position.wrapped()`
+normalizes longitude into `[-180, 180)` while leaving latitude and altitude unchanged.
 
 <Tabs syncKey="language">
   <TabItem label="Kotlin">
@@ -364,8 +361,8 @@ Continuous, unwrapped bounds such as 170° to 190° are also accepted and serial
 `splitAtAntimeridian()` accepts either encoding and returns non-crossing boxes within
 `[-180, 180]`, preserving latitude and altitude bounds. An already non-crossing box in that range
 is returned unchanged; boxes in other world copies are normalized. A continuous span of at least
-360° returns one full-world box from -180° to 180°. Split the original box: wrapping its endpoints
-first discards the original span.
+360° returns one full-world box from -180° to 180°. Wrapping the endpoints before splitting
+discards the original span.
 
 <Tabs syncKey="language">
   <TabItem label="Kotlin">
