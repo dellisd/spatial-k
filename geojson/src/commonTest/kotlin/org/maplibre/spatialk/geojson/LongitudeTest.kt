@@ -130,17 +130,23 @@ class LongitudeTest {
         val west = Position(170.0, -10.0, 12.5, 42.0)
         val east = Position(190.0, 10.0, 25.5, 84.0)
         assertCoordinates(Position(-170.0, 10.0, 25.5, 84.0), east.wrapped())
-        val box = BoundingBox(west, east)
-        val parts = box.splitAtAntimeridian()
-        assertEquals(2, parts.size)
-        assertCoordinates(BoundingBox(west, Position(180.0, 10.0, 25.5, 84.0)), parts[0])
-        assertCoordinates(
-            BoundingBox(
-                Position(-180.0, -10.0, 12.5, 42.0),
-                Position(-170.0, 10.0, 25.5, 84.0),
-            ),
-            parts[1],
-        )
+        val boxes =
+            listOf(
+                BoundingBox(west, east),
+                BoundingBox(170.0, -10.0, 12.5, 190.0, 10.0, 25.5, 42.0, 84.0),
+            )
+        for (box in boxes) {
+            val parts = box.splitAtAntimeridian()
+            assertEquals(2, parts.size)
+            assertCoordinates(BoundingBox(west, Position(180.0, 10.0, 25.5, 84.0)), parts[0])
+            assertCoordinates(
+                BoundingBox(
+                    Position(-180.0, -10.0, 12.5, 42.0),
+                    Position(-170.0, 10.0, 25.5, 84.0),
+                ),
+                parts[1],
+            )
+        }
     }
 
     @Test

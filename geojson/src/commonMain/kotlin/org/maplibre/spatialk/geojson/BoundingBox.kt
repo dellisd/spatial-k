@@ -117,8 +117,8 @@ public class BoundingBox internal constructor(internal val coordinates: DoubleAr
      * @param east The eastern longitude boundary.
      * @param north The northern latitude boundary.
      * @param maxAltitude The maximum altitude boundary.
-     * @param additionalElements Additional coordinate elements beyond the standard three axes per
-     *   corner (must contain an even number of elements).
+     * @param additionalElements Additional coordinate elements for the southwest corner followed by
+     *   those for the northeast corner (must contain an even number of elements).
      * @throws IllegalArgumentException if [additionalElements] contains an odd number of elements.
      */
     @SensitiveGeoJsonApi
@@ -130,7 +130,12 @@ public class BoundingBox internal constructor(internal val coordinates: DoubleAr
         north: Double,
         maxAltitude: Double,
         vararg additionalElements: Double,
-    ) : this(doubleArrayOf(west, south, minAltitude, east, north, maxAltitude, *additionalElements))
+    ) : this(
+        doubleArrayOf(west, south, minAltitude) +
+            additionalElements.sliceArray(0..<additionalElements.size / 2) +
+            doubleArrayOf(east, north, maxAltitude) +
+            additionalElements.sliceArray(additionalElements.size / 2..<additionalElements.size)
+    )
 
     public val southwest: Position
         get() = Position(coordinates.sliceArray(0..<(coordinates.size / 2)))
@@ -152,15 +157,15 @@ public class BoundingBox internal constructor(internal val coordinates: DoubleAr
 
     /** The eastern longitude boundary. */
     public val east: Double
-        get() = if (hasAltitude) coordinates[3] else coordinates[2]
+        get() = coordinates[size / 2]
 
     /** The northern latitude boundary. */
     public val north: Double
-        get() = if (hasAltitude) coordinates[4] else coordinates[3]
+        get() = coordinates[size / 2 + 1]
 
     /** The maximum altitude boundary, or null if this bounding box is 2D. */
     public val maxAltitude: Double?
-        get() = if (hasAltitude) coordinates[5] else null
+        get() = if (hasAltitude) coordinates[size / 2 + 2] else null
 
     /**
      * Get the coordinate at the given index.
