@@ -59,6 +59,10 @@ be found in the [API pages](/spatial-k/api/dokka/geojson/index.html).
 accessible as properties. Coordinates follow the order specified in RFC 7946:
 `[longitude, latitude, altitude?]`. The class supports destructuring in Kotlin.
 
+No latitude or longitude range validation is performed. Latitudes outside ±90° and longitudes
+outside ±180° are accepted and round-trip through serialization unchanged. `Position.wrapped()`
+normalizes longitude into `[-180, 180)` while leaving latitude and altitude unchanged.
+
 <Tabs syncKey="language">
   <TabItem label="Kotlin">
     ```kotlin
@@ -337,8 +341,26 @@ Protobuf drop them.
 
 The `BoundingBox` class is used to represent the bounding boxes that can be set for any
 `GeoJsonObject`. Like the `Position` class, bounding boxes are backed by a `DoubleArray` with each
-component accessible by its propery (`southwest` and `northeast`). Bounding boxes also support
+component accessible by its property (`southwest` and `northeast`). Bounding boxes also support
 destructuring.
+
+No coordinate range validation or southwest/northeast ordering is enforced. Under the
+[RFC 7946 Section 5.2](https://tools.ietf.org/html/rfc7946#section-5.2) antimeridian convention, a
+crossing box has an east longitude less than its west longitude, such as 170° to -170°.
+Continuous, unwrapped bounds such as 170° to 190° are also accepted and serialized unchanged.
+
+<Tabs syncKey="language">
+  <TabItem label="Kotlin">
+    ```kotlin
+    --8<-- "geojson/src/commonTest/kotlin/org/maplibre/spatialk/geojson/KotlinDocsTest.kt:antimeridianKt"
+    ```
+  </TabItem>
+</Tabs>
+
+`splitAtAntimeridian()` accepts either encoding and returns non-crossing boxes within
+`[-180, 180]`, preserving latitude and altitude bounds. An already non-crossing box in that range
+is returned unchanged; boxes in other world copies are normalized. A continuous span of at least
+360° returns one full-world box from -180° to 180°.
 
 <Tabs syncKey="language">
   <TabItem label="Kotlin">

@@ -4,6 +4,7 @@ package org.maplibre.spatialk.geojson
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import org.maplibre.spatialk.testutil.assertDoubleEquals
 
 class ExtraAxesTest {
@@ -50,6 +51,52 @@ class ExtraAxesTest {
         assertEquals(4, decoded.northeast.size)
         assertEquals(Position(1.1, 2.2, 3.3, 7.7), decoded.southwest)
         assertEquals(Position(4.4, 5.5, 6.6, 8.8), decoded.northeast)
+    }
+
+    @Test
+    fun boundingBox_additionalAxisConstructorUsesCornerOrder() {
+        val cases =
+            listOf(
+                doubleArrayOf() to "[170.25,-10.5,12.5,190.25,10.5,25.5]",
+                doubleArrayOf(42.5, 84.5) to "[170.25,-10.5,12.5,42.5,190.25,10.5,25.5,84.5]",
+                doubleArrayOf(42.5, 43.5, 84.5, 85.5) to
+                    "[170.25,-10.5,12.5,42.5,43.5,190.25,10.5,25.5,84.5,85.5]",
+            )
+        for ((extra, json) in cases) {
+            val box = BoundingBox(170.25, -10.5, 12.5, 190.25, 10.5, 25.5, *extra)
+            assertEquals(json, box.toJson())
+            assertEquals(box, BoundingBox.fromJson(json))
+        }
+    }
+
+    @Test
+    fun boundingBox_additionalAxisConstructorRejectsUnequalAxisCounts() {
+        assertFailsWith<IllegalArgumentException> {
+            BoundingBox(170.25, -10.5, 12.5, 190.25, 10.5, 25.5, 42.5)
+        }
+    }
+
+    @Test
+    fun boundingBox_accessorsMatchCornersWithAdditionalAxes() {
+        val boxes =
+            listOf(
+                BoundingBox(
+                    Position(170.25, -10.5, 12.5, 42.5),
+                    Position(190.25, 10.5, 25.5, 84.5),
+                ),
+                BoundingBox(
+                    Position(170.25, -10.5, 12.5, 42.5, 43.5),
+                    Position(190.25, 10.5, 25.5, 84.5, 85.5),
+                ),
+            )
+        for (box in boxes + boxes.map { BoundingBox.fromJson(it.toJson()) }) {
+            assertDoubleEquals(170.25, box.west)
+            assertDoubleEquals(-10.5, box.south)
+            assertDoubleEquals(12.5, box.minAltitude)
+            assertDoubleEquals(190.25, box.east)
+            assertDoubleEquals(10.5, box.north)
+            assertDoubleEquals(25.5, box.maxAltitude)
+        }
     }
 
     @Test

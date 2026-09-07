@@ -14,6 +14,10 @@ import org.maplibre.spatialk.geojson.serialization.PositionSerializer
  * elements are [longitude] and [latitude], or easting and northing, precisely in that order using
  * decimal numbers. [Altitude][altitude] or elevation MAY be included as an optional third element.
  *
+ * No latitude or longitude range validation is performed. Latitudes outside ±90° and longitudes
+ * outside ±180° are accepted and round-trip through serialization unchanged. [wrapped] normalizes
+ * longitude into [-180, 180).
+ *
  * When serialized, the [latitude], [longitude], and [altitude] (if present) will be represented as
  * an array.
  *
