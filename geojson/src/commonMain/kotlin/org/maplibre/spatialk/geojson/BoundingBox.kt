@@ -27,8 +27,8 @@ import org.maplibre.spatialk.geojson.serialization.BoundingBoxSerializer
  *
  * An antimeridian-crossing box has an east longitude less than its west longitude, such as 170° to
  * -170°, in the [RFC 7946 Section 5.2](https://tools.ietf.org/html/rfc7946#section-5.2) convention.
- * Continuous bounds such as 170° to 190° are also accepted. [wrapped] normalizes the longitudes;
- * [splitAtAntimeridian] returns non-crossing boxes.
+ * Continuous bounds such as 170° to 190° are also accepted. [splitAtAntimeridian] returns
+ * non-crossing boxes.
  *
  * See [RFC 7946 Section 5](https://tools.ietf.org/html/rfc7946#section-5) for the full
  * specification.

@@ -280,7 +280,6 @@ public final class org/maplibre/spatialk/geojson/LineStringGeometry$Companion {
 
 public final class org/maplibre/spatialk/geojson/LongitudeKt {
 	public static final fun splitAtAntimeridian (Lorg/maplibre/spatialk/geojson/BoundingBox;)Ljava/util/List;
-	public static final fun wrapped (Lorg/maplibre/spatialk/geojson/BoundingBox;)Lorg/maplibre/spatialk/geojson/BoundingBox;
 	public static final fun wrapped (Lorg/maplibre/spatialk/geojson/Position;)Lorg/maplibre/spatialk/geojson/Position;
 }
 

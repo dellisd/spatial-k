@@ -49,29 +49,6 @@ class LongitudeTest {
     }
 
     @Test
-    fun wrappedBoxKeepsCrossingOrderAndAltitude() {
-        val box = BoundingBox(Position(170.0, -10.0, 12.5), Position(190.0, 10.0, 25.5))
-        val wrapped = box.wrapped()
-        assertCoordinates(
-            BoundingBox(Position(170.0, -10.0, 12.5), Position(-170.0, 10.0, 25.5)),
-            wrapped,
-        )
-        assertCoordinates(wrapped, wrapped.wrapped())
-        assertDoubleEquals(190.0, box.northeast.longitude)
-    }
-
-    @Test
-    fun wrappedBoxPreservesEastMeridianEdge() {
-        for (west in listOf(-180.0, 90.0)) {
-            for (east in listOf(-540.0, -180.0, 180.0, 540.0)) {
-                val wrapped = BoundingBox(west, -10.0, east, 10.0).wrapped()
-                assertCoordinates(BoundingBox(west, -10.0, 180.0, 10.0), wrapped)
-                assertCoordinates(wrapped, wrapped.wrapped())
-            }
-        }
-    }
-
-    @Test
     fun splitPreservesNonCrossingIdentityIncludingEdges() {
         for ((west, east) in
             listOf(
@@ -154,7 +131,6 @@ class LongitudeTest {
         val east = Position(190.0, 10.0, 25.5, 84.0)
         assertCoordinates(Position(-170.0, 10.0, 25.5, 84.0), east.wrapped())
         val box = BoundingBox(west, east)
-        assertCoordinates(BoundingBox(west, Position(-170.0, 10.0, 25.5, 84.0)), box.wrapped())
         val parts = box.splitAtAntimeridian()
         assertEquals(2, parts.size)
         assertCoordinates(BoundingBox(west, Position(180.0, 10.0, 25.5, 84.0)), parts[0])
@@ -172,8 +148,6 @@ class LongitudeTest {
         for (longitude in listOf(Double.NaN, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY)) {
             assertTrue(Position(longitude, 10.0).wrapped().longitude.isNaN())
             val box = BoundingBox(longitude, -10.0, longitude, 10.0)
-            assertTrue(box.wrapped().west.isNaN())
-            assertTrue(box.wrapped().east.isNaN())
             assertFailsWith<IllegalArgumentException> { box.splitAtAntimeridian() }
             assertFailsWith<IllegalArgumentException> {
                 BoundingBox(0.0, -10.0, longitude, 10.0).splitAtAntimeridian()

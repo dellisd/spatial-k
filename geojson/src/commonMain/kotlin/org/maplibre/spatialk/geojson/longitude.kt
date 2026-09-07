@@ -9,17 +9,6 @@ public fun Position.wrapped(): Position =
     Position(coordinates.copyOf().also { it[0] = wrapLongitude(it[0]) })
 
 /**
- * Returns a bounding box with west longitude normalized into
- * [-180, 180) and east longitude into (-180, 180].
- *
- * Corner order and all other coordinate elements are unchanged. Non-finite longitudes become NaN.
- *
- * The original longitude span is not preserved. [splitAtAntimeridian] preserves the covered area.
- */
-public fun BoundingBox.wrapped(): BoundingBox =
-    withLongitudes(wrapLongitude(coordinates[0]), -wrapLongitude(-coordinates[size / 2]))
-
-/**
  * Returns non-crossing boxes with longitudes in [-180, 180], preserving all other coordinate
  * elements, including altitude bounds.
  *

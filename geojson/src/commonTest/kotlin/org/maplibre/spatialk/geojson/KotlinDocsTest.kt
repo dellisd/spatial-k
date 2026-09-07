@@ -389,7 +389,6 @@ class KotlinDocsTest {
     fun antimeridianExample() {
         // --8<-- [start:antimeridianKt]
         val bounds = BoundingBox(west = 170.0, south = -10.0, east = 190.0, north = 10.0)
-        val wrapped = bounds.wrapped() // west=170, east=-170: RFC antimeridian encoding
         val parts = bounds.splitAtAntimeridian() // 170..180 and -180..-170
         // --8<-- [end:antimeridianKt]
     }
